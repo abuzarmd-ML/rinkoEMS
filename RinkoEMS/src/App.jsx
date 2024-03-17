@@ -14,16 +14,22 @@ import Start from './Components/Start'
 import EmployeeLogin from './Components/EmployeeLogin'
 import EmployeeDetail from './Components/EmployeeDetail'
 import PrivateRoute from './Components/PrivateRoute'
-
+import SignIn from './Components/Login/Login'
+import SignUp from './Components/SignUp/SignUp'
+import Dashboards from './Components/Dashboard/Dashboard'
 function App() {
   return (
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<Start />}></Route>
+      <Route path='/login' element={<SignIn />}></Route>
+      <Route path='/singup' element={<SignUp />}></Route>
+      <Route path='/Dashboards' element={<Dashboards />}></Route>
       <Route path='/adminlogin' element={<Login />}></Route>
       <Route path='/employee_login' element={<EmployeeLogin />}></Route>
       <Route path='/employee_detail/:id' element={<EmployeeDetail />}></Route>
       <Route path='/dashboard' element={<Dashboard />}>
+     
         <Route path='' element={<Home />}></Route>
         <Route path='/dashboard/employee' element={<Employee />}></Route>
         <Route path='/dashboard/category' element={<Category />}></Route>
