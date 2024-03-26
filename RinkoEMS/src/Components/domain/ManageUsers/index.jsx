@@ -13,7 +13,7 @@ import GridContainer from '../../Container/GridContainer';
 import Cards from '../../Cards/Cards';
 import Title from '../../Dashboard/Title';
 import Divider from '@mui/material/Divider';
-
+import UserForm from './component/UserForm';
 
 const ManageUsers = () => {
 
@@ -33,10 +33,11 @@ const ManageUsers = () => {
             >
                 <Toolbar />
                 <GridContainer>
-                <Grid item xs={12} md={4} lg={3}>
+                <Grid item xs={12} md={8} lg={8}>
                     <Cards  height={500}>
                      <Title  > Please enter user info </Title>
                      <Divider sx={{backgroundColor:'blue',mb:1}}/>
+                     <UserForm  />
                     </Cards>
                     </Grid>
                 </GridContainer>
