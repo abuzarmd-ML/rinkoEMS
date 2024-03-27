@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Link from '@mui/material/Link';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Title from './Title';
 
@@ -11,7 +12,7 @@ export default function Deposits({cardsDetails}) {
   return (
     <React.Fragment>
       <Title>{cardsDetails.title}</Title>
-   
+       <Divider sx={{backgroundColor:'blue',mb:1}}/>
       <Typography color="text.secondary" sx={{ flex: 1 }}>
       {cardsDetails.info1}
       </Typography>

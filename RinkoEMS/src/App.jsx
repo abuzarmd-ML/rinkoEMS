@@ -17,6 +17,9 @@ import PrivateRoute from './Components/PrivateRoute'
 import SignIn from './Components/Login/Login'
 import SignUp from './Components/SignUp/SignUp'
 import Dashboards from './Components/Dashboard/Dashboard'
+import ManageUsers from './Components/domain/ManageUsers'
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +27,7 @@ function App() {
       <Route path='/' element={<Start />}></Route>
       <Route path='/login' element={<SignIn />}></Route>
       <Route path='/singup' element={<SignUp />}></Route>
+      <Route path='/mamage-users' element={<ManageUsers />}></Route>
       <Route path='/Dashboards' element={<Dashboards />}></Route>
       <Route path='/adminlogin' element={<Login />}></Route>
       <Route path='/employee_login' element={<EmployeeLogin />}></Route>
