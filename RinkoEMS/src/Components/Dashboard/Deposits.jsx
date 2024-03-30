@@ -20,7 +20,7 @@ export default function Deposits({cardsDetails}) {
       {cardsDetails.info2}
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link color="primary" href={cardsDetails.link}>
           Add or Edit info details
         </Link>
       </div>
