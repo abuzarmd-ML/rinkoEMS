@@ -2,12 +2,16 @@ import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
+import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
+import { FormProvider, Controller } from 'react-hook-form';
+import {  Select, MenuItem } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -28,17 +32,48 @@ function Copyright(props) {
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
+const mandatoryError = 'This field is mandatory'
+
+const componayName = [{
+  label: 'Test 1',
+  id: '1'
+},
+{
+  label: 'Test 2',
+  id: '2'
+},
+{
+  label: 'Test 3',
+  id: '3'
+},
+{
+  label: 'Test 4',
+  id: '4'
+}
+
+]
 
 export default function Login() {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate()
+
+  const onSubmit = (formData,event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+     console.log('form-data',formData)
+     navigate('/dashboards')
   };
 
+  const form = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      userName: '',
+      password: '',
+      isAdmin: false
+    }
+  });
+  const { register, formState: { errors }, control, watch,handleSubmit } = form
+
+  const isAdmin = watch('isAdmin')
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -51,58 +86,108 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Login as Admin"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/singup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+          <FormProvider {...form}>
+            <form  onSubmit={handleSubmit(onSubmit)}>
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box  noValidate sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  {...register('userName', {
+                    required: {
+                      value: true,
+                      message: mandatoryError
+                    }
+                  })}
+                  error={errors['userName']}
+                  helperText={errors['userName'] ? errors['userName'].message : ""}
+                  id="email"
+                  label="User Name"
+                  name="userName"
+                  autoComplete="userName"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  {...register('password', {
+                    required: {
+                      value: true,
+                      message: mandatoryError
+                    }
+                  })}
+                  error={errors['password']}
+                  helperText={errors['password'] ? errors['password'].message : ""}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                <FormControlLabel
+                  control={
+                    <Controller
+                      name={'isAdmin'}
+                      control={control}
+                      render={({ field: props }) => (
+                        <Checkbox
+                          {...props}
+                          checked={props.value}
+                          onChange={(e) => props.onChange(e.target.checked)}
+                        />
+                      )}
+                    />
+                  }
+                  label="Login as Admin"
+                />
+                {isAdmin && (<div>
+                  <FormControlLabel
+                    control={<Controller
+                      name="level"
+                      id="level"
+                      // defaultValue={level}
+                      control={control}
+                      render={({ field }) => (
+                        <Select labelId="level-label" {...field}>
+                          <MenuItem value={0}>0</MenuItem>
+                          <MenuItem value={1}>1</MenuItem>
+                        </Select>
+                      )}
+                    />}
+
+                  />
+                </div>)}
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="#" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/singup" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </form>
+          </FormProvider>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>

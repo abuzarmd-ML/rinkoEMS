@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import { Button } from '@mui/material';
+import { Button, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 import { FormProvider } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import userInfoForm from './userInfoForm';
@@ -66,6 +66,23 @@ const UserForm = React.forwardRef(({ userAddress }, ref) => {
                                 autoComplete="family-name"
                                 variant="standard"
                             />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12}>
+                            <InputLabel id="level-label">Level</InputLabel>
+                            {/* <Controller
+                                name="level"
+                                id="level"
+                                // defaultValue={level}
+                                control={control}
+                                render={({ field }) => (
+                                    <Select labelId="level-label" {...field}>
+                                        <MenuItem value={0}>0</MenuItem>
+                                        <MenuItem value={1}>1</MenuItem>
+                                    </Select>
+                                )}
+                            /> */}
+                            <FormHelperText error={true}>{errors.level?.message}</FormHelperText>
                         </Grid>
 
                         <Grid item xs={12}>

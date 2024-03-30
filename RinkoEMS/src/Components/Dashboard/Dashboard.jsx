@@ -16,22 +16,26 @@ const CardsData = [
   {
   title:'Users Info',
   info1:"Total Admin Users : 100",
-  info2:'Total General User : 300'
+  info2:'Total General User : 300',
+  link:'/mamage-users'
 },
 {
   title:'Employee',
   info1:"Total Active Emp : 100",
-  info2:'Total In-Active Emp : 300'
+  info2:'Total In-Active Emp : 300',
+  link:'/mamage-users'
 },
 {
   title:'Clients ',
   info1:"Total  Active Client: 100",
-  info2:'Total Previous Client : 300'
+  info2:'Total Previous Client : 300',
+  link:'/mamage-users'
 },
 {
   title:'Sites',
   info1:"Total Active Sites : 100",
-  info2:'Total In-Active sites : 300'
+  info2:'Total In-Active sites : 300',
+  link:'/mamage-users'
 },
 ]
 
