@@ -24,12 +24,12 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<Start />}></Route>
+      <Route path='/' element={<SignIn />}></Route>
       <Route path='/login' element={<SignIn />}></Route>
       <Route path='/singup' element={<SignUp />}></Route>
       <Route path='/mamage-users' element={<ManageUsers />}></Route>
       <Route path='/Dashboards' element={<Dashboards />}></Route>
-      <Route path='/adminlogin' element={<Login />}></Route>
+      <Route path='/adminlogin' element={<SignIn />}></Route>
       <Route path='/employee_login' element={<EmployeeLogin />}></Route>
       <Route path='/employee_detail/:id' element={<EmployeeDetail />}></Route>
       <Route path='/dashboard' element={<Dashboard />}>

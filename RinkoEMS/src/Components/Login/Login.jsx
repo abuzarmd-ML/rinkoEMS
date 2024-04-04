@@ -16,6 +16,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -55,12 +56,25 @@ const componayName = [{
 
 export default function Login() {
   const navigate = useNavigate()
-
+  axios.defaults.withCredentials = true;
   const onSubmit = (formData,event) => {
     event.preventDefault();
-
-     console.log('form-data',formData)
-     navigate('/dashboards')
+    axios.post('http://localhost:3000/auth/adminlogin', {
+      email: formData.userName,
+      password: formData.password,
+      isAdmin: formData.isAdmin
+    })
+    .then(result => {
+        if(result.data.loginStatus) {
+            localStorage.setItem("valid", true)
+            navigate('/dashboards')
+        } else {
+            setError(result.data.Error)
+        }
+    })
+    .catch(err => console.log(err))
+    //  console.log('form-data',formData)
+    //  navigate('/dashboards')
   };
 
   const form = useForm({
