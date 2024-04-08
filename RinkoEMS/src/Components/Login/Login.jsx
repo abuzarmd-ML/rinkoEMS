@@ -16,6 +16,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AutoCompleteDropdown from '../AutoCompleteDropdown';
 import axios from 'axios';
 
 function Copyright(props) {
@@ -145,6 +146,9 @@ export default function Login() {
                   id="password"
                   autoComplete="current-password"
                 />
+                
+                {!isAdmin && (<AutoCompleteDropdown />)}
+
                 <FormControlLabel
                   control={
                     <Controller
@@ -161,23 +165,6 @@ export default function Login() {
                   }
                   label="Login as Admin"
                 />
-                {isAdmin && (<div>
-                  <FormControlLabel
-                    control={<Controller
-                      name="level"
-                      id="level"
-                      // defaultValue={level}
-                      control={control}
-                      render={({ field }) => (
-                        <Select labelId="level-label" {...field}>
-                          <MenuItem value={0}>0</MenuItem>
-                          <MenuItem value={1}>1</MenuItem>
-                        </Select>
-                      )}
-                    />}
-
-                  />
-                </div>)}
 
                 <Button
                   type="submit"
