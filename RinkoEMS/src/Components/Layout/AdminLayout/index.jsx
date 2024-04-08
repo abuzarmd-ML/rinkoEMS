@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './MenuList';
+import { mainListItems } from './MenuList';
 
 function Copyright(props) {
     return (
@@ -143,7 +143,7 @@ const AdminLayout = ({ children }) => {
                     <List component="nav">
                         {mainListItems}
                         <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        {/* {secondaryListItems} */}
                     </List>
                 </Drawer>
                 {children}
