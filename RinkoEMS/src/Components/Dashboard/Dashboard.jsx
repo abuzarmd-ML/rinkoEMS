@@ -37,6 +37,19 @@ const CardsData = [
   info2:'Total In-Active sites : 300',
   link:'/mamage-users'
 },
+{
+  title:'Attendance ',
+  info1:"Total Employee: 700",
+  info2:'Complete Attendance : 300',
+  info2:'Pending Attendance : 300',
+  link:'/mamage-users'
+},
+{
+  title:'Salary',
+  info1:"Total Active Sites : 100",
+  info2:'Total In-Active sites : 300',
+  link:'/mamage-users'
+},
 ]
 
 const drawerWidth = 240;
