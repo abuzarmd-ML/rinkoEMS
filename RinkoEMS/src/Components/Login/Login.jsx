@@ -16,8 +16,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alerts from '../Alert';
 import axios from 'axios';
-
+ 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -56,6 +57,7 @@ const componayName = [{
 
 export default function Login() {
   const navigate = useNavigate()
+  const [error,setError] = React.useState(false)
   axios.defaults.withCredentials = true;
   const onSubmit = (formData,event) => {
     event.preventDefault();
@@ -69,7 +71,7 @@ export default function Login() {
             localStorage.setItem("valid", true)
             navigate('/dashboards')
         } else {
-            setError(result.data.Error)
+            setError(true)
         }
     })
     .catch(err => console.log(err))
@@ -105,10 +107,13 @@ export default function Login() {
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
+
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
+
               <Box  noValidate sx={{ mt: 1 }}>
+                <Alerts error={error} type="error" message="invalid user name or password"  />
                 <TextField
                   margin="normal"
                   required
@@ -163,6 +168,7 @@ export default function Login() {
                 />
                 {isAdmin && (<div>
                   <FormControlLabel
+                    sx={{width:"200px"}}
                     control={<Controller
                       name="level"
                       id="level"
