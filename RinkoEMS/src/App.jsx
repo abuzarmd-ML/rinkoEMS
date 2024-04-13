@@ -2,9 +2,8 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Login from './Components/Login'
 import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
-import Dashboard from './Components/Dashboard'
 import Home from './Components/Home'
-import Employee from './Components/Employee'
+import Employee from './Components/Employee/Employee'
 import Category from './Components/Category'
 import Profile from './Components/Profile'
 import AddCategory from './Components/AddCategory'
@@ -18,6 +17,9 @@ import SignIn from './Components/Login/Login'
 import SignUp from './Components/SignUp/SignUp'
 import Dashboards from './Components/Dashboard/Dashboard'
 import ManageUsers from './Components/domain/ManageUsers'
+import Obra from './Components/Obra/Obra'
+import Clients from './Components/Clients/Clients'
+import Attendance from './Components/Attendance/Attendance'
 
 
 function App() {
@@ -28,19 +30,23 @@ function App() {
       <Route path='/login' element={<SignIn />}></Route>
       <Route path='/singup' element={<SignUp />}></Route>
       <Route path='/mamage-users' element={<ManageUsers />}></Route>
-      <Route path='/Dashboards' element={<Dashboards />}></Route>
       <Route path='/adminlogin' element={<SignIn />}></Route>
       <Route path='/employee_login' element={<EmployeeLogin />}></Route>
       <Route path='/employee_detail/:id' element={<EmployeeDetail />}></Route>
-      <Route path='/dashboard' element={<Dashboard />}>
+      <Route path='/employee' element={<Employee />}></Route>
+      <Route path='/obra' element={<Obra />}></Route>
+      <Route path='/clients' element={<Clients />}></Route>
+      <Route path='/attendance' element={<Attendance />}></Route>
+      <Route path='/dashboard' element={<Dashboards />}>
      
         <Route path='' element={<Home />}></Route>
         <Route path='/dashboard/employee' element={<Employee />}></Route>
-        <Route path='/dashboard/category' element={<Category />}></Route>
+        {/* <Route path='/dashboard/employee' element={<Employee />}></Route> */}
+        {/* <Route path='/dashboard/category' element={<Category />}></Route>
         <Route path='/dashboard/profile' element={<Profile />}></Route>
         <Route path='/dashboard/add_category' element={<AddCategory />}></Route>
         <Route path='/dashboard/add_employee' element={<AddEmployee />}></Route>
-        <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />}></Route>
+        <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />}></Route> */}
       </Route>
     </Routes>
     </BrowserRouter>
