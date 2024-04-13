@@ -81,7 +81,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   );
 
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children, title }) => {
 
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
@@ -117,7 +117,7 @@ const AdminLayout = ({ children }) => {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Dashboard
+                            {title}
                         </Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">

@@ -23,32 +23,31 @@ const CardsData = [
   title:'Employee',
   info1:"Total Active Emp : 100",
   info2:'Total In-Active Emp : 300',
-  link:'/mamage-users'
+  link:'/dashboard/employees'
 },
 {
   title:'Clients ',
   info1:"Total  Active Client: 100",
   info2:'Total Previous Client : 300',
-  link:'/mamage-users'
+  link:'/dashboard/clients'
 },
 {
   title:'Sites',
   info1:"Total Active Sites : 100",
   info2:'Total In-Active sites : 300',
-  link:'/mamage-users'
+  link:'/dashboard/sites'
 },
 {
   title:'Attendance ',
   info1:"Total Employee: 700",
   info2:'Complete Attendance : 300',
-  info2:'Pending Attendance : 300',
-  link:'/mamage-users'
+  link:'/dashboard/attendance'
 },
 {
   title:'Salary',
   info1:"Total Active Sites : 100",
   info2:'Total In-Active sites : 300',
-  link:'/mamage-users'
+  link:'/dashboard/salry'
 },
 ]
 
@@ -57,7 +56,7 @@ export default function Dashboard() {
  
 
   return (
-    <AdminLayout>
+    <AdminLayout title="Dashboard">
         <Box
           component="main"
           sx={{

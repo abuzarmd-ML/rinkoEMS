@@ -9,34 +9,35 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/dashboard">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/clients">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Clients" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/obra">
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Obra" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/employee">
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Manage Employee" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/attendance">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
@@ -56,12 +57,3 @@ export const mainListItems = (
     </ListItemButton>
   </React.Fragment>
 );
-
-// export const secondaryListItems = (
-//   <React.Fragment>
-//     <ListSubheader component="div" inset>
-//       Saved reports
-//     </ListSubheader>
-    
-//   </React.Fragment>
-// );
