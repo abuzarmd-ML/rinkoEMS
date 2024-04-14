@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems } from './MenuList';
+import { MenuList } from './MenuList';
 
 function Copyright(props) {
     return (
@@ -34,7 +34,7 @@ function Copyright(props) {
   const defaultTheme = createTheme();
 
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -141,7 +141,7 @@ const AdminLayout = ({ children, title }) => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
+                       <MenuList />
                         <Divider sx={{ my: 1 }} />
                         {/* {secondaryListItems} */}
                     </List>
