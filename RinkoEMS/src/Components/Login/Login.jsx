@@ -37,25 +37,6 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 const mandatoryError = 'This field is mandatory'
 
-const componayName = [{
-  label: 'Test 1',
-  id: '1'
-},
-{
-  label: 'Test 2',
-  id: '2'
-},
-{
-  label: 'Test 3',
-  id: '3'
-},
-{
-  label: 'Test 4',
-  id: '4'
-}
-
-]
-
 export default function Login() {
   const navigate = useNavigate()
   const [error,setError] = React.useState(false)
