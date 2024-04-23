@@ -1,5 +1,6 @@
-import { Box,Toolbar,Container,Grid } from '@mui/material';
+import { Box, Toolbar, Container, Grid, Paper,Typography } from '@mui/material';
 import React from 'react';
+import ImgMediaCard from '../Cards/ImageMedia';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 
@@ -181,7 +182,7 @@ const Employee = () => {
       </Grid>
       </Container>
       </Box>
-      </AdminLayout>
+    </AdminLayout>
   );
 };
 
