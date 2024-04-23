@@ -7,7 +7,7 @@ import Employee from './Components/Employee/Employee'
 import Category from './Components/Category'
 import Profile from './Components/Profile'
 import AddCategory from './Components/AddCategory'
-import AddEmployee from './Components/AddEmployee'
+// import AddEmployee from './Components/AddEmployee'
 import EditEmployee from './Components/EditEmployee'
 import Start from './Components/Start'
 import EmployeeLogin from './Components/EmployeeLogin'
@@ -20,6 +20,8 @@ import ManageUsers from './Components/domain/ManageUsers'
 import Obra from './Components/Obra/Obra'
 import Clients from './Components/Clients/Clients'
 import Attendance from './Components/Attendance/Attendance'
+import AddEmployee from './Components/Employee/AddEmployee'
+import AddObra from './Components/Obra/AddObra'
 
 
 function App() {
@@ -34,7 +36,9 @@ function App() {
       <Route path='/employee_login' element={<EmployeeLogin />}></Route>
       <Route path='/employee_detail/:id' element={<EmployeeDetail />}></Route>
       <Route path='/employee' element={<Employee />}></Route>
+      <Route path='/employee/add' element={<AddEmployee />}></Route>
       <Route path='/obra' element={<Obra />}></Route>
+      <Route path='/obra/add' element={<AddObra />}></Route>
       <Route path='/clients' element={<Clients />}></Route>
       <Route path='/attendance' element={<Attendance />}></Route>
       <Route path='/dashboard' element={<Dashboards />}>
