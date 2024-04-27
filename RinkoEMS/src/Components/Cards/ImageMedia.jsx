@@ -19,7 +19,7 @@ export default function ImgMediaCard() {
     <Card variant="outlined">
       <CardContent>
         <Typography gutterBottom variant="h4" component="h3" >
-         John Deo
+         Mohammad Abuzar
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
          Software Engineer
@@ -49,7 +49,7 @@ export default function ImgMediaCard() {
         <Grid item xs={3}>
         <Item>
          <Typography gutterBottom variant="h3" component="h3" ali>
-         $2,560
+         $3,560
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
           Earnings
