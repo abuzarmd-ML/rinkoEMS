@@ -9,6 +9,7 @@ const Cards = ({ height = 200, children,width='100%' }) => {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
+                backgroundColor: 'red',
                 height,
                 width
             }}

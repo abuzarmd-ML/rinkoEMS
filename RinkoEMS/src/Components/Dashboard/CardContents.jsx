@@ -8,7 +8,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function Deposits({cardsDetails}) {
+export default function CardContents({cardsDetails}) {
   return (
     <React.Fragment>
       <Title>{cardsDetails.title}</Title>

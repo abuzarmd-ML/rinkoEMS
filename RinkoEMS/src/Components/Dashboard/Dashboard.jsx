@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import AdminLayout from '../Layout/AdminLayout';
-import Deposits from './Deposits';
+import CardContents from './CardContents';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { Typography } from '@mui/material';
 
@@ -237,7 +237,7 @@ export default function Dashboard() {
                 <Chart />
               </Paper>
             </Grid> */}
-            {/* Recent Deposits */}
+            {/* Recent CardContents */}
             {CardsData.map((data) => {
               return (
                 <Grid item xs={12} md={4} lg={3}>
@@ -246,10 +246,11 @@ export default function Dashboard() {
                       p: 2,
                       display: 'flex',
                       flexDirection: 'column',
+                      backgroundColor:'-webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%)',
                       height: 200,
                     }}
                   >
-                    <Deposits cardsDetails={data} />
+                    <CardContents cardsDetails={data} />
                   </Paper>
                 </Grid>
               );
@@ -263,7 +264,7 @@ export default function Dashboard() {
                   height: 200,
                 }}
               >
-                <Deposits />
+                <CardContents />
               </Paper>
             </Grid> */}
             <Grid item xs={12}>
