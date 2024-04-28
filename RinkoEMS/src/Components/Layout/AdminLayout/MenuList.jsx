@@ -16,18 +16,30 @@ import PeopleIcon from '@mui/icons-material/People';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 
 export const MenuList = () => {
+  const [projectOpen, setHandleProjectOpen] = useState(false);
   const [obraOpen, setObraOpen] = useState(false);
+  const [obraEntradaOpen, setObraEntradaOpen] = useState(false);
   const [employeeOpen, setEmployeeOpen] = useState(false);
 
+
+  const handleProjectClick = () => {
+    setHandleProjectOpen(!projectOpen);
+  };
   const handleObraClick = () => {
     setObraOpen(!obraOpen);
   };
-
+  const handleObraEntradaClick = () => {
+    setObraEntradaOpen(!obraEntradaOpen);
+  };
   const handleEmployeeClick = () => {
     setEmployeeOpen(!employeeOpen);
   };
@@ -46,6 +58,32 @@ export const MenuList = () => {
         </ListItemIcon>
         <ListItemText primary="Clients" />
       </ListItemButton>
+
+      <ListItemButton onClick={handleProjectClick}>
+        <ListItemIcon>
+          <AddHomeWorkIcon />
+        </ListItemIcon>
+        <ListItemText primary="Project" />
+
+        {projectOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={projectOpen} timeout="auto">
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/project">
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="Project List" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/project/add">
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Project" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
 
       <ListItemButton onClick={handleObraClick}>
         <ListItemIcon>
@@ -68,6 +106,31 @@ export const MenuList = () => {
               <AddIcon />
             </ListItemIcon>
             <ListItemText primary="Add Obra" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
+      <ListItemButton onClick={handleObraEntradaClick}>
+        <ListItemIcon>
+          <EngineeringIcon />
+        </ListItemIcon>
+        <ListItemText primary="Obra Entrada" />
+
+        {obraEntradaOpen ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={obraEntradaOpen} timeout="auto">
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/obra_entrada">
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="View" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/obra_entrada/add">
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Entrada" />
           </ListItemButton>
         </List>
       </Collapse>
@@ -101,6 +164,18 @@ export const MenuList = () => {
           <PermContactCalendarIcon />
         </ListItemIcon>
         <ListItemText primary="Attendance" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <SummarizeIcon />
+        </ListItemIcon>
+        <ListItemText primary="Nomina" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <ReceiptIcon />
+        </ListItemIcon>
+        <ListItemText primary="Factura" />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
