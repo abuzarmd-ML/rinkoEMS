@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import axiosInstance from '../../services/axiosInstance';
+
 
 function Copyright(props) {
   return (
@@ -31,13 +37,36 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
+  const [formData, setFormData] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    role: ''
+  });
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+      const response = await axiosInstance({
+        url: '/signup',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) {
+        throw new Error('Failed to create user');
+      }
+      // Handle successful signup (e.g., show success message, redirect to login page)
+    } catch (error) {
+      console.error('Error signing up:', error);
+      // Handle signup error (e.g., display error message to user)
+    }
   };
 
   return (
@@ -60,35 +89,26 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="userName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="userName"
+                  label="User Name"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,19 +120,30 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+                <TextField
+                  fullWidth
+                  id="role"
+                  select
+                  label="Role"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="Super Admin">Super Admin</MenuItem>
+                  <MenuItem value="Admin">Admin</MenuItem>
+                  <MenuItem value="Employee">Employee</MenuItem>
+                </TextField>
               </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
@@ -126,7 +157,6 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
   );

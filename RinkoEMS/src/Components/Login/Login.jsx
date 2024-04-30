@@ -51,7 +51,7 @@ export default function Login() {
     .then(result => {
         if(result.data.loginStatus) {
             localStorage.setItem("valid", true)
-            navigate('/dashboards')
+            navigate('/dashboard')
         } else {
             setError(true)
         }
@@ -149,7 +149,7 @@ export default function Login() {
                       )}
                     />
                   }
-                  label="Login as Admin"
+                  label="Login as Super Admin"
                 />
 
                 <Button
@@ -167,7 +167,7 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="/singup" variant="body2">
+                    <Link href="/signup" variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

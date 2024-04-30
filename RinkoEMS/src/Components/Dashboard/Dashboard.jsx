@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import AdminLayout from '../Layout/AdminLayout';
 import CardContents from './CardContents';
 import BasicMuiTable from '../Table/BasicMuiTable';
+import Cards from '../Cards/Cards';
 import { Typography } from '@mui/material';
 
 
@@ -15,31 +16,36 @@ const CardsData = [
   title:'Users Info',
   info1:"Total Admin Users : 100",
   info2:'Total General User : 300',
-  link:'/mamage-users'
+  link:'/mamage-users',
+  color: '#ffb6c1'
 },
 {
   title:'Employee',
   info1:"Total Active Emp : 100",
   info2:'Total In-Active Emp : 300',
-  link:'/dashboard/employees'
+  link:'/dashboard/employees',
+  color: '#87ceeb'
 },
 {
   title:'Clients ',
   info1:"Total  Active Client: 100",
   info2:'Total Previous Client : 300',
-  link:'/dashboard/clients'
+  link:'/dashboard/clients',
+  color:'#f0f4c3'
 },
 {
   title:'Sites',
   info1:"Total Active Sites : 100",
   info2:'Total In-Active sites : 300',
-  link:'/dashboard/sites'
+  link:'/dashboard/sites',
+  color:'#b2ff59'
 },
 {
   title:'Attendance ',
   info1:"Total Employee: 700",
   info2:'Complete Attendance : 300',
-  link:'/dashboard/attendance'
+  link:'/dashboard/attendance',
+  color:'#ffccbc'
 },
 {
   title:'Salary',
@@ -225,52 +231,20 @@ export default function Dashboard() {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             {/* Chart */}
-            {/* <Grid item xs={12} md={8} lg={9}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 240,
-                }}
-              >
-                <Chart />
-              </Paper>
-            </Grid> */}
             {/* Recent CardContents */}
             {CardsData.map((data) => {
               return (
                 <Grid item xs={12} md={4} lg={3}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      backgroundColor:'-webkit-linear-gradient(90deg, #3f5efb 0%, #fc466b 100%)',
-                      height: 200,
-                    }}
-                  >
+                  <Cards color={data.color}>
                     <CardContents cardsDetails={data} />
-                  </Paper>
+                  </Cards>
                 </Grid>
               );
             })}
-            {/* <Grid item xs={12} md={4} lg={3}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: 200,
-                }}
-              >
-                <CardContents />
-              </Paper>
-            </Grid> */}
             <Grid item xs={12}>
-              <Paper sx={{ p: 0.5, display: 'box', flexDirection: 'column' }}>
+              {/* <Paper sx={{ p: 0.5, display: 'inside', flexDirection: 'column' }}> */}
                 <BasicMuiTable tableName="All Employee" columns={columns} data={data} />
-              </Paper>
+              {/* </Paper> */}
             </Grid>
           </Grid>
         </Container>

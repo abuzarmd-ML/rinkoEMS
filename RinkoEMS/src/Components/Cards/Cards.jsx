@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 
-const Cards = ({ height = 200, children,width='100%' }) => {
+const Cards = ({ height = 200, children,width='100%' , color = '#dcedc8'}) => {
 
     return (
         <Paper
@@ -9,9 +9,10 @@ const Cards = ({ height = 200, children,width='100%' }) => {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                backgroundColor: 'red',
+                backgroundColor: color,
                 height,
-                width
+                width,
+                borderRadius: 4
             }}
         >
 
