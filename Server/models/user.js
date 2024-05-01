@@ -1,6 +1,6 @@
 // Import Sequelize and connection
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+import {  DataTypes } from  'sequelize';
+import {sequelize}  from '../config/database.js';
 
 // Define User model
 const User = sequelize.define('User', {
@@ -24,4 +24,4 @@ const User = sequelize.define('User', {
 });
 
 // Export User model
-module.exports = User;
+export { User }
