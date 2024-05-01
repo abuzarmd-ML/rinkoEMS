@@ -1,8 +1,7 @@
 // Import Sequelize
-const { Sequelize } = require('sequelize');
-
-// Create Sequelize instance and establish connection
-const sequelize = new Sequelize('database_name', 'username', 'password', {
+// const { Sequelize } = require('sequelize');
+import {Sequelize} from 'sequelize'
+const sequelize = new Sequelize('employeems', 'root', '', {
   host: 'localhost',
   dialect: 'mysql'
 });
@@ -17,4 +16,4 @@ const sequelize = new Sequelize('database_name', 'username', 'password', {
   }
 })();
 
-module.exports = sequelize;
+export { sequelize }

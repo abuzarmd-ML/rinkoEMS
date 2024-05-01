@@ -1,9 +1,7 @@
-const express = require('express');
+import express from 'express'
 const router = express.Router();
 
-// Import user controller and service
-const UserController = require('../controllers/userController');
-const UserService = require('../services/userService');
+import * as UserService from '../services/userService.js'
 
 // Define route for user signup
 router.post('/signup', async (req, res) => {
@@ -25,4 +23,8 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-module.exports = router;
+router.get('/signup', async (req, res) => {
+  return res.status(200).json({ message: 'Error creating user' });
+})
+
+export {router as userRoute}
