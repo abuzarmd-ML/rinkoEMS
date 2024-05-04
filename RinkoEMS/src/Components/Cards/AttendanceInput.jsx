@@ -10,6 +10,7 @@ import { Divider } from '@mui/material';
 import MonthYearPicker from "./MonthYearPicker";
 import createCaleder from "./util/createCaleder";
 import formatDate from "./util/formatDate";
+import moment from "moment";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -28,7 +29,12 @@ export default function AttendanceInput() {
     setCalender([...createCaleder(formatDate(yearMonth))])
     console.log('yearMonth', yearMonth)
   }, [yearMonth])
-
+  
+  const shouldDisbledMonth = (currentDate)=>{
+    const activeMonth = moment(yearMonth).format('MM')
+    const currentMonth = moment(currentDate).format('MM')
+    return activeMonth!==currentMonth
+  }
 
 
   return (
@@ -70,6 +76,7 @@ export default function AttendanceInput() {
                         id={`hours-${day.date()}`}
                         label={`${day.date()}`}
                         variant="outlined"
+                        disabled={shouldDisbledMonth(day)}
                         fullWidth
                       />
                     </Item>
