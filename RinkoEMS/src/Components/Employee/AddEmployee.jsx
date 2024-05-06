@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicForm from '../EmployeeForm/EmployeeForm';
+import BasicDetails from '../EmployeeForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
 import BankDetails from '../EmployeeForm/BankDetails';
+import CompanyDetails from  '../EmployeeForm/CompanyDetails'
+import FileUpload from '../EmployeeForm/FileUpload'
+
+
 const AddEmployee = () => {
   const [image, setImage] = useState(null);
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
   };
-
-  const fields = [
-    { type: 'text', name: 'firstName', placeholder: 'Enter Name' },
-    { type: 'text', name: 'lastName', placeholder: 'Enter  last Name' },
-    { type: 'text', name: 'phoneNumber', placeholder: 'Enter  phone number' },
-    { type: 'date', name: 'dateOfBirth', placeholder: 'Enter  date of birth' },
-    { type: 'text', name: 'address', placeholder: 'Enter  address' },
-    // Add more fields as needed
-  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,24 +37,22 @@ const AddEmployee = () => {
       >
          <Toolbar />
          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <BasicForm fields={fields} />
+          <BasicDetails />
           
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <CompanyDetails />
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         < BankDetails  />
         </Container>
-        <div>
-          <label htmlFor="imageUpload">Select Image:</label>
-          <input
-            type="file"
-            id="imageUpload"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-        </div>
-        {/* <Button variant="contained" onClick={handleSubmit}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < FileUpload/>
+        </Container>
+      
+        <Button variant="contained" onClick={handleSubmit}>
           Submit
-        </Button> */}
+        </Button>
       </Box>
     </AdminLayout>
   );

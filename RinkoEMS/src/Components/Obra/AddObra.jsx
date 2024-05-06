@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicForm from '../EmployeeForm/EmployeeForm';
+// import BasicForm from '../EmployeeForm/EmployeeForm';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
@@ -23,7 +23,7 @@ const AddObra = () => {
   return (
     <AdminLayout title="Obra">
       <Box sx={{ p: 3, marginTop: '64px'}}>
-        <BasicForm fields={fields} />
+        {/* <BasicForm fields={fields} /> */}
       </Box>
     </AdminLayout>
   );
