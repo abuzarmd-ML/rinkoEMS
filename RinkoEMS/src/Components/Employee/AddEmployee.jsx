@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicForm from '../BasicForm/BasicForm';
+import BasicForm from '../EmployeeForm/EmployeeForm';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
+import { Toolbar,Container } from '@mui/material';
+import BankDetails from '../EmployeeForm/BankDetails';
 const AddEmployee = () => {
   const [image, setImage] = useState(null);
 
@@ -27,9 +28,26 @@ const AddEmployee = () => {
 
   return (
     <AdminLayout title="Employee Management">
-      <Box sx={{ p: 3, marginTop: '64px'}}>
-        <BasicForm fields={fields} />
-        {/* Image Upload Field */}
+      <Box 
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
+         <Toolbar />
+         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <BasicForm fields={fields} />
+          
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < BankDetails  />
+        </Container>
         <div>
           <label htmlFor="imageUpload">Select Image:</label>
           <input

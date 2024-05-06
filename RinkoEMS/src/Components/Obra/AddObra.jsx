@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicForm from '../BasicForm/BasicForm';
+import BasicForm from '../EmployeeForm/EmployeeForm';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
