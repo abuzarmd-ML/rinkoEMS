@@ -1,20 +1,15 @@
-// Import user service
-const UserService = require('../services/userService');
+// userController.js
 
-// Controller function for handling user signup
-exports.signupUser = async (req, res) => {
+import { createUser } from '../models/User.js'; // Import the createUser function
+
+export async function signup(req, res) {
   try {
-    // Extract form data from request body
-    const { userName, email, password } = req.body;
-
-    // Call service function to create new user account
-    const newUser = await UserService.createUser(userName, email, password);
-
-    // Send success response with newly created user object
-    res.status(201).json({ message: 'User created successfully', user: newUser });
+    const { username, email, password, role } = req.body; // Extract form data
+    console.log("Here is the submitted value from signup form: ", req.body)
+    const userId = await createUser(username, email, password, role); // Use createUser function with extracted data
+    res.status(201).json({ message: 'User created successfully', userId });
   } catch (error) {
-    // Handle errors (e.g., validation errors, database errors)
-    console.error('Error creating user:', error.message);
-    res.status(500).json({ message: 'Error creating user', error: error.message });
+    console.error('Error creating user:', error);
+    res.status(500).json({ error: 'Failed to create user' });
   }
-};
+}

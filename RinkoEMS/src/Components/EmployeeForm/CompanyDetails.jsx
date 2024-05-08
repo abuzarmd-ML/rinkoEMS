@@ -7,7 +7,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
 
-const BankDetails = ({ fields }) => {
+const BasicDetails = ({ fields }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Implement form submission logic here
@@ -19,16 +19,15 @@ const BankDetails = ({ fields }) => {
 
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" component="h3">
-            Bank Details 
+            Company Details
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <TextField
             required
             id={'test'}
-            size='string'
             fullWidth
-            label={'Bank Name'}
+            label={'Company'}
             variant="outlined"
           />
         </Grid>
@@ -37,7 +36,40 @@ const BankDetails = ({ fields }) => {
             required
             fullWidth
             id={'test'}
-            label={'IBAN'}
+            label="Type"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            id={'test'}
+            fullWidth
+            label="Status"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            fullWidth
+            type="number"
+            label="Rate"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            label="Reference"
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            fullWidth
+            label="Remarks"
             variant="outlined"
           />
         </Grid>
@@ -46,4 +78,4 @@ const BankDetails = ({ fields }) => {
   );
 };
 
-export default BankDetails;
+export default BasicDetails;
