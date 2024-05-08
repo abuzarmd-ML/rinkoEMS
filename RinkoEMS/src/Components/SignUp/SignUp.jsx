@@ -38,7 +38,7 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     email: '',
     password: '',
     role: ''
@@ -57,7 +57,7 @@ export default function SignUp() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        data: formData
       });
       if (!response.ok) {
         throw new Error('Failed to create user');
@@ -92,10 +92,10 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="userName"
+                  name="username"
                   required
                   fullWidth
-                  id="userName"
+                  id="username"
                   label="User Name"
                   autoFocus
                   onChange={handleChange}
@@ -133,9 +133,9 @@ export default function SignUp() {
                   value={formData.role}
                   onChange={handleChange}
                 >
-                  <MenuItem value="Super Admin">Super Admin</MenuItem>
-                  <MenuItem value="Admin">Admin</MenuItem>
-                  <MenuItem value="Employee">Employee</MenuItem>
+                  <MenuItem value="1">Super Admin</MenuItem>
+                  <MenuItem value="2">Admin</MenuItem>
+                  <MenuItem value="3">Employee</MenuItem>
                 </TextField>
               </Grid>
             </Grid>

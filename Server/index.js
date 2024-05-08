@@ -1,9 +1,9 @@
 import express from "express";      
 import cors from 'cors'
-import { adminRouter } from "./Routes/AdminRoute.js";
+import { adminRouter } from "./routes/AdminRoute.js";
 import Jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
-import { userRoute } from "./Routes/userRoutes.js";
+import { userRoute } from "./routes/userRoutes.js";
 
 const app = express() 
 
