@@ -6,13 +6,15 @@ import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Grid, Typography, Select, MenuItem, InputLabel,FormControl} from '@mui/material';
 import Cards from '../Cards/Cards';
+import CountryDropdown from './CountryDropdown'
 
 
 const BasicDetails = ({ fields }) => {
 
-  const [country, setCountry] = React.useState('');
+ 
 
-  const handleChange = (event) => {
+  const handleChange = (event) => 
+  {
     setCountry(event.target.value);
   };
   const handleSubmit = (event) => {
@@ -47,35 +49,12 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
           />
         </Grid>
-        {/* <Grid item xs={6}>
-          <TextField
-            required
-            id={'test'}
-            fullWidth
-            label={'Country'}
-            variant="outlined"
-          />
-        </Grid> */}
-      <Grid item xs={6}>
-      <FormControl variant="outlined" fullWidth>
-      <InputLabel id="country-label">Country</InputLabel>
-      <Select 
-        labelId="country-label"
-        id="country"
-        fullWidth
-        label={'Country'}
-        value={country}
-        onChange={handleChange}
-        variant="outlined"
-      >
-        <MenuItem value="">Select Country</MenuItem>
-        <MenuItem value="USA">United States</MenuItem>
-        <MenuItem value="UK">United Kingdom</MenuItem>
-        <MenuItem value="CA">Canada</MenuItem>
-        {/* Add more countries as needed */}
-      </Select>
-      </FormControl>
-    </Grid>
+
+        <Grid item xs={6}>
+          
+          <CountryDropdown />
+        </Grid>
+
         <Grid item xs={6}>
           <TextField
             required
