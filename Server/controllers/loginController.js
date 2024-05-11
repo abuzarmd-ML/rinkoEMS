@@ -12,12 +12,11 @@ export async function login(req, res) {
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
     // Check user role and company access
     if (user.role_id === 'superadmin' || hasCompanyAccess(user.role_id, company)) {
       // Set user session or token
     //   req.session.user = user;
-      return res.status(200).json({ message: 'Login successful', user });
+      return res.status(200).json({ message: 'Login successful', loginStatus: 'True' ,user });
     } else {
       return res.status(403).json({ error: 'Unauthorized access to company' });
     }
