@@ -1,6 +1,6 @@
 import express from "express";      
 import cors from 'cors'
-import { adminRouter } from "./routes/AdminRoute.js";
+import { loginRoute } from "./routes/loginRoutes.js";
 import Jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoutes.js";
@@ -15,7 +15,7 @@ app.use(cors({
 
 app.use(express.json())
 app.use(cookieParser())
-app.use('/auth', adminRouter)
+app.use(loginRoute)
 app.use(userRoute)
 // app.use('/employee', EmployeeRouter)
 // app.use(express.static('Public'))

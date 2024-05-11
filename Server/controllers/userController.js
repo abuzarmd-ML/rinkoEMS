@@ -1,6 +1,6 @@
 // userController.js
 
-import { createUser } from '../models/User.js'; // Import the createUser function
+import { createUser } from '../models/user.js'; // Import the createUser function
 
 export async function signup(req, res) {
   try {

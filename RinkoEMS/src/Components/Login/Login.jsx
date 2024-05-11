@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import { FormProvider, Controller } from 'react-hook-form';
-import {  Select, MenuItem } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
@@ -18,8 +17,9 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alerts from '../Alert';
 import AutoCompleteDropdown from '../AutoCompleteDropdown';
-import axios from 'axios';
- 
+import axiosInstance from '../../services/axiosInstance';
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -40,38 +40,48 @@ const mandatoryError = 'This field is mandatory'
 export default function Login() {
   const navigate = useNavigate()
   const [error,setError] = React.useState(false)
-  axios.defaults.withCredentials = true;
+  axiosInstance.defaults.withCredentials = true;
   const onSubmit = (formData,event) => {
     event.preventDefault();
-    axios.post('http://localhost:3000/auth/adminlogin', {
-      email: formData.userName,
+    axiosInstance.post('/login', {
+      username: formData.username,
       password: formData.password,
       isAdmin: formData.isAdmin
     })
-    .then(result => {
-        if(result.data.loginStatus) {
-            localStorage.setItem("valid", true)
-            navigate('/dashboard')
-        } else {
-            setError(true)
-        }
+    .then(response => {
+      if (response.status === 200) {
+          // Assuming loginStatus is returned as true for successful login
+          if (response.data.loginStatus) {
+              localStorage.setItem("valid", true);
+              console.log("Redirecting to dashboard...");
+              navigate('/dashboard');
+          } else {
+              setError(true);
+          }
+      } else {
+          // Handle server errors here
+          console.error("Server error:", response.statusText);
+          setError(true);
+      }
     })
-    .catch(err => console.log(err))
-    //  console.log('form-data',formData)
-    //  navigate('/dashboards')
-  };
-
+    .catch(error => {
+      // Handle network errors or other exceptions
+      console.error("Error logging in:", error);
+      setError(true);
+    });
+  }
+    
   const form = useForm({
     mode: "onBlur",
     defaultValues: {
-      userName: '',
+      username: '',
       password: '',
       isAdmin: false
     }
   });
-  const { register, formState: { errors }, control, watch,handleSubmit } = form
+  const { register, formState: { errors }, control, watch, handleSubmit } = form;
 
-  const isAdmin = watch('isAdmin')
+  const isAdmin = watch('isAdmin');
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -85,34 +95,31 @@ export default function Login() {
           }}
         >
           <FormProvider {...form}>
-            <form  onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
-
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-
-              <Box  noValidate sx={{ mt: 1 }}>
-                <Alerts error={error} type="error" message="invalid user name or password"  />
+              <Box noValidate sx={{ mt: 1 }}>
+                <Alerts error={error} type="error" message="Invalid username or password" />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  {...register('userName', {
+                  {...register('username', {
                     required: {
                       value: true,
                       message: mandatoryError
                     }
                   })}
-                  error={errors['userName']}
-                  helperText={errors['userName'] ? errors['userName'].message : ""}
-                  id="email"
+                  error={errors['username']}
+                  helperText={errors['username'] ? errors['username'].message : ""}
+                  id="username"
                   label="User Name"
-                  name="userName"
-                  autoComplete="userName"
-                  
+                  name="username"
+                  autoComplete="username"
                 />
                 <TextField
                   margin="normal"
@@ -151,7 +158,6 @@ export default function Login() {
                   }
                   label="Login as Super Admin"
                 />
-
                 <Button
                   type="submit"
                   fullWidth
