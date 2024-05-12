@@ -4,15 +4,23 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Select, MenuItem, InputLabel,FormControl} from '@mui/material';
 import Cards from '../Cards/Cards';
+import CountryDropdown from './CountryDropdown'
+
 
 const BasicDetails = ({ fields }) => {
+
+ 
+
+  const handleChange = (event) => 
+  {
+    setCountry(event.target.value);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     // Implement form submission logic here
   };
-
   return (
     <Cards borderRadius={1} height={'400'}>
       <Grid container spacing={1} >
@@ -41,15 +49,12 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
           />
         </Grid>
+
         <Grid item xs={6}>
-          <TextField
-            required
-            id={'test'}
-            fullWidth
-            label={'Country'}
-            variant="outlined"
-          />
+          
+          <CountryDropdown />
         </Grid>
+
         <Grid item xs={6}>
           <TextField
             required
