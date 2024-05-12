@@ -1,6 +1,7 @@
 // loginController.js
 
 import { loginUser } from '../models/login.js';
+import createToken from '../utils/createToken.js';
 
 export async function login(req, res) {
   try {
@@ -16,6 +17,10 @@ export async function login(req, res) {
     if (user.role_id === 'superadmin' || hasCompanyAccess(user.role_id, company)) {
       // Set user session or token
     //   req.session.user = user;
+
+      const token = createToken(user.id,company,user.role_id)
+      console.log("TOKEN : ",token)
+    
       return res.status(200).json({ message: 'Login successful', loginStatus: 'True' ,user });
     } else {
       return res.status(403).json({ error: 'Unauthorized access to company' });
