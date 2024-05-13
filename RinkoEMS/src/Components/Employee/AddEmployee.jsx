@@ -7,7 +7,7 @@ import { Toolbar,Container } from '@mui/material';
 import BankDetails from '../EmployeeForm/BankDetails';
 import CompanyDetails from  '../EmployeeForm/CompanyDetails'
 import FileUpload from '../EmployeeForm/FileUpload'
-
+import EmployeeFormContext from './EmployeeFormContext';
 
 const AddEmployee = () => {
   const [image, setImage] = useState(null);
@@ -35,6 +35,7 @@ const AddEmployee = () => {
           overflow: 'auto',
         }}
       >
+        <EmployeeFormContext  >
          <Toolbar />
          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <BasicDetails />
@@ -49,10 +50,12 @@ const AddEmployee = () => {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         < FileUpload/>
         </Container>
-      
-        <Button variant="contained" onClick={handleSubmit}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Button variant="contained" type='submit'>
           Submit
         </Button>
+        </Container>
+        </EmployeeFormContext>
       </Box>
     </AdminLayout>
   );

@@ -4,26 +4,30 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Grid, Typography, Select, MenuItem, InputLabel,FormControl} from '@mui/material';
+import { useFormContext, Controller } from 'react-hook-form';
+import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
 import CountryDropdown from './CountryDropdown'
 
 
+const mandatoryError = 'This field is mandatory'
+
 const BasicDetails = ({ fields }) => {
 
- 
 
-  const handleChange = (event) => 
-  {
+
+  const handleChange = (event) => {
     setCountry(event.target.value);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     // Implement form submission logic here
   };
+  const { register, formState: { errors } } = useFormContext()
+
   return (
     <Cards borderRadius={1} height={'400'}>
-      <Grid container spacing={1} >
+      <Grid container spacing={3} >
 
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" component="h3">
@@ -33,11 +37,25 @@ const BasicDetails = ({ fields }) => {
         <Grid item xs={6}>
           <TextField
             required
-            id={'test'}
             fullWidth
-            label={'Apalledos, Nombre'}
+            id={'test'}
+            type="tel"
+            label="número de telèfon"
             variant="outlined"
+            name='firstName'
+            {
+            ...register('firstName', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['firstName']}
+            helperText={errors?.['firstName'] ? errors['firstName'].message : ""}
+
           />
+
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -47,11 +65,23 @@ const BasicDetails = ({ fields }) => {
             type="tel"
             label="número de telèfon"
             variant="outlined"
+            name='numero'
+            {
+            ...register('numero', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['numero']}
+            helperText={errors?.['numero'] ? errors['numero'].message : ""}
+
           />
         </Grid>
 
         <Grid item xs={6}>
-          
+
           <CountryDropdown />
         </Grid>
 
@@ -65,6 +95,18 @@ const BasicDetails = ({ fields }) => {
             InputLabelProps={{
               shrink: true,
             }}
+            name='date'
+            {
+            ...register('date', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['date']}
+            helperText={errors?.['date'] ? errors['date'].message : ""}
+
           />
         </Grid>
         <Grid item xs={6}>
@@ -75,6 +117,18 @@ const BasicDetails = ({ fields }) => {
             type="text"
             label={'NIE'}
             variant="outlined"
+            name='nie'
+            {
+            ...register('nie', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['nie']}
+            helperText={errors?.['nie'] ? errors['nie'].message : ""}
+
           />
         </Grid>
         <Grid item xs={6}>
@@ -83,6 +137,18 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             type="date"
             label="Caducidad del NIE"
+            name='caducidad'
+            {
+            ...register('caducidad', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['caducidad']}
+            helperText={errors?.['caducidad'] ? errors['caducidad'].message : ""}
+
             variant="outlined"
             InputLabelProps={{
               shrink: true,
@@ -96,6 +162,18 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             type="text"
             label={'Seguridad Social'}
+            name='Social'
+            {
+            ...register('Social', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['Social']}
+            helperText={errors?.['Social'] ? errors['Social'].message : ""}
+
             variant="outlined"
           />
         </Grid>
