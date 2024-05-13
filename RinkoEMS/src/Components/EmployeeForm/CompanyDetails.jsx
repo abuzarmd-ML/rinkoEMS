@@ -1,17 +1,17 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
+import { useFormContext, Controller } from 'react-hook-form';
 import { Grid, Typography, Select, MenuItem, InputLabel,FormControl} from '@mui/material';
 
 import Cards from '../Cards/Cards';
+const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
 
   const [status, setStatus] = React.useState('');
   const [type, setType] = React.useState('');
+  const { register, formState: { errors } } = useFormContext()
+
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
@@ -41,6 +41,18 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             label={'Company'}
             variant="outlined"
+            name="company"
+            {
+              ...register('company', {
+                required: {
+                  value: true,
+                  message: mandatoryError
+                }
+              })
+              }
+              error={errors?.['company']}
+              helperText={errors?.['company'] ? errors['company'].message : ""}
+  
           />
         </Grid>
         <Grid item xs={6}>
@@ -89,6 +101,18 @@ const BasicDetails = ({ fields }) => {
             type="number"
             label="Rate"
             variant="outlined"
+            name="Rate"
+            {
+              ...register('Rate', {
+                required: {
+                  value: true,
+                  message: mandatoryError
+                }
+              })
+              }
+              error={errors?.['Rate']}
+              helperText={errors?.['Rate'] ? errors['Rate'].message : ""}
+  
           />
         </Grid>
         <Grid item xs={6}>
@@ -96,6 +120,18 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             label="Reference"
             variant="outlined"
+            name="Reference"
+            {
+              ...register('Reference', {
+                required: {
+                  value: true,
+                  message: mandatoryError
+                }
+              })
+              }
+              error={errors?.['Reference']}
+              helperText={errors?.['Reference'] ? errors['Reference'].message : ""}
+  
           />
         </Grid>
         <Grid item xs={6}>
@@ -104,6 +140,18 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             label="Remarks"
             variant="outlined"
+            name="Remarks"
+            {
+              ...register('Remarks', {
+                required: {
+                  value: true,
+                  message: mandatoryError
+                }
+              })
+              }
+              error={errors?.['Remarks']}
+              helperText={errors?.['Remarks'] ? errors['Remarks'].message : ""}
+  
           />
         </Grid>
       </Grid>
