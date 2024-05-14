@@ -20,6 +20,7 @@ import SummarizeIcon from '@mui/icons-material/Summarize';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import BusinessIcon from '@mui/icons-material/Business';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -57,6 +58,12 @@ export const MenuList = () => {
           <ShoppingCartIcon />
         </ListItemIcon>
         <ListItemText primary="Clients" />
+      </ListItemButton>
+      <ListItemButton component={Link} to="/companies">
+        <ListItemIcon>
+          <BusinessIcon />
+        </ListItemIcon>
+        <ListItemText primary="Company" />
       </ListItemButton>
 
       <ListItemButton onClick={handleProjectClick}>

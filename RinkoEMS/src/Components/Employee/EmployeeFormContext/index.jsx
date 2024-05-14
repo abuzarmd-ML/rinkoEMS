@@ -5,7 +5,7 @@ const EmployeeFormContext = ({ children }) => {
     const { form, handleSubmitForm } = useAddEmployee()
     return (
         <FormProvider {...form} >
-            <form onSubmit={form.handleSubmit(form)}>
+            <form onSubmit={form.handleSubmit(handleSubmitForm)}>
                 {children}
             </form>
         </FormProvider>

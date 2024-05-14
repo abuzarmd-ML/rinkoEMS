@@ -38,21 +38,20 @@ const BasicDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'test'}
-            type="tel"
-            label="número de telèfon"
+            id={'name'}
+            label="Appaledos,nombre"
             variant="outlined"
-            name='firstName'
+            name='name'
             {
-            ...register('firstName', {
+            ...register('name', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['firstName']}
-            helperText={errors?.['firstName'] ? errors['firstName'].message : ""}
+            error={errors?.['name']}
+            helperText={errors?.['name'] ? errors['name'].message : ""}
 
           />
 
@@ -61,21 +60,21 @@ const BasicDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'test'}
+            id={'phone'}
             type="tel"
             label="número de telèfon"
             variant="outlined"
-            name='numero'
+            name='phone'
             {
-            ...register('numero', {
+            ...register('phone', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['numero']}
-            helperText={errors?.['numero'] ? errors['numero'].message : ""}
+            error={errors?.['phone']}
+            helperText={errors?.['phone'] ? errors['phone'].message : ""}
 
           />
         </Grid>
@@ -95,24 +94,24 @@ const BasicDetails = ({ fields }) => {
             InputLabelProps={{
               shrink: true,
             }}
-            name='date'
+            name='dob'
             {
-            ...register('date', {
+            ...register('dob', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['date']}
-            helperText={errors?.['date'] ? errors['date'].message : ""}
+            error={errors?.['dob']}
+            helperText={errors?.['dob'] ? errors['dob'].message : ""}
 
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             required
-            id={'test'}
+            id={'nie'}
             fullWidth
             type="text"
             label={'NIE'}
@@ -158,21 +157,21 @@ const BasicDetails = ({ fields }) => {
         <Grid item xs={6}>
           <TextField
             required
-            id={'test'}
+            id={'social'}
             fullWidth
             type="text"
             label={'Seguridad Social'}
-            name='Social'
+            name='social'
             {
-            ...register('Social', {
+            ...register('social', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['Social']}
-            helperText={errors?.['Social'] ? errors['Social'].message : ""}
+            error={errors?.['social']}
+            helperText={errors?.['social'] ? errors['social'].message : ""}
 
             variant="outlined"
           />

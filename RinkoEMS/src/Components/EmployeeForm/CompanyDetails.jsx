@@ -101,17 +101,17 @@ const BasicDetails = ({ fields }) => {
             type="number"
             label="Rate"
             variant="outlined"
-            name="Rate"
+            name="rate"
             {
-              ...register('Rate', {
+              ...register('rate', {
                 required: {
                   value: true,
                   message: mandatoryError
                 }
               })
               }
-              error={errors?.['Rate']}
-              helperText={errors?.['Rate'] ? errors['Rate'].message : ""}
+              error={errors?.['rate']}
+              helperText={errors?.['rate'] ? errors['rate'].message : ""}
   
           />
         </Grid>
@@ -120,17 +120,17 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             label="Reference"
             variant="outlined"
-            name="Reference"
+            name="reference"
             {
-              ...register('Reference', {
+              ...register('reference', {
                 required: {
                   value: true,
                   message: mandatoryError
                 }
               })
               }
-              error={errors?.['Reference']}
-              helperText={errors?.['Reference'] ? errors['Reference'].message : ""}
+              error={errors?.['reference']}
+              helperText={errors?.['reference'] ? errors['reference'].message : ""}
   
           />
         </Grid>
@@ -140,17 +140,17 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             label="Remarks"
             variant="outlined"
-            name="Remarks"
+            name="remarks"
             {
-              ...register('Remarks', {
+              ...register('remarks', {
                 required: {
                   value: true,
                   message: mandatoryError
                 }
               })
               }
-              error={errors?.['Remarks']}
-              helperText={errors?.['Remarks'] ? errors['Remarks'].message : ""}
+              error={errors?.['remarks']}
+              helperText={errors?.['remarks'] ? errors['remarks'].message : ""}
   
           />
         </Grid>
