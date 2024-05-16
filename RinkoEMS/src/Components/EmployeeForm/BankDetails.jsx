@@ -1,9 +1,5 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
 import { useFormContext, Controller } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
@@ -52,20 +48,20 @@ const BankDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'test'}
+            id={'iban'}
             label={'IBAN'}
             variant="outlined"
-            name="IBAN"
+            name="iban"
             {
-              ...register('IBAN', {
+              ...register('iban', {
                 required: {
                   value: true,
                   message: mandatoryError
                 }
               })
               }
-              error={errors?.['IBAN']}
-              helperText={errors?.['IBAN'] ? errors['IBAN'].message : ""}
+              error={errors?.['iban']}
+              helperText={errors?.['iban'] ? errors['iban'].message : ""}
   
           />
         </Grid>

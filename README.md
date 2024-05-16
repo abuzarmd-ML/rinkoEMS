@@ -24,3 +24,36 @@ role_id: Foreign key referencing the id column in the roles table, representing 
     role_id INT NOT NULL,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );`
+
+
+TABLE companies:
+
+`CREATE TABLE companies (
+                    company_id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(255),
+                    address VARCHAR(255),
+                    status VARCHAR(50),
+                    encargar VARCHAR(250)
+                    )`
+
+TABLE employee:
+
+`CREATE TABLE employee (
+                    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(255),
+                    phone INT NOT NULL,
+                    country VARCHAR(255),
+                    dob DATE,
+                    nie VARCHAR(255),
+                    caducidad DATE,
+                    social_security INT,
+                    type VARCHAR(100),
+                    status VARCHAR(50),
+                    rate INT,
+                    reference VARCHAR(255),
+                    remarks VARCHAR(255),
+                    bank_name VARCHAR(255),
+                    iban VARCHAR(255),
+                    company_id INT,
+                    FOREIGN KEY (company_id) REFERENCES companies(company_id)
+                    )`
