@@ -6,28 +6,28 @@ async function createEmployeeController(req, res, next) {
     console.log("[Controller] : ", req.body)
   const {
     name,
-    phone_number,
+    phone,
     dob,
     nie,
     caducidad,
-    social_security,
+    social,
     country,
-    company_id,
-    type,
-    status,
+    company_id = '1',
+    type = 'Full Time',
+    status = 'Alta',
     rate,
     reference,
     remarks,
-    bank_name,
+    bankName,
     iban
   } = req.body;
 console.log("dataaa: ", {
     name,
-    phone_number,
+    phone,
     dob,
     nie,
     caducidad,
-    social_security,
+    social,
     country,
     company_id,
     type,
@@ -35,25 +35,25 @@ console.log("dataaa: ", {
     rate,
     reference,
     remarks,
-    bank_name,
+    bankName,
     iban
   })
   try {
     const employeeId = await createEmployee(
       name,
-      phone_number,
+      phone,
       country,
       dob,
       nie,
       caducidad,
-      social_security,
+      social,
       company_id,
       type,
       status,
       rate,
       reference,
       remarks,
-      bank_name,
+      bankName,
       iban
     );
 

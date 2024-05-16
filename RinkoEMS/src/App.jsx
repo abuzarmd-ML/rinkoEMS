@@ -14,6 +14,7 @@ import Clients from './Components/Clients/Clients'
 import Attendance from './Components/Attendance/Attendance'
 import AddEmployee from './Components/Employee/AddEmployee'
 import AddObra from './Components/Obra/AddObra'
+import Company from './Components/Company/Company'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
       <Route path='/employee/add' element={<AddEmployee />}></Route>
       <Route path='/obra' element={<Obra />}></Route>
       <Route path='/obra/add' element={<AddObra />}></Route>
+      <Route path='/companies' element={<Company />}></Route>
       <Route path='/clients' element={<Clients />}></Route>
       <Route path='/attendance' element={<Attendance />}></Route>
       <Route path='/dashboard' element={<Dashboards />}>

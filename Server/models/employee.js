@@ -11,7 +11,7 @@ async function createEmployee(name,phone,country,dob,nie,caducidad,social_securi
   try {
     console.log("User info:",[name,phone,country,dob,nie,caducidad,social_security,type,status,rate,reference,remarks,bank_name,iban,company_id])
     const [result] = await connection.execute(
-      'INSERT INTO users (name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO employee (name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id]
     );
     return result.insertId;

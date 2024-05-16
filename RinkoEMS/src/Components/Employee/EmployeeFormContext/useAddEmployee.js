@@ -1,15 +1,18 @@
 import { useForm } from "react-hook-form"
 import axiosInstance from "../../../services/axiosInstance"
+import { useNavigate } from 'react-router-dom'
 
 
 const useAddEmployee = ()=>{
   const form = useForm({
     mode:'onBlur',
     defaultValues:{
-      name:''
+      name:'',
+      
     }
   })
 
+  const navigate = useNavigate()
   const handleSubmitForm = (formData,e)=>{
    e.preventDefault()
    console.log('form-data',formData)
@@ -21,7 +24,7 @@ const useAddEmployee = ()=>{
     },
     data: formData
   }).then(response => {
-            navigate('/dashboard');
+            navigate('/employee');
   })
   .catch(error => {
     // Handle network errors or other exceptions

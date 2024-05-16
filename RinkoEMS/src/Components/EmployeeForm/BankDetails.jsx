@@ -1,9 +1,5 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
 import { useFormContext, Controller } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
