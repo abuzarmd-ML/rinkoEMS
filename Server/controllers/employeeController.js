@@ -1,5 +1,5 @@
 // controllers/employeeController.js
-import { createEmployee } from "../models/employee.js";
+import { createEmployee, getEmployees } from "../models/employee.js";
 
 // Controller function to handle employee creation
 async function createEmployeeController(req, res, next) {
@@ -64,4 +64,16 @@ console.log("dataaa: ", {
   }
 }
 
-export { createEmployeeController };
+
+async function getEmployeesController(req, res, next) {
+  try {
+      const employees = await getEmployees();
+      res.status(200).json(employees);
+  } catch (error) {
+      console.error('Error fetching employees:', error);
+      res.status(500).json({ message: 'Failed to fetch employees' });
+  }
+}
+
+
+export { createEmployeeController, getEmployeesController};

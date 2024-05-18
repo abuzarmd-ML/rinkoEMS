@@ -20,5 +20,17 @@ async function createEmployee(name,phone,country,dob,nie,caducidad,social_securi
   }
 }
 
+
+async function getEmployees() {
+  const connection = await pool.getConnection();
+  try {
+      const [rows] = await connection.execute(`
+          SELECT * FROM employee
+      `);
+      return rows;
+  } finally {
+      connection.release();
+  }
+}
 // Export the createUser function as a named export
-export { createEmployee };
+export { createEmployee, getEmployees};

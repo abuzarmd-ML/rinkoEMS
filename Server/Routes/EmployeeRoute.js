@@ -1,11 +1,12 @@
 import express from 'express'
-import { createEmployeeController } from '../controllers/employeeController.js'
+import { createEmployeeController,getEmployeesController } from '../controllers/employeeController.js'
 
 
 const router = express.Router()
 
 
 router.post('/employees', createEmployeeController);
+router.get('/employees', getEmployeesController);
 //   router.get('/detail/:id', (req, res) => {
 //     const id = req.params.id;
 //     const sql = "SELECT * FROM employee where id = ?"
