@@ -5,6 +5,7 @@ import Jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoutes.js";
 import { EmployeeRouter } from "./routes/EmployeeRoute.js";
+import { CompanyRoute } from "./routes/companyRoute.js";
 
 const app = express() 
 
@@ -19,6 +20,7 @@ app.use(cookieParser())
 app.use(loginRoute)
 app.use(userRoute)
 app.use(EmployeeRouter)
+app.use(CompanyRoute)
 // app.use(express.static('Public'))
 
 app.listen(3000 , () =>{

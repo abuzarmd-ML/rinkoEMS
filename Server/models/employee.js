@@ -9,7 +9,6 @@ const pool = mysql.createPool(config);
 async function createEmployee(name,phone,country,dob,nie,caducidad,social_security,company_id,type,status,rate,reference,remarks,bank_name,iban) {
   const connection = await pool.getConnection();
   try {
-    console.log("User info:",[name,phone,country,dob,nie,caducidad,social_security,type,status,rate,reference,remarks,bank_name,iban,company_id])
     const [result] = await connection.execute(
       'INSERT INTO employee (name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id]
@@ -32,5 +31,21 @@ async function getEmployees() {
       connection.release();
   }
 }
-// Export the createUser function as a named export
-export { createEmployee, getEmployees};
+
+async function getEmployeeById(employeeId) {
+
+  console.log("Executing query to fetch employee with ID:", employeeId);
+  const connection = await pool.getConnection();
+  try {
+    const [rows] = await connection.execute(
+      'SELECT * FROM employee WHERE employee_id = ?',
+      [employeeId]
+    );
+    console.log(employeeId,rows)
+    return rows[0];
+  } finally {
+    connection.release();
+  }
+}
+
+export { createEmployee, getEmployees, getEmployeeById};
