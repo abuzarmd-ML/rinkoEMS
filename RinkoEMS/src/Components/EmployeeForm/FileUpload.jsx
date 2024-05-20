@@ -31,7 +31,6 @@ const DocumentUpload = ({ fields }) => {
     setContract(event.target.files[0]);
   };
 
- 
   const resetPhotoInput = () => {
     setPhoto(null);
     photoInputRef.current.value = null;
