@@ -1,55 +1,20 @@
-import React, { useState, useRef } from 'react';
-import { TextField, Button, Grid, Typography, Card, CardContent } from '@mui/material';
+import React, { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Cards from '../Cards/Cards';
 
 const DocumentUpload = ({ fields }) => {
   const [photo, setPhoto] = useState(null);
-  const [resumeDocument, setResumeDocument] = useState(null);
-  const [NIE, setNIE] = useState(null);
-  const [License, setLicense] = useState(null);
-  const [contract, setContract] = useState(null);
-  const NIEInputRef = useRef(null);
-  const photoInputRef = useRef(null);
-  const ResumPInputRef = useRef(null);
-  const ContractInputRef = useRef(null);
-  const DLInputRef = useRef(null);
+  const [idDocument, setIdDocument] = useState(null);
 
   const handlePhotoChange = (event) => {
     setPhoto(event.target.files[0]);
   };
 
-  const handleResumeDocumentChange = (event) => {
-    setResumeDocument(event.target.files[0]);
-  };
-  const handleNIEChange = (event) => {
-    setNIE(event.target.files[0]);
-  };
-
-  const handleDLChange = (event) => {
-    setLicense(event.target.files[0]);
-  };
-  const handleContractChange = (event) => {
-    setContract(event.target.files[0]);
-  };
-
-  const resetPhotoInput = () => {
-    setPhoto(null);
-    photoInputRef.current.value = null;
-  };
-
-  const resetNIEInput = () => {
-    NIEInputRef.current.value = null;
-  };
-
-  const resetDLInput = () => {
-    DLInputRef.current.value = null;
-  };
-
-  const resetResumeInput = () => {
-    ResumPInputRef.current.value = null;
-  };
-
-  const resetContractInput = () => {
-    ContractInputRef.current.value = null;
+  const handleIdDocumentChange = (event) => {
+    setIdDocument(event.target.files[0]);
   };
 
   const handleSubmit = async (event) => {
@@ -88,11 +53,8 @@ const DocumentUpload = ({ fields }) => {
           <Grid item xs={12}>
             <img src={photo ? URL.createObjectURL(photo) : ''} alt="Preview" style={{ width: '12%', maxHeight: '70px', marginBottom: '10px' }} />
           </Grid>
-
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="body1" sx={{ marginRight: '120px', fontSize: '15px', fontWeight: 'bold' }}>Upload Photo (JPEG/PNG):</Typography>
+          <Grid item xs={12}>
             <input
-              ref={photoInputRef}
               type="file"
               accept="image/*"
               onChange={handlePhotoChange}
@@ -139,8 +101,7 @@ const DocumentUpload = ({ fields }) => {
               <Button onClick={resetResumeInput}>X</Button>
             )}
           </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="body1" sx={{ marginRight: '150px', fontSize: '15px', fontWeight: 'bold' }}>Upload Contract (PDF):</Typography>
+          <Grid item xs={12}>
             <input
               ref={ContractInputRef}
               type="file"
@@ -150,6 +111,11 @@ const DocumentUpload = ({ fields }) => {
             {contract && (
               <Button onClick={resetContractInput}>X</Button>
             )}
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Upload Documents
+            </Button>
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" onClick={handleSubmit}>
