@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Toolbar,Container } from '@mui/material';
+import { Toolbar,Container, Paper } from '@mui/material';
 import AddCompany from './AddCompany';
 
 const Company = () => {
@@ -34,14 +34,12 @@ const Company = () => {
         {/* <EmployeeFormContext  > */}
          <Toolbar />
          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <AddCompany />
+            <Paper>
+             <AddCompany />
+            </Paper>
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Button variant="contained" type='submit'>
-          Submit
-        </Button>
         </Container>
-        {/* </EmployeeFormContext> */}
       </Box>
     </AdminLayout>
   );
