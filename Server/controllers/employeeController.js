@@ -1,5 +1,6 @@
 // controllers/employeeController.js
 import { createEmployee, getEmployees } from "../models/employee.js";
+import { getEmployeeById } from "../models/employee.js";
 
 // Controller function to handle employee creation
 async function createEmployeeController(req, res, next) {
@@ -21,23 +22,6 @@ async function createEmployeeController(req, res, next) {
     bankName,
     iban
   } = req.body;
-console.log("dataaa: ", {
-    name,
-    phone,
-    dob,
-    nie,
-    caducidad,
-    social,
-    country,
-    company_id,
-    type,
-    status,
-    rate,
-    reference,
-    remarks,
-    bankName,
-    iban
-  })
   try {
     const employeeId = await createEmployee(
       name,
@@ -75,5 +59,21 @@ async function getEmployeesController(req, res, next) {
   }
 }
 
+async function getEmployeeControllerById(req, res, next) {
+  const employeeId = req.params.id;
+  console.log("Fetching employee with ID:", employeeId)
+  try {
+    const employee = await getEmployeeById(employeeId);
+    if (employee) {
+      res.status(200).json(employee);
+    } else {
+      res.status(404).json({ message: 'Employee not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching employee:', error);
+    res.status(500).json({ message: 'Failed to fetch employee' });
+  }
+}
 
-export { createEmployeeController, getEmployeesController};
+
+export { createEmployeeController, getEmployeesController, getEmployeeControllerById};
