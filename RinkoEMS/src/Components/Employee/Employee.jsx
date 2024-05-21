@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Toolbar, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Box, Toolbar, Container, Grid, Paper, Typography,Button } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchEmployees } from '../../api/employeeApi';
@@ -21,6 +21,10 @@ const columns = [
     { accessorKey: 'remarks', header: 'Remarks', size: 150 },
     { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
     { accessorKey: 'iban', header: 'IBAN', size: 150 },
+    { accessorKey: 'id', header: 'Actions', size: 200 , Cell:({row})=>{
+        console.log("row: ", row,row.original.employee_id)
+        return (<><Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>  <Button variant="outlined" color="error">Delete</Button></>)}
+    },
 ];
 
 const Employee = () => {
