@@ -30,7 +30,7 @@ function App() {
       {/* <Route path='/employee_detail/:id' element={<EmployeeDetail />}></Route> */}
       <Route path='/employee' element={<Employee />}></Route>
       <Route path='/employee/add' element={<AddEmployee />}></Route>
-      <Route path='/employee/add:id' element={<AddEmployee />}></Route>
+      <Route path='/employee/add/:id' element={<AddEmployee />}></Route>
       <Route path='/obra' element={<Obra />}></Route>
       <Route path='/obra/add' element={<AddObra />}></Route>
       <Route path='/companies' element={<Company />}></Route>
