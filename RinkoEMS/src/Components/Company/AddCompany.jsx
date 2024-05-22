@@ -1,29 +1,49 @@
-import React,{useState,useEffect} from 'react';
-import { useForm,Form } from '../BasicForm/useForm';
-import { Grid, TextField } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useForm, Form } from '../BasicForm/useForm';
+import { Grid, TextField,Button } from '@mui/material';
 import FormInputElement from '../BasicForm/FormInputElement';
 import Controls from '../BasicForm/Controls';
 import { getStatus } from '../../services/statusService';
+import axiosInstance from '../../services/axiosInstance';
+import { useNavigate } from 'react-router-dom'
+
 
 const initialFValues = {
     companyName: '',
-    address:'',
-    nif: 0,
-    status:'',
-    contactNumber:0,
+    address: '',
+    nif: '',
+    status: '',
+    contactNumber: '',
     // startDate: new Date(),
-}
-// const mandatoryError = 'This field is mandatory'
-
+};
 
 export default function AddCompany() {
-
-    const {values,setValues,handleInputChange} = useForm(initialFValues);
+    const { values, setValues, handleInputChange } = useForm(initialFValues);
     const statusOptions = getStatus();
 
+    const navigate = useNavigate()
+    const handleSubmit = (formData,e)=>{
+     e.preventDefault()
+     console.log('form-data',formData)
+     axiosInstance({
+      url: '/add_company',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: formData
+    }).then(response => {
+              navigate('/company');
+    })
+    .catch(error => {
+      // Handle network errors or other exceptions
+      console.error("Error in submitting employee form:", error);
+      setError(true);
+    });
+    }
+
     return (
-        <Form >
-            <Grid container>
+        <Form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
                 <Grid item xs={6}>
                     <FormInputElement
                         name="companyName"
@@ -44,7 +64,7 @@ export default function AddCompany() {
                         onChange={handleInputChange}
                     />
                 </Grid>
-                
+
                 <Grid item xs={6}>
                     <FormInputElement
                         name="nif"
@@ -53,20 +73,24 @@ export default function AddCompany() {
                         onChange={handleInputChange}
                     />
                     <Controls.Select
-                    name = "status"
-                    label = "Status"
-                    value = {values.status}
-                    onChange = {handleInputChange}
-                    options = {statusOptions}
+                        name="status"
+                        label="Status"
+                        value={values.status}
+                        onChange={handleInputChange}
+                        options={statusOptions}
                     />
                 </Grid>
-            <div>
-                <Controls.Button
-                    text = "Submit"
-                />
-            </div>
+                <Grid item xs={12} style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </Button>
+                </Grid>
             </Grid>
         </Form>
-    )
+    );
 }
-
