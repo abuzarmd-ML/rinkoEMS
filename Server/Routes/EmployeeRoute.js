@@ -6,7 +6,7 @@ import { getEmployeeControllerById } from '../controllers/employeeController.js'
 const router = express.Router()
 router.post('/employees', createEmployeeController);
 router.get('/employees', getEmployeesController);
-router.get('/employees/:id', getEmployeeControllerById);
+router.get('/employeesById/:id', getEmployeeControllerById);
 
   router.get('/logout', (req, res) => {
     res.clearCookie('token')
