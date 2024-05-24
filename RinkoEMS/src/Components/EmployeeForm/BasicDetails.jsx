@@ -1,15 +1,12 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import InputAdornment from '@mui/material/InputAdornment';
-import { useFormContext, Controller } from 'react-hook-form';
+
+import { useFormContext } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
-import CountryDropdown from './CountryDropdown'
-
-
+import BasicDatePicker from '../BasicForm/DatePicker';
+import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
+import countyList from '../../../public/country.json'
 const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
@@ -23,7 +20,7 @@ const BasicDetails = ({ fields }) => {
     event.preventDefault();
     // Implement form submission logic here
   };
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState: { errors },control } = useFormContext()
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -80,34 +77,14 @@ const BasicDetails = ({ fields }) => {
         </Grid>
 
         <Grid item xs={6}>
-
-          <CountryDropdown />
+         
+          {/* <CountryDropdown /> */}
+          <SelectAutoComplete   control={control} fieldName="country" label="Select Country" options={countyList}  />
         </Grid>
-
-        <Grid item xs={6}>
-          <TextField
-            required
-            fullWidth
-            type="date"
-            label="Date of birth"
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            name='dob'
-            {
-            ...register('dob', {
-              required: {
-                value: true,
-                message: mandatoryError
-              }
-            })
-            }
-            error={errors?.['dob']}
-            helperText={errors?.['dob'] ? errors['dob'].message : ""}
-
-          />
+        <Grid tem xs={6}>
+          <BasicDatePicker   control={control} fieldName="dob" label="Date of birth" size="small"/>
         </Grid>
+        
         <Grid item xs={6}>
           <TextField
             required
@@ -131,28 +108,8 @@ const BasicDetails = ({ fields }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            required
-            fullWidth
-            type="date"
-            label="Caducidad del NIE"
-            name='caducidad'
-            {
-            ...register('caducidad', {
-              required: {
-                value: true,
-                message: mandatoryError
-              }
-            })
-            }
-            error={errors?.['caducidad']}
-            helperText={errors?.['caducidad'] ? errors['caducidad'].message : ""}
-
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+        <BasicDatePicker   control={control} fieldName="caducidad" label="aducidad del NIE" size="small"/>
+          
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -161,9 +118,9 @@ const BasicDetails = ({ fields }) => {
             fullWidth
             type="text"
             label={'Seguridad Social'}
-            name='social'
+            name='social_security'
             {
-            ...register('social', {
+            ...register('social_security', {
               required: {
                 value: true,
                 message: mandatoryError

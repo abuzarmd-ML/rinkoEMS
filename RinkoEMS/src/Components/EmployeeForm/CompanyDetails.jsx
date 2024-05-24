@@ -1,16 +1,50 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import { useFormContext, Controller } from 'react-hook-form';
-import { Grid, Typography, Select, MenuItem, InputLabel,FormControl} from '@mui/material';
-
+import { useFormContext } from 'react-hook-form';
+import { Grid, Typography } from '@mui/material';
+import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import Cards from '../Cards/Cards';
 const mandatoryError = 'This field is mandatory'
+
+const statusOptions = [
+  {
+    label: 'Alta',
+    value: 'Alta'
+  },
+  {
+    label: 'Baja',
+    value: 'Baja'
+  },
+  {
+    label: 'Medical Baja',
+    value: 'Medical Baja'
+  },
+  {
+    label: 'Terminated',
+    value: 'Terminated'
+  }
+]
+
+const employeeTypeOptions = [
+  {
+    label: 'Contract',
+    value: 'Contract'
+  },
+  {
+    label: 'Full Type',
+    value: 'Full Type'
+  },
+  {
+    label: 'Terminated',
+    value: 'Terminated'
+
+  }]
 
 const BasicDetails = ({ fields }) => {
 
   const [status, setStatus] = React.useState('');
   const [type, setType] = React.useState('');
-  const { register, formState: { errors } } = useFormContext()
+  const { register, formState: { errors }, control } = useFormContext()
 
 
   const handleStatusChange = (event) => {
@@ -43,57 +77,26 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
             name="company"
             {
-              ...register('company', {
-                required: {
-                  value: true,
-                  message: mandatoryError
-                }
-              })
+            ...register('company', {
+              required: {
+                value: true,
+                message: mandatoryError
               }
-              error={errors?.['company']}
-              helperText={errors?.['company'] ? errors['company'].message : ""}
-  
+            })
+            }
+            error={errors?.['company']}
+            helperText={errors?.['company'] ? errors['company'].message : ""}
+
           />
         </Grid>
         <Grid item xs={6}>
-          <FormControl variant="outlined" fullWidth>
-          <InputLabel id="type-label">Type</InputLabel>
-          <Select 
-              labelId="type-label"
-              id="type"
-              fullWidth
-              label={'Type'}
-              value={type}
-              onChange={handleTypeChange}
-              variant="outlined"
-            >
-              <MenuItem value="">Select Type</MenuItem>
-              <MenuItem value="At">Contract</MenuItem>
-              <MenuItem value="Bj">Full Type</MenuItem>
-              <MenuItem value="MB">Terminated</MenuItem>
-          </Select>
-          </FormControl>
-    </Grid>
-    <Grid item xs={6}>
-      <FormControl variant="outlined" fullWidth>
-      <InputLabel id="status-label">Status</InputLabel>
-      <Select 
-        labelId="status-label"
-        id="status"
-        fullWidth
-        label={'Status'}
-        value={status}
-        onChange={handleStatusChange}
-        variant="outlined"
-      >
-        <MenuItem value="">Select Status</MenuItem>
-        <MenuItem value="At">Alta</MenuItem>
-        <MenuItem value="Bj">Baja</MenuItem>
-        <MenuItem value="MB">Medical Baja</MenuItem>
-        <MenuItem value="Td">Terminated</MenuItem>
-      </Select>
-      </FormControl>
-    </Grid>
+          <SelectAutoComplete control={control} fieldName={'type'} label={'Select Employee Type'} options={employeeTypeOptions} defaultValue={'Contract'} />
+
+        </Grid>
+        <Grid item xs={6}>
+          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={statusOptions} />
+
+        </Grid>
         <Grid item xs={6}>
           <TextField
             required
@@ -103,16 +106,16 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
             name="rate"
             {
-              ...register('rate', {
-                required: {
-                  value: true,
-                  message: mandatoryError
-                }
-              })
+            ...register('rate', {
+              required: {
+                value: true,
+                message: mandatoryError
               }
-              error={errors?.['rate']}
-              helperText={errors?.['rate'] ? errors['rate'].message : ""}
-  
+            })
+            }
+            error={errors?.['rate']}
+            helperText={errors?.['rate'] ? errors['rate'].message : ""}
+
           />
         </Grid>
         <Grid item xs={6}>
@@ -122,16 +125,16 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
             name="reference"
             {
-              ...register('reference', {
-                required: {
-                  value: true,
-                  message: mandatoryError
-                }
-              })
+            ...register('reference', {
+              required: {
+                value: true,
+                message: mandatoryError
               }
-              error={errors?.['reference']}
-              helperText={errors?.['reference'] ? errors['reference'].message : ""}
-  
+            })
+            }
+            error={errors?.['reference']}
+            helperText={errors?.['reference'] ? errors['reference'].message : ""}
+
           />
         </Grid>
         <Grid item xs={6}>
@@ -142,16 +145,16 @@ const BasicDetails = ({ fields }) => {
             variant="outlined"
             name="remarks"
             {
-              ...register('remarks', {
-                required: {
-                  value: true,
-                  message: mandatoryError
-                }
-              })
+            ...register('remarks', {
+              required: {
+                value: true,
+                message: mandatoryError
               }
-              error={errors?.['remarks']}
-              helperText={errors?.['remarks'] ? errors['remarks'].message : ""}
-  
+            })
+            }
+            error={errors?.['remarks']}
+            helperText={errors?.['remarks'] ? errors['remarks'].message : ""}
+
           />
         </Grid>
       </Grid>

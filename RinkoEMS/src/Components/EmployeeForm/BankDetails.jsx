@@ -30,9 +30,9 @@ const BankDetails = ({ fields }) => {
             fullWidth
             label={'Bank Name'}
             variant="outlined"
-            name="bankName"
+            name="bank_name"
             {
-              ...register('bankName', {
+              ...register('bank_name', {
                 required: {
                   value: true,
                   message: mandatoryError
