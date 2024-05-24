@@ -18,7 +18,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alerts from '../Alert';
 import AutoCompleteDropdown from '../AutoCompleteDropdown';
-import { getAllCompanies } from '../../api/companyApi';
+import { getCompanyName } from '../../api/companyApi';
 import axiosInstance from '../../services/axiosInstance';
 
 const defaultTheme = createTheme();
@@ -127,7 +127,7 @@ export default function Login() {
                   name="company"
                   control={control}
                   render={({ field }) => (
-                    <AutoCompleteDropdown label="Company" fetchOptions={getAllCompanies} {...field} />
+                    <AutoCompleteDropdown label="Company" fetchOptions={getCompanyName} {...field} />
                   )}
                 />
               )}

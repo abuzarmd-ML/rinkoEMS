@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+// src/Company.js
+import React, { useState, useEffect } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Toolbar,Container, Paper } from '@mui/material';
+import { Toolbar, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import AddCompany from './AddCompany';
+import axiosInstance from '../../services/axiosInstance';
 
 const Company = () => {
-  const [image, setImage] = useState(null);
+  const [companies, setCompanies] = useState([]);
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  useEffect(() => {
+    fetchCompanies();
+  }, []);
+
+  const fetchCompanies = async () => {
+    try {
+      const response = await axiosInstance.get('/companies');
+      setCompanies(response.data);
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic here
+  const handleCompanyAdded = (newCompany) => {
+    setCompanies([...companies, newCompany]);
   };
 
   return (
     <AdminLayout title="Company">
-      <Box 
+      <Box
         component="main"
         sx={{
           backgroundColor: (theme) =>
@@ -31,14 +41,37 @@ const Company = () => {
           overflow: 'auto',
         }}
       >
-        {/* <EmployeeFormContext  > */}
-         <Toolbar />
-         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Paper>
-             <AddCompany />
-            </Paper>
+        <Toolbar />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Paper sx={{ p: 2 }}>
+            <AddCompany onCompanyAdded={handleCompanyAdded} />
+          </Paper>
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Paper sx={{ p: 2 }}>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Company Name</TableCell>
+                    <TableCell>Address</TableCell>
+                    <TableCell>Encargar</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {companies.map((company) => (
+                    <TableRow key={company.id}>
+                      <TableCell>{company.name}</TableCell>
+                      <TableCell>{company.address}</TableCell>
+                      <TableCell>{company.encargar}</TableCell>
+                      <TableCell>{company.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
         </Container>
       </Box>
     </AdminLayout>
