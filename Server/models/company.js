@@ -17,14 +17,14 @@ async function createCompany(name,address,encargar,status) {
   }
 }
 
-async function getCompanyName() {
+async function getAllCompanies() {
   const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute('SELECT company_id, name FROM companies');
+    const [rows] = await connection.execute('SELECT * FROM companies');
     return rows;
   } finally {
     connection.release();
   }
 }
 
-export {createCompany,getCompanyName}
+export {createCompany,getAllCompanies}
