@@ -1,5 +1,5 @@
 // controllers/companyController.js
-import { getCompanyName,createCompany } from '../models/company.js';
+import { getAllCompanies,createCompany } from '../models/company.js';
 
 async function createCompanyController(req, res, next) {
   console.log("[Controller] : ", req.body)
@@ -26,7 +26,7 @@ async function createCompanyController(req, res, next) {
 
 async function getCompaniesController(req, res) {
   try {
-    const companies = await getCompanyName();
+    const companies = await getAllCompanies();
     res.json(companies);
   } catch (error) {
     console.error('Error fetching companies:', error);
