@@ -22,7 +22,7 @@ const EmployeeFormContext = ({ children }) => {
       }, [id])
 
     const { form, handleSubmitForm } = useAddEmployee(defaultValue)
-    if(isLoading){
+    if(isLoading && id){
         return <h2>Data loading</h2>
     }
     return (

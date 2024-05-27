@@ -31,14 +31,14 @@ export default function BasicDatePicker(props) {
                 return (
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
-                           sx={{margin:"10px"}}
+                          //  sx={{margin:"10px"}}
                             slotProps={{
                                 textField: { variant: "outlined",fullWidth:'true', helperText: error ? error.message : '' },
                             }}
 
                             label={label}
                             value={dayjs(new Date(value))}
-                            minDate={dayjs(new Date())}
+                            maxDate={dayjs(new Date())}
 
                             onChange={(newValue) => {
                                 const dateString = moment(new Date(newValue)).format('YYYY-MM-DD').toString()
