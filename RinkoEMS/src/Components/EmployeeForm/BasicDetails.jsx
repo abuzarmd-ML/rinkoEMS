@@ -81,7 +81,7 @@ const BasicDetails = ({ fields }) => {
           {/* <CountryDropdown /> */}
           <SelectAutoComplete   control={control} fieldName="country" label="Select Country" options={countyList}  />
         </Grid>
-        <Grid tem xs={6}>
+        <Grid item xs={6}>
           <BasicDatePicker   control={control} fieldName="dob" label="Date of birth" size="small"/>
         </Grid>
         
