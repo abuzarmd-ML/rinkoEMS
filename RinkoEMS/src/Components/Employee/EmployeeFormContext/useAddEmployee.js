@@ -10,7 +10,7 @@ const useAddEmployee = (defaultValue) => {
   })
 
 
-
+  console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
     e.preventDefault()

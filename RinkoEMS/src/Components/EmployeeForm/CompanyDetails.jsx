@@ -1,9 +1,11 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import Cards from '../Cards/Cards';
+import { getCompanyName } from '../../api/companyApi';
+import AutoCompleteDropdown from '../AutoCompleteDropdown';
 const mandatoryError = 'This field is mandatory'
 
 const statusOptions = [
@@ -89,6 +91,23 @@ const BasicDetails = ({ fields }) => {
 
           />
         </Grid>
+
+        {/* <Grid item xs={6}>
+          <Controller
+            name="company"
+            control={control}
+            rules={{ required: { value: true, message: mandatoryError } }}
+            render={({ field }) => (
+              <AutoCompleteDropdown label="Company" fetchOptions={getCompanyName} {...field} />
+            )}
+          />
+          {errors.company && (
+            <Typography color="error" variant="body2">
+              {errors.company.message}
+            </Typography>
+          )}
+        </Grid> */}
+        
         <Grid item xs={6}>
           <SelectAutoComplete control={control} fieldName={'type'} label={'Select Employee Type'} options={employeeTypeOptions} defaultValue={'Contract'} />
 

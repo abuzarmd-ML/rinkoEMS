@@ -5,7 +5,7 @@ import axiosInstance from "../../../services/axiosInstance"
 import { useParams } from "react-router-dom"
 
 const EmployeeFormContext = ({ children }) => {
-     const[defaultValue,setDefaultValues] = React.useState({name:'name'})
+     const[defaultValue,setDefaultValues] = React.useState({name:''})
      const [isLoading,setIsloading] = React.useState(true)
     const { id } = useParams()
 

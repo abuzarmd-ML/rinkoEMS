@@ -4,24 +4,43 @@ import { getEmployeeById } from "../models/employee.js";
 
 // Controller function to handle employee creation
 async function createEmployeeController(req, res, next) {
-    console.log("[Controller] : ", req.body)
+  
+  console.log("[Controller] : ", req.body)
   const {
-    name,
-    phone,
-    dob,
-    nie,
-    caducidad,
-    social,
-    country,
-    company_id = '1',
-    type = 'Full Time',
-    status = 'Alta',
-    rate,
-    reference,
-    remarks,
-    bankName,
-    iban
+  name,
+  phone,
+  country,
+  dob,
+  nie,
+  caducidad,
+  social_security,
+  company,
+  type,
+  status,
+  rate,
+  reference,
+  remarks,
+  bank_name,
+  iban
   } = req.body;
+
+  console.log("####",
+  name,
+  phone,
+  country,
+  dob,
+  nie,
+  caducidad,
+  social_security,
+  company,
+  type,
+  status,
+  rate,
+  reference,
+  remarks,
+  bank_name,
+  iban)
+
   try {
     const employeeId = await createEmployee(
       name,
@@ -30,14 +49,14 @@ async function createEmployeeController(req, res, next) {
       dob,
       nie,
       caducidad,
-      social,
-      company_id,
+      social_security,
+      company,
       type,
       status,
       rate,
       reference,
       remarks,
-      bankName,
+      bank_name,
       iban
     );
 
