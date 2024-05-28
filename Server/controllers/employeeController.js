@@ -1,6 +1,6 @@
 // controllers/employeeController.js
 import { createEmployee, getEmployees,updateEmployee } from "../models/employee.js";
-import { getEmployeeById } from "../models/employee.js";
+import { getEmployeeById,deleteEmployeeById } from "../models/employee.js";
 
 // Controller function to handle employee creation
 async function createEmployeeController(req, res, next) {
@@ -110,5 +110,19 @@ async function updateEmployeeController(req, res, next) {
   }
 }
 
+async function deleteEmployeeController(req, res) {
+  const { employeeId } = req.params;
+  try {
+    const success = await deleteEmployeeById(employeeId);
+    if (success) {
+      res.status(200).json({ message: 'Employee deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Employee not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting employee:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
 
-export { createEmployeeController, getEmployeesController, getEmployeeControllerById, updateEmployeeController};
+export { createEmployeeController, getEmployeesController, getEmployeeControllerById, updateEmployeeController,deleteEmployeeController};

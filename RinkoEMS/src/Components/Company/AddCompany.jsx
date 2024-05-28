@@ -1,18 +1,24 @@
 // src/AddCompany.js
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Container, Typography, Box, MenuItem } from '@mui/material';
+import { TextField, Button, Grid, Container, Typography, Box, MenuItem, Alert } from '@mui/material';
 import { getStatus } from '../../services/statusService'; // Import the getStatus function
 import axiosInstance from '../../services/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 const AddCompany = () => {
-  const [values, setValues] = useState({
+  const initialValues = {
     name: '',
     address: '',
     encargar: '',
     status: '',
-  });
+  };
+
+  const [values, setValues] = useState(initialValues);
 
   const statusOptions = getStatus(); // Get the status options
+  const [signupErrorMessage, setSignupErrorMessage] = useState('');
+  const [signupSuccessMessage, setSignupSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,22 +31,29 @@ const AddCompany = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = axiosInstance('/companies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: values
-      });
+      const response = await axiosInstance.post('/companies', values); // Await the response
+      console.log("RESPONSE:::", response);
+      if (response.status >= 200 && response.status < 300) {
+        // Handle successful signup (e.g., show success message, redirect to login page)
+        console.log('Company created successfully');
+        setSignupSuccessMessage('New Company Added');
+        setSignupErrorMessage(''); // Clear any previous error message
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+        // Clear form inputs
+        setValues(initialValues);
+
+        setTimeout(() => {
+          navigate('/companies');
+        }, 2000);
+      } else {
+        // If the response status is not in the success range, throw an error
+        throw new Error('Failed to create Company');
       }
-
-      const result = await response.json();
-      console.log(result);
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+      console.error('Error Creating Company:', error);
+      // Handle signup error (e.g., display error message to user)
+      setSignupErrorMessage('Failed to create Company');
+      setSignupSuccessMessage(''); // Clear any previous success message
     }
   };
 
@@ -50,6 +63,16 @@ const AddCompany = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           ADD Company
         </Typography>
+        {signupSuccessMessage && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            {signupSuccessMessage}
+          </Alert>
+        )}
+        {signupErrorMessage && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            {signupErrorMessage}
+          </Alert>
+        )}
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={6}>

@@ -1,24 +1,12 @@
 import * as React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {
-  Avatar,
-  Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Grid,
-  Box,
-  Typography,
-  Container,
-} from '@mui/material';
+import {Avatar,Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alerts from '../Alert';
-import AutoCompleteDropdown from '../AutoCompleteDropdown';
 import { getCompanyName } from '../../api/companyApi';
+import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import axiosInstance from '../../services/axiosInstance';
 
 const defaultTheme = createTheme();
@@ -40,6 +28,20 @@ function Copyright(props) {
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = React.useState(false);
+
+  const form = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      username: '',
+      password: '',
+      company: null,
+      isAdmin: false,
+    },
+  });
+  const { register, formState: { errors }, control, watch, handleSubmit } = form;
+  const isAdmin = watch('isAdmin');
+  const [companyList,setCompnayList] = React.useState([])
+
   axiosInstance.defaults.withCredentials = true;
 
   const onSubmit = (formData, event) => {
@@ -70,18 +72,12 @@ export default function Login() {
       });
   };
 
-  const form = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      username: '',
-      password: '',
-      company: null,
-      isAdmin: false,
-    },
-  });
-
-  const { register, formState: { errors }, control, watch, handleSubmit } = form;
-  const isAdmin = watch('isAdmin');
+  React.useEffect(()=>{
+    getCompanyName().then((response)=>{
+     setCompnayList([...response])
+    })
+  },[])
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,13 +119,7 @@ export default function Login() {
                 autoComplete="current-password"
               />
               {!isAdmin && (
-                <Controller
-                  name="company"
-                  control={control}
-                  render={({ field }) => (
-                    <AutoCompleteDropdown label="Company" fetchOptions={getCompanyName} {...field} />
-                  )}
-                />
+                <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
               )}
               <FormControlLabel
                 control={

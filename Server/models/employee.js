@@ -69,4 +69,17 @@ async function updateEmployee(id, employeeData) {
   }
 }
 
-export { createEmployee, getEmployees, getEmployeeById, updateEmployee};
+async function deleteEmployeeById(employeeId) {
+  const connection = await pool.getConnection();
+  try {
+    const [result] = await connection.execute(
+      'DELETE FROM employee WHERE employee_id = ?',
+      [employeeId]
+    );
+    return result.affectedRows > 0;
+  } finally {
+    connection.release();
+  }
+}
+
+export { createEmployee, getEmployees, getEmployeeById, updateEmployee, deleteEmployeeById};

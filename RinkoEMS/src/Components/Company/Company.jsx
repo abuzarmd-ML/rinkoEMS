@@ -2,26 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Toolbar, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import AddCompany from './AddCompany';
+import { getAllCompany } from '../../api/companyApi';
 import axiosInstance from '../../services/axiosInstance';
 
 const Company = () => {
   const [companies, setCompanies] = useState([]);
 
-  useEffect(() => {
-    fetchCompanies();
-  }, []);
-
-  const fetchCompanies = async () => {
-    try {
-      const response = await axiosInstance.get('/companies');
-      setCompanies(response.data);
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    }
-  };
+  React.useEffect(()=>{
+    getAllCompany().then((response)=>{
+      setCompanies([...response])
+    })
+  },[])
 
   const handleCompanyAdded = (newCompany) => {
     setCompanies([...companies, newCompany]);
