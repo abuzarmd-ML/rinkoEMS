@@ -57,4 +57,20 @@ async function getEmployeeById(employeeId) {
   }
 }
 
-export { createEmployee, getEmployees, getEmployeeById};
+async function updateEmployee(id, employeeData) {
+  const connection = await pool.getConnection();
+  try {
+    const { name, phone, country, dob, nie, caducidad, social_security, company_id, type, status, rate, reference, remarks, bank_name, iban } = employeeData;
+    const [result] = await connection.execute(
+      `UPDATE employee 
+       SET name = ?, phone = ?, country = ?, dob = ?, nie = ?, caducidad = ?, social_security = ?, company_id = ?, type = ?, status = ?, rate = ?, reference = ?, remarks = ?, bank_name = ?, iban = ?
+       WHERE employee_id = ?`,
+      [name, phone, country, dob, nie, caducidad, social_security, company_id, type, status, rate, reference, remarks, bank_name, iban, id]
+    );
+    return result;
+  } finally {
+    connection.release();
+  }
+}
+
+export { createEmployee, getEmployees, getEmployeeById, updateEmployee};
