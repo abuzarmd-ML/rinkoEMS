@@ -2,26 +2,41 @@ import React from "react"
 import { useForm } from "react-hook-form"
 import axiosInstance from "../../../services/axiosInstance"
 import { useNavigate } from 'react-router-dom'
+import { useParams } from "react-router-dom"
+import moment from "moment"
 
 const useAddEmployee = (defaultValue) => {
   const form = useForm({
     mode: 'onBlur',
-    values: {...defaultValue}
+    values: { ...defaultValue,
+      company:defaultValue?.company_id??''
+     }
   })
 
+  const { id } = useParams()
 
   console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
+    const payload = id ? { url: `/employeesById/${id}`, method: 'PUT' } : {
+      url: '/employees',
+      method: 'POST'
+    }
     e.preventDefault()
     console.log('form-data', formData)
     axiosInstance({
-      url: '/employees',
-      method: 'POST',
+      ...payload,
       headers: {
         'Content-Type': 'application/json'
       },
-      data: formData
+      data: {
+        ...formData,
+        type:formData.type?.label??formData.type,
+        status:formData.status?.label??formData.status,
+        country:formData.country?.label??formData.country,
+        dob: moment(formData.dob).format('YYYY-MM-DD'),
+        caducidad: moment(formData.caducidad).format('YYYY-MM-DD')
+      }
     }).then(response => {
       navigate('/employee');
     })
