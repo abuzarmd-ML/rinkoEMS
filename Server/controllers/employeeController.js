@@ -1,5 +1,5 @@
 // controllers/employeeController.js
-import { createEmployee, getEmployees } from "../models/employee.js";
+import { createEmployee, getEmployees,updateEmployee } from "../models/employee.js";
 import { getEmployeeById } from "../models/employee.js";
 
 // Controller function to handle employee creation
@@ -75,5 +75,21 @@ async function getEmployeeControllerById(req, res, next) {
   }
 }
 
+async function updateEmployeeController(req, res, next) {
+  const employeeId = req.params.id;
+  const employeeData = req.body;
+  try {
+    const result = await updateEmployee(employeeId, employeeData);
+    if (result.affectedRows === 0) {
+      res.status(404).json({ message: 'Employee not found' });
+    } else {
+      res.status(200).json({ message: 'Employee updated successfully' });
+    }
+  } catch (error) {
+    console.error('Error updating employee:', error);
+    res.status(500).json({ message: 'Failed to update employee' });
+  }
+}
 
-export { createEmployeeController, getEmployeesController, getEmployeeControllerById};
+
+export { createEmployeeController, getEmployeesController, getEmployeeControllerById, updateEmployeeController};
