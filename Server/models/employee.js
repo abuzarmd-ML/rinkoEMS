@@ -9,11 +9,7 @@ const pool = mysql.createPool(config);
 async function createEmployee(name,phone,country,dob,nie,caducidad,social_security,company_id,type,status,rate,reference,remarks,bank_name,iban) {
   const connection = await pool.getConnection();
   try {
-    country = country.label
-    type = type.label
-    status = status.label
-    console.log(name,phone,country,dob,nie,caducidad,social_security,company_id,type,status,rate,reference,remarks,bank_name,iban)
-    console.log("unbind :", country,type,status)
+ 
     const [result] = await connection.execute(
       'INSERT INTO employee (name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id]
