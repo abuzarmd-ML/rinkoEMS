@@ -9,11 +9,7 @@ const pool = mysql.createPool(config);
 async function createEmployee(name,phone,country,dob,nie,caducidad,social_security,company_id,type,status,rate,reference,remarks,bank_name,iban) {
   const connection = await pool.getConnection();
   try {
-    country = country.label
-    type = type.label
-    status = status.label
-    console.log(name,phone,country,dob,nie,caducidad,social_security,company_id,type,status,rate,reference,remarks,bank_name,iban)
-    console.log("unbind :", country,type,status)
+ 
     const [result] = await connection.execute(
       'INSERT INTO employee (name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [name, phone,country,dob,nie,caducidad,social_security,type,status, rate,reference,remarks,bank_name,iban,company_id]
@@ -60,12 +56,12 @@ async function getEmployeeById(employeeId) {
 async function updateEmployee(id, employeeData) {
   const connection = await pool.getConnection();
   try {
-    const { name, phone, country, dob, nie, caducidad, social_security, company_id, type, status, rate, reference, remarks, bank_name, iban } = employeeData;
+    const { name, phone, country, dob, nie, caducidad, social_security, company, type, status, rate, reference, remarks, bank_name, iban } = employeeData;
     const [result] = await connection.execute(
       `UPDATE employee 
        SET name = ?, phone = ?, country = ?, dob = ?, nie = ?, caducidad = ?, social_security = ?, company_id = ?, type = ?, status = ?, rate = ?, reference = ?, remarks = ?, bank_name = ?, iban = ?
        WHERE employee_id = ?`,
-      [name, phone, country, dob, nie, caducidad, social_security, company_id, type, status, rate, reference, remarks, bank_name, iban, id]
+      [name, phone, country, dob, nie, caducidad, social_security, company, type, status, rate, reference, remarks, bank_name, iban, id]
     );
     return result;
   } finally {
