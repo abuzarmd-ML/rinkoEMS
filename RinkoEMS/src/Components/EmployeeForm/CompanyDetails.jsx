@@ -44,22 +44,15 @@ const employeeTypeOptions = [
 
 const BasicDetails = ({ fields }) => {
 
-  const [status, setStatus] = React.useState('');
-  const [type, setType] = React.useState('');
+  const [companyList,setCompnayList] = React.useState([])
   const { register, formState: { errors }, control } = useFormContext()
 
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handleTypeChange = (event) => {
-    setType(event.target.value);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Implement form submission logic here
-  };
+  React.useEffect(()=>{
+    getCompanyName().then((response)=>{
+     setCompnayList([...response])
+    })
+  },[])
+  
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -70,7 +63,7 @@ const BasicDetails = ({ fields }) => {
             Company Details
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField
             required
             id={'test'}
@@ -90,10 +83,10 @@ const BasicDetails = ({ fields }) => {
             helperText={errors?.['company'] ? errors['company'].message : ""}
 
           />
-        </Grid>
+        </Grid> */}
 
-        {/* <Grid item xs={6}>
-          <Controller
+        <Grid item xs={6}>
+          {/* <Controller
             name="company"
             control={control}
             rules={{ required: { value: true, message: mandatoryError } }}
@@ -105,8 +98,9 @@ const BasicDetails = ({ fields }) => {
             <Typography color="error" variant="body2">
               {errors.company.message}
             </Typography>
-          )}
-        </Grid> */}
+          )} */}
+           <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
+        </Grid>
         
         <Grid item xs={6}>
           <SelectAutoComplete control={control} fieldName={'type'} label={'Select Employee Type'} options={employeeTypeOptions} defaultValue={'Contract'} />

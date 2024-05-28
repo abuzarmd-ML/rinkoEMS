@@ -20,7 +20,7 @@ async function createCompany(name,address,encargar,status) {
 async function getCompanyName() {
   const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute('SELECT * FROM companies');
+    const [rows] = await connection.execute('SELECT company_id as value,name as label FROM companies');
     return rows;
   } finally {
     connection.release();

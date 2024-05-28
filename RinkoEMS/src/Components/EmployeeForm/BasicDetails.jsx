@@ -58,10 +58,11 @@ const BasicDetails = ({ fields }) => {
             required
             fullWidth
             id={'phone'}
-            type="tel"
+            // type="tel"
             label="número de telèfon"
             variant="outlined"
             name='phone'
+            type ="number"
             {
             ...register('phone', {
               required: {
@@ -116,7 +117,7 @@ const BasicDetails = ({ fields }) => {
             required
             id={'social'}
             fullWidth
-            type="text"
+            type ="number"
             label={'Seguridad Social'}
             name='social_security'
             {

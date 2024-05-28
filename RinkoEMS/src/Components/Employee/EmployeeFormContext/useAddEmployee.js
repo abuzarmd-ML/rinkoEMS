@@ -35,7 +35,8 @@ const useAddEmployee = (defaultValue) => {
         status:formData.status?.label??formData.status,
         country:formData.country?.label??formData.country,
         dob: moment(formData.dob).format('YYYY-MM-DD'),
-        caducidad: moment(formData.caducidad).format('YYYY-MM-DD')
+        caducidad: moment(formData.caducidad).format('YYYY-MM-DD'),
+        company: formData.company?.value??formData.company
       }
     }).then(response => {
       navigate('/employee');
