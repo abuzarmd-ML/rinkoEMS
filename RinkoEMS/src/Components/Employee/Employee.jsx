@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Toolbar, Container, Grid, Button } from '@mui/material';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchEmployees, deleteEmployee } from '../../api/employeeApi';
 
 const Employee = () => {
   const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [employeeIdToDelete, setEmployeeIdToDelete] = useState(null);
 
   useEffect(() => {
     const getEmployees = async () => {
@@ -19,10 +21,21 @@ const Employee = () => {
     getEmployees();
   }, []);
 
-  const handleDelete = async (employeeId) => {
+  const handleClickOpen = (employeeId) => {
+    setEmployeeIdToDelete(employeeId);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setEmployeeIdToDelete(null);
+  };
+
+  const handleDelete = async () => {
     try {
-      await deleteEmployee(employeeId);
-      setData((prevData) => prevData.filter(employee => employee.employee_id !== employeeId));
+      await deleteEmployee(employeeIdToDelete);
+      setData(data.filter(employee => employee.employee_id !== employeeIdToDelete));
+      handleClose();
     } catch (error) {
       console.error('Error deleting employee:', error);
     }
@@ -44,14 +57,16 @@ const Employee = () => {
     { accessorKey: 'remarks', header: 'Remarks', size: 150 },
     { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
     { accessorKey: 'iban', header: 'IBAN', size: 150 },
-    { accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
-      return (
-        <>
-          <Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>
-          <Button variant="outlined" color="error" onClick={() => handleDelete(row.original.employee_id)}>Delete</Button>
-        </>
-      );
-    }},
+    {
+      accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
+        return (
+          <>
+            <Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>
+            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.employee_id)}>Delete</Button>
+          </>
+        )
+      }
+    },
   ];
 
   return (
@@ -75,6 +90,26 @@ const Employee = () => {
           </Grid>
         </Container>
       </Box>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this employee? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AdminLayout>
   );
 };
