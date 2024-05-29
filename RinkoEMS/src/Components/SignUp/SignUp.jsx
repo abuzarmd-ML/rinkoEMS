@@ -71,7 +71,7 @@ export default function SignUp() {
 
         setTimeout(() => {
           navigate('/login');
-        }, 5000);
+        },4000);
         // You may perform additional actions here, such as showing a success message or redirecting
       } else {
         // If the response status is not in the success range, throw an error

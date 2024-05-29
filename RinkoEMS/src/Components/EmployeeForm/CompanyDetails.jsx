@@ -5,7 +5,6 @@ import { Grid, Typography } from '@mui/material';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import Cards from '../Cards/Cards';
 import { getCompanyName } from '../../api/companyApi';
-import AutoCompleteDropdown from '../AutoCompleteDropdown';
 const mandatoryError = 'This field is mandatory'
 
 const statusOptions = [
@@ -63,42 +62,8 @@ const BasicDetails = ({ fields }) => {
             Company Details
           </Typography>
         </Grid>
-        {/* <Grid item xs={6}>
-          <TextField
-            required
-            id={'test'}
-            fullWidth
-            label={'Company'}
-            variant="outlined"
-            name="company"
-            {
-            ...register('company', {
-              required: {
-                value: true,
-                message: mandatoryError
-              }
-            })
-            }
-            error={errors?.['company']}
-            helperText={errors?.['company'] ? errors['company'].message : ""}
-
-          />
-        </Grid> */}
 
         <Grid item xs={6}>
-          {/* <Controller
-            name="company"
-            control={control}
-            rules={{ required: { value: true, message: mandatoryError } }}
-            render={({ field }) => (
-              <AutoCompleteDropdown label="Company" fetchOptions={getCompanyName} {...field} />
-            )}
-          />
-          {errors.company && (
-            <Typography color="error" variant="body2">
-              {errors.company.message}
-            </Typography>
-          )} */}
            <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
         </Grid>
         
