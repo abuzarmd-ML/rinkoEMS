@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicDetails from '../CompanyForm/BasicDetails';
+import BasicDetails from '../ClientForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
-import BankDetails from '../CompanyForm/BankDetails';
-import CompanyDetails from  '../CompanyForm/CompanyDetails';
-import FileUpload from '../CompanyForm/FileUpload';
-import  CompanyFormContext from './CompanyFormContext';
+import BankDetails from '../ClientForm/BankDetails';
+import CompanyDetails from  '../ClientForm/CompanyDetails';
+import FileUpload from '../ClientForm/FileUpload';
+import ClientFormContext from './ClientFormContext';
 
-const AddCompany = () => {
+const AddClient = () => {
   const [image, setImage] = useState(null);
 
   const handleImageChange = (event) => {
@@ -22,7 +22,7 @@ const AddCompany = () => {
   };
 
   return (
-    <AdminLayout title="Company Management">
+    <AdminLayout title="Client Management">
       <Box 
         component="main"
         sx={{
@@ -35,8 +35,8 @@ const AddCompany = () => {
           overflow: 'auto',
         }}
       >
-        <CompanyFormContext>
-           <Toolbar />
+        <ClientFormContext  >
+         <Toolbar />
          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <BasicDetails />
           
@@ -55,10 +55,10 @@ const AddCompany = () => {
           Submit
         </Button>
         </Container>
-        </CompanyFormContext>
+        </ClientFormContext>
       </Box>
     </AdminLayout>
   );
 };
 
-export default AddCompany;
+export default AddClient;

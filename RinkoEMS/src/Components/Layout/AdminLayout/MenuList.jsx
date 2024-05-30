@@ -30,6 +30,9 @@ export const MenuList = () => {
   const [obraOpen, setObraOpen] = useState(false);
   const [obraEntradaOpen, setObraEntradaOpen] = useState(false);
   const [employeeOpen, setEmployeeOpen] = useState(false);
+  const [clientOpen, setClientOpen] = useState(false);
+  const [companyOpen, setCompanyOpen] = useState(false);
+
 
 
   const handleProjectClick = () => {
@@ -44,6 +47,13 @@ export const MenuList = () => {
   const handleEmployeeClick = () => {
     setEmployeeOpen(!employeeOpen);
   };
+  const handleClientClick = () => {
+    setClientOpen(!clientOpen);
+  };
+  const handleCompanyClick = () => {
+    setCompanyOpen(!companyOpen);
+  };
+
 
   return (
     <React.Fragment>
@@ -53,18 +63,58 @@ export const MenuList = () => {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton component={Link} to="/clients">
+      <ListItemButton onClick={handleClientClick}>
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <AddHomeWorkIcon />
         </ListItemIcon>
-        <ListItemText primary="Clients" />
+        <ListItemText primary="Client" />
+
+        {clientOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <ListItemButton component={Link} to="/companies">
+      <Collapse in={clientOpen} timeout="auto">
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/client">
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="Client List" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/client/add">
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Client" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
+
+      <ListItemButton onClick={handleCompanyClick}>
         <ListItemIcon>
-          <BusinessIcon />
+          <AddHomeWorkIcon />
         </ListItemIcon>
         <ListItemText primary="Company" />
+
+        {companyOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+      
+      <Collapse in={companyOpen} timeout="auto">
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/company">
+            <ListItemIcon>
+              <ListIcon />
+            </ListItemIcon>
+            <ListItemText primary="Company List" />
+          </ListItemButton>
+          <ListItemButton sx={{ pl: 3 }} component={Link} to="/company/add">
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add Company" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
 
       <ListItemButton onClick={handleProjectClick}>
         <ListItemIcon>
@@ -74,6 +124,7 @@ export const MenuList = () => {
 
         {projectOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
+
       <Collapse in={projectOpen} timeout="auto">
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 3 }} component={Link} to="/project">

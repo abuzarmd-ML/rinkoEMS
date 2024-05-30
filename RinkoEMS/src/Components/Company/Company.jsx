@@ -1,27 +1,76 @@
-// src/Company.js
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
-import Box from '@mui/material/Box';
-import { Toolbar, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import AddCompany from './AddCompany';
-import { getAllCompany } from '../../api/companyApi';
-import axiosInstance from '../../services/axiosInstance';
+import BasicMuiTable from '../Table/BasicMuiTable';
+import { fetchCompanies, deleteCompany } from '../../api/companyApi';
 
 const Company = () => {
-  const [companies, setCompanies] = useState([]);
+  const [data, setData] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [companyIdToDelete, setCompanyIdToDelete] = useState(null);
 
-  React.useEffect(()=>{
-    getAllCompany().then((response)=>{
-      setCompanies([...response])
-    })
-  },[])
+  useEffect(() => {
+    const getCompany = async () => {
+      try {
+        const company = await fetchCompanies();
+        setData(company);
+      } catch (error) {
+        console.error('Error fetching company:', error);
+      }
+    };
+    getCompany();
+  }, []);
 
-  const handleCompanyAdded = (newCompany) => {
-    setCompanies([...companies, newCompany]);
+  const handleClickOpen = (companyId) => {
+    setCompanyIdToDelete(companyId);
+    setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    setCompanyIdToDelete(null);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteCompany(companyIdToDelete);
+      setData(data.filter(company => company.company_id !== companyIdToDelete));
+      handleClose();
+    } catch (error) {
+      console.error('Error deleting company:', error);
+    }
+  };
+
+  const columns = [
+    { accessorKey: 'name', header: 'Name', size: 150 },
+    { accessorKey: 'phone', header: 'Phone', size: 150 },
+    { accessorKey: 'country', header: 'Country', size: 150 },
+    { accessorKey: 'dob', header: 'DOB', size: 150 },
+    { accessorKey: 'nie', header: 'NIE', size: 150 },
+    { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
+    { accessorKey: 'social_security', header: 'Social Security', size: 150 },
+    { accessorKey: 'company_id', header: 'Company ID', size: 150 },
+    { accessorKey: 'type', header: 'Type', size: 150 },
+    { accessorKey: 'status', header: 'Status', size: 150 },
+    { accessorKey: 'rate', header: 'Rate', size: 150 },
+    { accessorKey: 'reference', header: 'Reference', size: 150 },
+    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
+    { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
+    { accessorKey: 'iban', header: 'IBAN', size: 150 },
+    {
+      accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
+        return (
+          <>
+            <Button href={`/company/add/${row.original.company_id}`} variant="outlined">View</Button>
+            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.company_id)}>Delete</Button>
+          </>
+        )
+      }
+    },
+  ];
+
   return (
-    <AdminLayout title="Company">
+    <AdminLayout title="company Management">
       <Box
         component="main"
         sx={{
@@ -36,37 +85,31 @@ const Company = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Paper sx={{ p: 2 }}>
-            <AddCompany onCompanyAdded={handleCompanyAdded} />
-          </Paper>
-        </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Paper sx={{ p: 2 }}>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Company Name</TableCell>
-                    <TableCell>Address</TableCell>
-                    <TableCell>Encargar</TableCell>
-                    <TableCell>Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {companies.map((company) => (
-                    <TableRow key={company.id}>
-                      <TableCell>{company.name}</TableCell>
-                      <TableCell>{company.address}</TableCell>
-                      <TableCell>{company.encargar}</TableCell>
-                      <TableCell>{company.status}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
+          <Grid spacing={2} sx={{ m: "1px" }}>
+            <BasicMuiTable columns={columns} data={data} />
+          </Grid>
         </Container>
       </Box>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this company? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </AdminLayout>
   );
 };

@@ -2,42 +2,42 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
-import { fetchObra, deleteObra } from '../../api/ObraApi';
+import { fetchClient, deleteClient } from '../../api/clientApi';
 
-const Obra = () => {
+const Client = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [obraIdToDelete, setObraIdToDelete] = useState(null);
+  const [clientIdToDelete, setClientIdToDelete] = useState(null);
 
   useEffect(() => {
-    const getObra = async () => {
+    const getclient = async () => {
       try {
-        const obra = await fetchObra();
-        setData(obra);
+        const client = await fetchClient();
+        setData(client);
       } catch (error) {
-        console.error('Error fetching obra:', error);
+        console.error('Error fetching client:', error);
       }
     };
-    getObra();
+    getclient();
   }, []);
 
-  const handleClickOpen = (obraId) => {
-    setObraIdToDelete(obraId);
+  const handleClickOpen = (clientId) => {
+    setClientIdToDelete(clientId);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setObraIdToDelete(null);
+    setClientIdToDelete(null);
   };
 
   const handleDelete = async () => {
     try {
-      await deleteObra(obraIdToDelete);
-      setData(data.filter(obra => obra.obra_id !== obraIdToDelete));
+      await deleteClient(clientIdToDelete);
+      setData(data.filter(client => client.client_id !== clientIdToDelete));
       handleClose();
     } catch (error) {
-      console.error('Error deleting obra:', error);
+      console.error('Error deleting client:', error);
     }
   };
 
@@ -61,8 +61,8 @@ const Obra = () => {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
           <>
-            <Button href={`/obra/add/${row.original.obra_id}`} variant="outlined">View</Button>
-            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.obra_id)}>Delete</Button>
+            <Button href={`/client/add/${row.original.client_id}`} variant="outlined">View</Button>
+            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.client_id)}>Delete</Button>
           </>
         )
       }
@@ -70,7 +70,7 @@ const Obra = () => {
   ];
 
   return (
-    <AdminLayout title="Obra Management">
+    <AdminLayout title="Client Management">
       <Box
         component="main"
         sx={{
@@ -98,7 +98,7 @@ const Obra = () => {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this obra? This action cannot be undone.
+            Are you sure you want to delete this client? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -114,4 +114,4 @@ const Obra = () => {
   );
 };
 
-export default Obra;
+export default Client;

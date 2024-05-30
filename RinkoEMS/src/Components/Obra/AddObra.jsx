@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import AdminLayout from '../Layout/AdminLayout';
-// import BasicForm from '../EmployeeForm/EmployeeForm';
+import BasicDetails from '../ClientForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { Toolbar,Container } from '@mui/material';
+import BankDetails from '../ObraForm/BankDetails';
+import CompanyDetails from  '../ObraForm/CompanyDetails';
+import FileUpload from '../ObraForm/FileUpload';
+import ObraFormContext from './ObraFormContext'
 
 const AddObra = () => {
+  const [image, setImage] = useState(null);
 
-  const fields = [
-    { type: 'text', name: 'firstName', placeholder: 'Enter Name' },
-    { type: 'text', name: 'lastName', placeholder: 'Enter  last Name' },
-    { type: 'text', name: 'phoneNumber', placeholder: 'Enter  phone number' },
-    { type: 'date', name: 'dateOfBirth', placeholder: 'Enter  date of birth' },
-    { type: 'text', name: 'address', placeholder: 'Enter  address' },
-    // Add more fields as needed
-  ];
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,9 +22,40 @@ const AddObra = () => {
   };
 
   return (
-    <AdminLayout title="Obra">
-      <Box sx={{ p: 3, marginTop: '64px'}}>
-        {/* <BasicForm fields={fields} /> */}
+    <AdminLayout title="Obra Management">
+      <Box 
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
+        <ObraFormContext  >
+         <Toolbar />
+         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <BasicDetails />
+          
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <CompanyDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < BankDetails  />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < FileUpload/>
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Button variant="contained" type='submit'>
+          Submit
+        </Button>
+        </Container>
+        </ObraFormContext>
       </Box>
     </AdminLayout>
   );

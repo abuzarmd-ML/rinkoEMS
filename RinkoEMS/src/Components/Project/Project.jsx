@@ -2,42 +2,42 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
-import { fetchObra, deleteObra } from '../../api/ObraApi';
+import { fetchEmployees, deleteEmployee } from '../../api/employeeApi';
 
-const Obra = () => {
+const Project = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [obraIdToDelete, setObraIdToDelete] = useState(null);
+  const [employeeIdToDelete, setEmployeeIdToDelete] = useState(null);
 
   useEffect(() => {
-    const getObra = async () => {
+    const getEmployees = async () => {
       try {
-        const obra = await fetchObra();
-        setData(obra);
+        const employees = await fetchEmployees();
+        setData(employees);
       } catch (error) {
-        console.error('Error fetching obra:', error);
+        console.error('Error fetching employees:', error);
       }
     };
-    getObra();
+    getEmployees();
   }, []);
 
-  const handleClickOpen = (obraId) => {
-    setObraIdToDelete(obraId);
+  const handleClickOpen = (employeeId) => {
+    setEmployeeIdToDelete(employeeId);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setObraIdToDelete(null);
+    setEmployeeIdToDelete(null);
   };
 
   const handleDelete = async () => {
     try {
-      await deleteObra(obraIdToDelete);
-      setData(data.filter(obra => obra.obra_id !== obraIdToDelete));
+      await deleteEmployee(employeeIdToDelete);
+      setData(data.filter(employee => employee.employee_id !== employeeIdToDelete));
       handleClose();
     } catch (error) {
-      console.error('Error deleting obra:', error);
+      console.error('Error deleting employee:', error);
     }
   };
 
@@ -61,8 +61,8 @@ const Obra = () => {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
           <>
-            <Button href={`/obra/add/${row.original.obra_id}`} variant="outlined">View</Button>
-            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.obra_id)}>Delete</Button>
+            <Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>
+            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.employee_id)}>Delete</Button>
           </>
         )
       }
@@ -70,7 +70,7 @@ const Obra = () => {
   ];
 
   return (
-    <AdminLayout title="Obra Management">
+    <AdminLayout title="Employee Management">
       <Box
         component="main"
         sx={{
@@ -98,7 +98,7 @@ const Obra = () => {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this obra? This action cannot be undone.
+            Are you sure you want to delete this employee? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -114,4 +114,4 @@ const Obra = () => {
   );
 };
 
-export default Obra;
+export default Project;

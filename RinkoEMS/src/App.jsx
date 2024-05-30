@@ -10,11 +10,15 @@ import SignUp from './Components/SignUp/SignUp'
 import Dashboards from './Components/Dashboard/Dashboard'
 import ManageUsers from './Components/domain/ManageUsers'
 import Obra from './Components/Obra/Obra'
-import Clients from './Components/Clients/Clients'
+import Client from './Components/Client/Client'
+import AddClient from './Components/Client/AddClient'
 import Attendance from './Components/Attendance/Attendance'
 import AddEmployee from './Components/Employee/AddEmployee'
 import AddObra from './Components/Obra/AddObra'
 import Company from './Components/Company/Company'
+import Project from './Components/Project/Project'
+import AddProject from './Components/Project/AddProject'
+import AddCompany from './Components/Company/AddCompany'
 
 
 function App() {
@@ -31,21 +35,29 @@ function App() {
       <Route path='/employee' element={<Employee />}></Route>
       <Route path='/employee/add' element={<AddEmployee />}></Route>
       <Route path='/employee/add/:id' element={<AddEmployee />}></Route>
+
+      <Route path='/project' element={<Project />}></Route>
+      <Route path='/project/add' element={<AddProject />}></Route>
+      <Route path='/prject/add/:id' element={<AddProject />}></Route>
+
+      <Route path='/company' element={<Company />}></Route>
+      <Route path='/company/add' element={<AddCompany />}></Route>
+      <Route path='/company/add/:id' element={<AddCompany />}></Route>
+
       <Route path='/obra' element={<Obra />}></Route>
       <Route path='/obra/add' element={<AddObra />}></Route>
-      <Route path='/companies' element={<Company />}></Route>
-      <Route path='/clients' element={<Clients />}></Route>
+      <Route path='/obra/add/:id' element={<AddObra />}></Route>
+    
+    
+      <Route path='/client' element={<Client />}></Route>
+      <Route path='/client/add' element={<AddClient />}></Route>
+      <Route path='/client/add/:id' element={<AddClient />}></Route>
       <Route path='/attendance' element={<Attendance />}></Route>
       <Route path='/dashboard' element={<Dashboards />}>
      
         <Route path='' element={<Home />}></Route>
         <Route path='/dashboard/employee' element={<Employee />}></Route>
-        {/* <Route path='/dashboard/employee' element={<Employee />}></Route> */}
-        {/* <Route path='/dashboard/category' element={<Category />}></Route>
-        <Route path='/dashboard/profile' element={<Profile />}></Route>
-        <Route path='/dashboard/add_category' element={<AddCategory />}></Route>
-        <Route path='/dashboard/add_employee' element={<AddEmployee />}></Route>
-        <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />}></Route> */}
+
       </Route>
     </Routes>
     </BrowserRouter>
