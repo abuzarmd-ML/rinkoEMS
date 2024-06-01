@@ -45,24 +45,24 @@ const Employee = () => {
     { accessorKey: 'name', header: 'Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
     { accessorKey: 'country', header: 'Country', size: 150 },
-    { accessorKey: 'dob', header: 'DOB', size: 150 },
+    // { accessorKey: 'dob', header: 'DOB', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
-    { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
-    { accessorKey: 'social_security', header: 'Social Security', size: 150 },
-    { accessorKey: 'company_id', header: 'Company ID', size: 150 },
+    // { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
+    // { accessorKey: 'social_security', header: 'Social Security', size: 150 },
+    { accessorKey: 'company_id', header: 'Company', size: 150 },
     { accessorKey: 'type', header: 'Type', size: 150 },
     { accessorKey: 'status', header: 'Status', size: 150 },
     { accessorKey: 'rate', header: 'Rate', size: 150 },
-    { accessorKey: 'reference', header: 'Reference', size: 150 },
-    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
-    { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
-    { accessorKey: 'iban', header: 'IBAN', size: 150 },
+    // { accessorKey: 'reference', header: 'Reference', size: 150 },
+    // { accessorKey: 'remarks', header: 'Remarks', size: 150 },
+    // { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
+    // { accessorKey: 'iban', header: 'IBAN', size: 150 },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
           <>
             <Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>
-            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.employee_id)}>Delete</Button>
+            <Button variant="outlined" color="error" style={{ marginLeft: '8px' }} onClick={() => handleClickOpen(row.original.employee_id)}>Delete</Button>
           </>
         )
       }
