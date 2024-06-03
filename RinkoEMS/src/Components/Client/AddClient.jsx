@@ -4,9 +4,6 @@ import BasicDetails from '../ClientForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
-import BankDetails from '../ClientForm/BankDetails';
-import CompanyDetails from  '../ClientForm/CompanyDetails';
-import FileUpload from '../ClientForm/FileUpload';
 import ClientFormContext from './ClientFormContext';
 
 const AddClient = () => {
