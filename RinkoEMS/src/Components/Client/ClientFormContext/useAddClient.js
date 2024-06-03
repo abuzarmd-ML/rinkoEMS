@@ -9,7 +9,7 @@ const useAddClient = (defaultValue) => {
   const form = useForm({
     mode: 'onBlur',
     values: { ...defaultValue,
-      company:defaultValue?.company_id??''
+      client:defaultValue?.client_id??''
      }
   })
 
@@ -18,8 +18,8 @@ const useAddClient = (defaultValue) => {
   console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
-    const payload = id ? { url: `/employeesById/${id}`, method: 'PUT' } : {
-      url: '/employees',
+    const payload = id ? { url: `/clientsById/${id}`, method: 'PUT' } : {
+      url: '/clients',
       method: 'POST'
     }
     e.preventDefault()
@@ -43,7 +43,7 @@ const useAddClient = (defaultValue) => {
     })
       .catch(error => {
         // Handle network errors or other exceptions
-        console.error("Error in submitting employee form:", error);
+        console.error("Error in submitting client form:", error);
         setError(true);
       });
   }

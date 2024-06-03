@@ -47,8 +47,6 @@ const useAddEmployee = (defaultValue) => {
         setError(true);
       });
   }
-
-
   return {
     form, handleSubmitForm
   }

@@ -12,7 +12,7 @@ const ClientFormContext = ({ children }) => {
 
     React.useEffect(() => {
         if (id) {
-         axiosInstance.get(`/employeesById/${id}`).then((response) => {
+         axiosInstance.get(`/clientsById/${id}`).then((response) => {
             console.log('data', response)
             setDefaultValues({...response.data})
             setIsloading(false)

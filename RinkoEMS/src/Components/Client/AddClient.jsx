@@ -41,15 +41,7 @@ const AddClient = () => {
           <BasicDetails />
           
         </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <CompanyDetails />
-        </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        < BankDetails  />
-        </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        < FileUpload/>
-        </Container>
+
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>
           Submit

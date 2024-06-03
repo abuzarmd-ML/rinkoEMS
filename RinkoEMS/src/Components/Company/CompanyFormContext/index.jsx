@@ -1,10 +1,11 @@
 import React from 'react'
 import {  FormProvider } from "react-hook-form"
-import useAddClient from './useAddClient'
+import useAddClient from './useAddCompany'
 import axiosInstance from "../../../services/axiosInstance"
 import { useParams } from "react-router-dom"
+import useAddCompany from './useAddCompany'
 
-const ClientFormContext = ({ children }) => {
+const CompanyFormContext = ({ children }) => {
      const[defaultValue,setDefaultValues] = React.useState({name:''})
      const [isLoading,setIsloading] = React.useState(true)
     const { id } = useParams()
@@ -12,7 +13,7 @@ const ClientFormContext = ({ children }) => {
 
     React.useEffect(() => {
         if (id) {
-         axiosInstance.get(`/employeesById/${id}`).then((response) => {
+         axiosInstance.get(`/companiesById/${id}`).then((response) => {
             console.log('data', response)
             setDefaultValues({...response.data})
             setIsloading(false)
@@ -21,7 +22,7 @@ const ClientFormContext = ({ children }) => {
     
       }, [id])
 
-    const { form, handleSubmitForm } = useAddClient(defaultValue)
+    const { form, handleSubmitForm } = useAddCompany(defaultValue)
     if(isLoading && id){
         return <h2>Data loading</h2>
     }
@@ -36,4 +37,4 @@ const ClientFormContext = ({ children }) => {
 
 }
 
-export default ClientFormContext
+export default CompanyFormContext

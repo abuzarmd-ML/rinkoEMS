@@ -10,7 +10,7 @@ const Client = () => {
   const [clientIdToDelete, setClientIdToDelete] = useState(null);
 
   useEffect(() => {
-    const getclient = async () => {
+    const getClient = async () => {
       try {
         const client = await fetchClient();
         setData(client);
@@ -18,7 +18,7 @@ const Client = () => {
         console.error('Error fetching client:', error);
       }
     };
-    getclient();
+    getClient();
   }, []);
 
   const handleClickOpen = (clientId) => {

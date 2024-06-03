@@ -10,15 +10,15 @@ const Company = () => {
   const [companyIdToDelete, setCompanyIdToDelete] = useState(null);
 
   useEffect(() => {
-    const getCompany = async () => {
+    const getCompanies = async () => {
       try {
-        const company = await fetchCompanies();
-        setData(company);
+        const companies = await fetchCompanies();
+        setData(companies);
       } catch (error) {
         console.error('Error fetching company:', error);
       }
     };
-    getCompany();
+    getCompanies();
   }, []);
 
   const handleClickOpen = (companyId) => {

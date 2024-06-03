@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom"
 import moment from "moment"
 
-const useAddClient = (defaultValue) => {
+const useAddCompany = (defaultValue) => {
   const form = useForm({
     mode: 'onBlur',
     values: { ...defaultValue,
@@ -18,8 +18,8 @@ const useAddClient = (defaultValue) => {
   console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
-    const payload = id ? { url: `/employeesById/${id}`, method: 'PUT' } : {
-      url: '/employees',
+    const payload = id ? { url: `/companiesById/${id}`, method: 'PUT' } : {
+      url: '/companies',
       method: 'POST'
     }
     e.preventDefault()
@@ -39,11 +39,11 @@ const useAddClient = (defaultValue) => {
         company: formData.company?.value??formData.company
       }
     }).then(response => {
-      navigate('/client');
+      navigate('/company');
     })
       .catch(error => {
         // Handle network errors or other exceptions
-        console.error("Error in submitting employee form:", error);
+        console.error("Error in submitting company form:", error);
         setError(true);
       });
   }
@@ -54,4 +54,4 @@ const useAddClient = (defaultValue) => {
   }
 }
 
-export default useAddClient
+export default useAddCompany

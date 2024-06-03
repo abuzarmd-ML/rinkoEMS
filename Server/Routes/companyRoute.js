@@ -9,5 +9,6 @@ router.post('/companies', createCompanyController)
 router.get('/companies', getCompaniesController);
 router.get('/all_company', getAllCompanyController);
 
+
 // export default router;
 export { router as CompanyRoute }; 

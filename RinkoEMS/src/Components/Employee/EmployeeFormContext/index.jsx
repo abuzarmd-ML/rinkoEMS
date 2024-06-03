@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 const EmployeeFormContext = ({ children }) => {
      const[defaultValue,setDefaultValues] = React.useState({name:''})
      const [isLoading,setIsloading] = React.useState(true)
-    const { id } = useParams()
+     const { id } = useParams()
 
 
     React.useEffect(() => {
@@ -17,8 +17,7 @@ const EmployeeFormContext = ({ children }) => {
             setDefaultValues({...response.data})
             setIsloading(false)
           })
-        }
-    
+        }   
       }, [id])
 
     const { form, handleSubmitForm } = useAddEmployee(defaultValue)

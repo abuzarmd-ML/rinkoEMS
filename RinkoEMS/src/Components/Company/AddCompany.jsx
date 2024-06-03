@@ -4,9 +4,7 @@ import BasicDetails from '../CompanyForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
-import BankDetails from '../CompanyForm/BankDetails';
 import CompanyDetails from  '../CompanyForm/CompanyDetails';
-import FileUpload from '../CompanyForm/FileUpload';
 import  CompanyFormContext from './CompanyFormContext';
 
 const AddCompany = () => {
@@ -41,15 +39,8 @@ const AddCompany = () => {
           <BasicDetails />
           
         </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <CompanyDetails />
-        </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        < BankDetails  />
-        </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        < FileUpload/>
-        </Container>
+        
+        
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>
           Submit

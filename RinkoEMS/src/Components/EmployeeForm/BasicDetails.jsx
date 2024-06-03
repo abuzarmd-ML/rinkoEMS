@@ -11,8 +11,6 @@ const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
 
-
-
   const handleChange = (event) => {
     setCountry(event.target.value);
   };
@@ -21,11 +19,9 @@ const BasicDetails = ({ fields }) => {
     // Implement form submission logic here
   };
   const { register, formState: { errors },control } = useFormContext()
-
   return (
     <Cards borderRadius={1} height={'400'}>
       <Grid container spacing={3} >
-
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" component="h3">
             Personal Details

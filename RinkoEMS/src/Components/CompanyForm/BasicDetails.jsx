@@ -10,6 +10,19 @@ import countyList from '../../../public/country.json'
 const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
+  const StatusOptions = [
+    {
+      label: 'Active',
+      value: 'Active'
+    },
+    {
+      label: 'Inactive',
+      value: 'Inactive'
+    },
+    {
+      label: 'Prospect',
+      value: 'Prospect'
+    }]
 
 
 
@@ -28,7 +41,7 @@ const BasicDetails = ({ fields }) => {
 
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" component="h3">
-            Personal Details
+            Company Details
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -36,7 +49,7 @@ const BasicDetails = ({ fields }) => {
             required
             fullWidth
             id={'name'}
-            label="Appaledos,nombre"
+            label="Company Name"
             variant="outlined"
             name='name'
             {
@@ -51,7 +64,76 @@ const BasicDetails = ({ fields }) => {
             helperText={errors?.['name'] ? errors['name'].message : ""}
 
           />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            fullWidth
+            id={'address'}
+            label="Address"
+            variant="outlined"
+            name='address'
+            {
+            ...register('address', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['address']}
+            helperText={errors?.['address'] ? errors['address'].message : ""}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            fullWidth
+            id={'city'}
+            label="City"
+            variant="outlined"
+            name='city'
+            {
+            ...register('city', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['city']}
+            helperText={errors?.['city'] ? errors['city'].message : ""}
+          />
+        </Grid>
+        
 
+        <Grid item xs={6}>
+         
+          {/* <CountryDropdown /> */}
+          <SelectAutoComplete   control={control} fieldName="country" label="Select Country" options={countyList}  />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            fullWidth
+            id={'pin'}
+            // type="tel"
+            label="Postal Code"
+            variant="outlined"
+            name='pin'
+            type ="number"
+            {
+            ...register('pin', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['pin']}
+            helperText={errors?.['pin'] ? errors['pin'].message : ""}
+
+          />
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -76,14 +158,27 @@ const BasicDetails = ({ fields }) => {
 
           />
         </Grid>
+        <Grid item xs={6}>
+          <TextField
+            required
+            id={'email'}
+            fullWidth
+            type ="number"
+            label={'Email'}
+            name='email'
+            {
+            ...register('email', {
+              required: {
+                value: true,
+                message: mandatoryError
+              }
+            })
+            }
+            error={errors?.['email']}
+            helperText={errors?.['email'] ? errors['email'].message : ""}
 
-        <Grid item xs={6}>
-         
-          {/* <CountryDropdown /> */}
-          <SelectAutoComplete   control={control} fieldName="country" label="Select Country" options={countyList}  />
-        </Grid>
-        <Grid item xs={6}>
-          <BasicDatePicker   control={control} fieldName="dob" label="Date of birth" size="small"/>
+            variant="outlined"
+          />
         </Grid>
         
         <Grid item xs={6}>
@@ -113,27 +208,13 @@ const BasicDetails = ({ fields }) => {
           
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            required
-            id={'social'}
-            fullWidth
-            type ="number"
-            label={'Seguridad Social'}
-            name='social_security'
-            {
-            ...register('social_security', {
-              required: {
-                value: true,
-                message: mandatoryError
-              }
-            })
-            }
-            error={errors?.['social']}
-            helperText={errors?.['social'] ? errors['social'].message : ""}
+          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={StatusOptions} />
 
-            variant="outlined"
-          />
         </Grid>
+        <Grid item xs={6}>
+          <BasicDatePicker   control={control} fieldName="System_date" label="System Date" size="small"/>
+        </Grid>
+        
       </Grid>
     </Cards>
   );

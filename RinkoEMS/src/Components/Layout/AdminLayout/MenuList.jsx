@@ -65,7 +65,7 @@ export const MenuList = () => {
       </ListItemButton>
       <ListItemButton onClick={handleClientClick}>
         <ListItemIcon>
-          <AddHomeWorkIcon />
+          <ShoppingCartIcon />
         </ListItemIcon>
         <ListItemText primary="Client" />
 
@@ -91,7 +91,7 @@ export const MenuList = () => {
 
       <ListItemButton onClick={handleCompanyClick}>
         <ListItemIcon>
-          <AddHomeWorkIcon />
+          <BusinessIcon />
         </ListItemIcon>
         <ListItemText primary="Company" />
 

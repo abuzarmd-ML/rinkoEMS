@@ -9,7 +9,7 @@ import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import countyList from '../../../public/country.json'
 const mandatoryError = 'This field is mandatory'
 
-const BasicDetails = ({ fields }) => {
+const BasicDetails = ({ fields }) => {  
 
 
 
