@@ -4,10 +4,11 @@ import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt'
 import multer from "multer";
 import path from "path";
+import verifyTokenAndRole from "../auth/verifyTokenAndRole.js";
 
 const router = express.Router();
 
-router.post("/adminlogin", (req, res) => {
+router.post("/adminlogin",verifyTokenAndRole, (req, res) => {
     console.log(req.body)
   const sql = "SELECT * from admin Where email = ? and password = ?";
   con.query(sql, [req.body.email, req.body.password], (err, result) => {
@@ -28,7 +29,7 @@ router.post("/adminlogin", (req, res) => {
  }
 )
 
-router.get('/category', (req, res) => {
+router.get('/category',verifyTokenAndRole, (req, res) => {
     const sql = "SELECT * FROM category";
     con.query(sql, (err, result) => {
         if(err) return res.json({Status: false, Error: "Query Error"})
@@ -36,7 +37,7 @@ router.get('/category', (req, res) => {
     })
 })
 
-router.post('/add_category', (req, res) => {
+router.post('/add_category',verifyTokenAndRole, (req, res) => {
     const sql = "INSERT INTO category (`name`) VALUES (?)"
     con.query(sql, [req.body.category], (err, result) => {
         if(err) return res.json({Status: false, Error: "Query Error"})
@@ -58,7 +59,7 @@ const upload = multer({
 })
 // end imag eupload 
 
-router.post('/add_employee',upload.single('image'), (req, res) => {
+router.post('/add_employee',verifyTokenAndRole,upload.single('image'), (req, res) => {
     const sql = `INSERT INTO employee 
     (name,nie,obra_address,obra,salary,image, category_id) 
     VALUES (?)`;
@@ -80,7 +81,7 @@ router.post('/add_employee',upload.single('image'), (req, res) => {
     })
 })
 
-router.get('/employee', (req, res) => {
+router.get('/employee',verifyTokenAndRole, (req, res) => {
     const sql = "SELECT * FROM employee";
     con.query(sql, (err, result) => {
         if(err) return res.json({Status: false, Error: "Query Error"})

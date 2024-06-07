@@ -9,7 +9,7 @@ export async function login(req, res) {
     console.log("[Controller]: ",[ username, password, company])
     // Authenticate user
     const user = await loginUser(username, password);
-    console.log("[Controller]: ",user)
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -20,7 +20,7 @@ export async function login(req, res) {
 
       const token = createToken(user.id,company,user.role_id)
       console.log("TOKEN : ",token)
-    
+       res.cookie('token', token)
       return res.status(200).json({ message: 'Login successful', loginStatus: 'True' ,user });
     } else {
       return res.status(403).json({ error: 'Unauthorized access to company' });
