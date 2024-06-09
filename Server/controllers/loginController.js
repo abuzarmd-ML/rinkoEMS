@@ -31,6 +31,11 @@ export async function login(req, res) {
   }
 }
 
+export const logOut = (req,res)=>{
+   res.clearCookie('token')
+   return res.status(204).json({message:'Success '})
+}
+
 function hasCompanyAccess(role, company) {
   // Implement logic to check if the user role has access to the specified company
   // For demonstration purposes, assume all users have access to all companies

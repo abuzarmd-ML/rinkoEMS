@@ -6,7 +6,7 @@ import verifyTokenAndRole from '../auth/verifyTokenAndRole.js';
 const router = express.Router();
 
 router.post('/companies',verifyTokenAndRole, createCompanyController)
-router.get('/companies',verifyTokenAndRole, getCompaniesController);
+router.get('/companies', getCompaniesController);
 router.get('/all_company',verifyTokenAndRole, getAllCompanyController);
 
 // export default router;
