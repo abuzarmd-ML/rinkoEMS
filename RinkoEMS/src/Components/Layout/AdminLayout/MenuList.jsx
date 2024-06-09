@@ -21,16 +21,16 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import BusinessIcon from '@mui/icons-material/Business';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import axiosInstance from '../../../services/axiosInstance';
 
 export const MenuList = () => {
   const [projectOpen, setHandleProjectOpen] = useState(false);
   const [obraOpen, setObraOpen] = useState(false);
   const [obraEntradaOpen, setObraEntradaOpen] = useState(false);
   const [employeeOpen, setEmployeeOpen] = useState(false);
-
+   const navigate   = useNavigate()
 
   const handleProjectClick = () => {
     setHandleProjectOpen(!projectOpen);
@@ -44,6 +44,14 @@ export const MenuList = () => {
   const handleEmployeeClick = () => {
     setEmployeeOpen(!employeeOpen);
   };
+
+  const handleClickLogout =()=>{
+    axiosInstance.post('/logout')
+    .then((response)=>{
+      console.log('success')
+      navigate('/login')
+    })
+  } 
 
   return (
     <React.Fragment>
@@ -190,7 +198,7 @@ export const MenuList = () => {
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={handleClickLogout}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>

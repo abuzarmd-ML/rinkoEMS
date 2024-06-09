@@ -1,14 +1,14 @@
 import express from 'express'
 import { createEmployeeController,getEmployeesController } from '../controllers/employeeController.js'
 import { getEmployeeControllerById,updateEmployeeController,deleteEmployeeController } from '../controllers/employeeController.js';
-
+import verifyTokenAndRole from '../auth/verifyTokenAndRole.js';
 
 const router = express.Router()
-router.post('/employees', createEmployeeController);
-router.get('/employees', getEmployeesController);
-router.get('/employeesById/:id', getEmployeeControllerById);
-router.put('/employeesById/:id', updateEmployeeController);
-router.delete('/employees/:employeeId', deleteEmployeeController);
+router.post('/employees',verifyTokenAndRole, createEmployeeController);
+router.get('/employees',verifyTokenAndRole, getEmployeesController);
+router.get('/employeesById/:id',verifyTokenAndRole, getEmployeeControllerById);
+router.put('/employeesById/:id',verifyTokenAndRole, updateEmployeeController);
+router.delete('/employees/:employeeId',verifyTokenAndRole, deleteEmployeeController);
 
 
   router.get('/logout', (req, res) => {
