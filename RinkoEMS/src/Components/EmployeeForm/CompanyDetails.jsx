@@ -46,12 +46,15 @@ const BasicDetails = ({ fields }) => {
   const [companyList,setCompnayList] = React.useState([])
   const { register, formState: { errors }, control } = useFormContext()
 
-  React.useEffect(()=>{
-    getCompanyName().then((response)=>{
-     setCompnayList([...response])
-    })
-  },[])
-  
+  React.useEffect(() => {
+    getCompanyName().then((response) => {
+      const formattedCompanies = response.map(company => ({
+        label: company.name,
+        value: company.company_id
+      }));
+      setCompnayList(formattedCompanies);
+    });
+  }, []);
 
   return (
     <Cards borderRadius={1} height={'400'}>

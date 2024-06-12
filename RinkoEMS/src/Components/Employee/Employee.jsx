@@ -8,7 +8,6 @@ const Employee = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [employeeIdToDelete, setEmployeeIdToDelete] = useState(null);
-
   useEffect(() => {
     const getEmployees = async () => {
       try {
@@ -21,7 +20,8 @@ const Employee = () => {
     getEmployees();
   }, []);
 
-  const handleClickOpen = (employeeId) => {
+  const 
+  handleClickOpen = (employeeId) => {
     setEmployeeIdToDelete(employeeId);
     setOpen(true);
   };
@@ -41,6 +41,7 @@ const Employee = () => {
     }
   };
 
+  
   const columns = [
     { accessorKey: 'name', header: 'Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },

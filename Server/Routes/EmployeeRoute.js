@@ -10,7 +10,6 @@ router.get('/employeesById/:id', getEmployeeControllerById);
 router.put('/employeesById/:id', updateEmployeeController);
 router.delete('/employees/:employeeId', deleteEmployeeController);
 
-
   router.get('/logout', (req, res) => {
     res.clearCookie('token')
     return res.json({Status: true})

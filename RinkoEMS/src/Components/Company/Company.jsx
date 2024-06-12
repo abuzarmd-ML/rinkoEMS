@@ -4,6 +4,7 @@ import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchCompanies, deleteCompany } from '../../api/companyApi';
 
+
 const Company = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -22,10 +23,10 @@ const Company = () => {
   }, []);
 
   const handleClickOpen = (companyId) => {
+    console.log('Deleting company with ID:', companyId);
     setCompanyIdToDelete(companyId);
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
     setCompanyIdToDelete(null);
@@ -42,21 +43,17 @@ const Company = () => {
   };
 
   const columns = [
-    { accessorKey: 'name', header: 'Name', size: 150 },
+    { accessorKey: 'name', header: 'Company_Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
     { accessorKey: 'country', header: 'Country', size: 150 },
-    { accessorKey: 'dob', header: 'DOB', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
-    { accessorKey: 'social_security', header: 'Social Security', size: 150 },
-    { accessorKey: 'company_id', header: 'Company ID', size: 150 },
-    { accessorKey: 'type', header: 'Type', size: 150 },
+    { accessorKey: 'system_date', header: 'System_date', size: 150 },
+    { accessorKey: 'address', header: 'Address', size: 150 },
     { accessorKey: 'status', header: 'Status', size: 150 },
-    { accessorKey: 'rate', header: 'Rate', size: 150 },
-    { accessorKey: 'reference', header: 'Reference', size: 150 },
-    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
-    { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
-    { accessorKey: 'iban', header: 'IBAN', size: 150 },
+    { accessorKey: 'city', header: 'City', size: 150 },
+    { accessorKey: 'email', header: 'Email', size: 150 },
+    { accessorKey: 'pincode', header: 'Postal_code', size: 150 },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (

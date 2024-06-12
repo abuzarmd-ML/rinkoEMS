@@ -16,7 +16,7 @@ export const deleteClient = async (clientId) => {
       const response = await axiosInstance.delete(`/client/${clientId}`);
       return response.data;
     } catch (error) {
-      console.error('Error deleting employee:', error);
+      console.error('Error deleting Client:', error);
       throw error;
     }
   };

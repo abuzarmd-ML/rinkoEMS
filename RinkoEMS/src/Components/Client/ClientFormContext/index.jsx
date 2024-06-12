@@ -9,7 +9,6 @@ const ClientFormContext = ({ children }) => {
      const [isLoading,setIsloading] = React.useState(true)
     const { id } = useParams()
 
-
     React.useEffect(() => {
         if (id) {
          axiosInstance.get(`/clientsById/${id}`).then((response) => {

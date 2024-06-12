@@ -21,6 +21,7 @@ const EmployeeFormContext = ({ children }) => {
       }, [id])
 
     const { form, handleSubmitForm } = useAddEmployee(defaultValue)
+    
     if(isLoading && id){
         return <h2>Data loading</h2>
     }

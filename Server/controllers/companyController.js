@@ -1,28 +1,53 @@
-// controllers/companyController.js
-import { getCompanyName,createCompany,getAllCompany } from '../models/company.js';
+import { createCompany, getCompanyName,getCompanyById, getAllCompany, deleteCompanyById, updateCompany } from '../models/company.js';
 
 async function createCompanyController(req, res, next) {
-  console.log("[Controller] : ", req.body)
-  const {
-    name,
-    address,
-    encargar,
-    status = 'Other',
-  } = req.body;
   try {
-    const companyId = await createCompany(
-    name,
-    address,
-    encargar,
-    status
-  );
+    const {
+      name,
+      address,
+      status,
+      phone,
+      country,
+      nie,
+      caducidad,
+      company_id,
+      city,
+      email,
+      system_date,
+      pincode
+    } = req.body;
 
-  res.status(201).json({ id: companyId, message: 'Employee created successfully' });
-} catch (error) {
-  console.error('Error creating employee:', error);
-  res.status(500).json({ message: 'Failed to create employee' });
+    console.log("Request body:", req.body); // Log the entire request body
+
+    // Extract the country label
+    // const countryLabel = country?.label;
+
+    console.log("Country label extracted:", country); // Log the extracted country label
+
+    // Call the createCompany function with the extracted label
+    const companyId = await createCompany(
+      name,
+      address,
+      status,
+      phone,
+      country, // Pass only the label to the createCompany function
+      nie,
+      caducidad,
+      company_id,
+      city,
+      email,
+      system_date,
+      pincode
+    );
+
+    res.status(201).json({ message: 'Company created successfully', companyId });
+  } catch (error) {
+    console.error('Error creating company:', error);
+    next(error);
+  }
 }
-}
+
+
 
 async function getCompaniesController(req, res) {
   try {
@@ -34,6 +59,23 @@ async function getCompaniesController(req, res) {
   }
 }
 
+async function getCompaniesControllerById(req, res, next) {
+  const companyId = req.params.id;
+  console.log("Fetching employee with ID:", companyId)
+  try {
+    const company = await getCompanyById(companyId);
+    if (company) {
+      res.status(200).json(company);
+    } else {
+      res.status(404).json({ message: 'company not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching company:', error);
+    res.status(500).json({ message: 'Failed to fetch company' });
+  }
+}
+
+
 async function getAllCompanyController(req, res) {
   try {
     const companies = await getAllCompany();
@@ -43,5 +85,37 @@ async function getAllCompanyController(req, res) {
     res.status(500).json({ message: 'Server error' });
   }
 }
+async function updateCompanyController(req, res, next) {
+  const companyId = req.params.id;
+  const companyData = req.body;
+  try {
+    const result = await updateCompany(companyId, companyData);
+    if (result.affectedRows === 0) {
+      res.status(404).json({ message: 'Company not found' });
+    } else {
+      res.status(200).json({ message: 'Company updated successfully' });
+    }
+  } catch (error) {
+    console.error('Error updating employee:', error);
+    res.status(500).json({ message: 'Failed to update employee' });
+  }
+}
 
-export {createCompanyController,getCompaniesController,getAllCompanyController}
+
+async function deleteCompanyController(req, res) {
+  const { companyId } = req.params;
+  try {
+    const success = await deleteCompanyById(companyId);
+    if (success) {
+      res.status(200).json({ message: 'Company deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Company not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting Company:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+
+export {createCompanyController,getCompaniesController,updateCompanyController,getAllCompanyController,deleteCompanyController,getCompaniesControllerById}

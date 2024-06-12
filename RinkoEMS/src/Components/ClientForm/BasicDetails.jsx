@@ -11,14 +11,19 @@ const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
 
-  const [companyList,setCompnayList] = React.useState([])
+  const [companyList,setCompanyList] = React.useState([])
   const { register, formState: { errors }, control } = useFormContext()
 
-  React.useEffect(()=>{
-    getCompanyName().then((response)=>{
-     setCompnayList([...response])
-    })
-  },[])
+
+  React.useEffect(() => {
+    getCompanyName().then((response) => {
+      const formattedCompanies = response.map(company => ({
+        label: company.name,
+        value: company.company_id
+      }));
+      setCompanyList(formattedCompanies);
+    });
+  }, []);
 
   const ClientStatusOptions = [
     {
@@ -55,20 +60,20 @@ const BasicDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'c_name'}
+            id={'name'}
             label="Full Name"
             variant="outlined"
-            name='c_name'
+            name='name'
             {
-            ...register('c_name', {
+            ...register('name', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['c_name']}
-            helperText={errors?.['c_name'] ? errors['c_name'].message : ""}
+            error={errors?.['name']}
+            helperText={errors?.['name'] ? errors['name'].message : ""}
 
           />
 
@@ -115,9 +120,9 @@ const BasicDetails = ({ fields }) => {
             }
             error={errors?.['email']}
             helperText={errors?.['email'] ? errors['email'].message : ""}
-
           />
         </Grid> 
+
         <Grid item xs={6}>
            <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
         </Grid>
@@ -156,7 +161,7 @@ const BasicDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'name'}
+            id={'nie'}
             label="NIE"
             variant="outlined"
             name='nie'
@@ -170,7 +175,6 @@ const BasicDetails = ({ fields }) => {
             }
             error={errors?.['nie']}
             helperText={errors?.['nie'] ? errors['nie'].message : ""}
-
           />
           </Grid>
 
@@ -185,8 +189,7 @@ const BasicDetails = ({ fields }) => {
             type="text"
             label={'Nota'}
             variant="outlined"
-            name='nota'
-            
+            name='nota'  
             
           />
         </Grid> 

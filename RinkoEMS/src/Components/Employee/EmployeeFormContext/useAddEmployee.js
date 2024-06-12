@@ -21,7 +21,7 @@ const useAddEmployee = (defaultValue) => {
     const payload = id ? { url: `/employeesById/${id}`, method: 'PUT' } : {
       url: '/employees',
       method: 'POST'
-    }
+    } 
     e.preventDefault()
     console.log('form-data', formData)
     axiosInstance({
@@ -51,5 +51,5 @@ const useAddEmployee = (defaultValue) => {
     form, handleSubmitForm
   }
 }
-
 export default useAddEmployee
+

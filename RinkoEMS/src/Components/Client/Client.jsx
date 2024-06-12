@@ -52,11 +52,7 @@ const Client = () => {
     { accessorKey: 'company_id', header: 'Company ID', size: 150 },
     { accessorKey: 'type', header: 'Type', size: 150 },
     { accessorKey: 'status', header: 'Status', size: 150 },
-    { accessorKey: 'rate', header: 'Rate', size: 150 },
-    { accessorKey: 'reference', header: 'Reference', size: 150 },
-    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
-    { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
-    { accessorKey: 'iban', header: 'IBAN', size: 150 },
+
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
