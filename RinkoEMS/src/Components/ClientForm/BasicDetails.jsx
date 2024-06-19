@@ -189,7 +189,7 @@ const BasicDetails = ({ fields }) => {
             type="text"
             label={'Nota'}
             variant="outlined"
-            name='nota'  
+            name='note'  
             
           />
         </Grid> 

@@ -11,9 +11,10 @@ export async function fetchClient() {
     return data;
 };
 
+
 export const deleteClient = async (clientId) => {
     try {
-      const response = await axiosInstance.delete(`/client/${clientId}`);
+      const response = await axiosInstance.delete(`/clients/${clientId}`);
       return response.data;
     } catch (error) {
       console.error('Error deleting Client:', error);

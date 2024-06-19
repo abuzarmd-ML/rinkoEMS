@@ -14,7 +14,6 @@ const useAddClient = (defaultValue) => {
   })
 
   const { id } = useParams()
-
   console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
@@ -23,7 +22,7 @@ const useAddClient = (defaultValue) => {
       method: 'POST'
     }
     e.preventDefault()
-    console.log('form-data', formData)
+    console.log('form-data.......', formData)
     axiosInstance({
       ...payload,
       headers: {
@@ -34,7 +33,6 @@ const useAddClient = (defaultValue) => {
         status:formData.status?.label??formData.status,
         country:formData.country?.label??formData.country,
         dob: moment(formData.dob).format('YYYY-MM-DD'),
-        company: formData.company?.value??formData.company
       }
     }).then(response => {
       navigate('/client');
@@ -51,3 +49,4 @@ const useAddClient = (defaultValue) => {
 }
 
 export default useAddClient
+

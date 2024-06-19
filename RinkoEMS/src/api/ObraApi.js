@@ -2,7 +2,7 @@
 import axiosInstance from "../services/axiosInstance";
 
 export async function fetchObra() {
-    const response = await fetch('http://localhost:3000/obra');
+    const response = await fetch('http://localhost:3000/obras');
     if (!response.ok) {
         throw new Error('Failed to fetch Obra');
     }
@@ -11,9 +11,9 @@ export async function fetchObra() {
     return data;
 };
 
-export const deleteObra = async (projectId) => {
+export const deleteObra = async (obraId) => {
     try {
-      const response = await axiosInstance.delete(`/obra/${obraId}`);
+      const response = await axiosInstance.delete(`/obras/${obraId}`);
       return response.data;
     } catch (error) {
       console.error('Error deleting Obra:', error);

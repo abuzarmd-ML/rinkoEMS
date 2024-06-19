@@ -18,13 +18,5 @@ router.delete('/companies/:companyId', deleteCompanyController);
 
 
 
-
-
-
-
-
-
-
-
 // export default router;
 export { router as CompanyRoute }; 

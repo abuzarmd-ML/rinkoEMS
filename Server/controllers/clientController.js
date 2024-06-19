@@ -1,83 +1,92 @@
 // controllers/companyController.js
-import { getCompanyName,createCompany,getAllCompany } from '../models/company.js';
-import { deleteCompanyById,updateCompany } from '../models/company.js';
+import { getClientName,createClient,getAllClient } from '../models/client.js';
+import { deleteClientById,updateClient,getClientById } from '../models/client.js';
 
-async function createCompanyController(req, res, next) {
+async function createClientController(req, res, next) {
   console.log("[Controller]:", req.body);
 
   const {
-    name,
-    phone,
-    country,
-    nie,
-    caducidad,
-    company_id,
-    city,
-    email,
-    system_date,
-    address,
-    status,
-    pincode
+    name, phone, email, company, dob, country, address, nie, status, client_id, note
   } = req.body;
 
   try {
-    const companyId = await createCompany(
-      name,
-      phone,
-      country,
-      nie,
-      caducidad,
-      company_id,
-      city,
-      email,
-      system_date,
-      address,
-      status,
-      pincode
+    const clientId = await createClient(
+      name, phone, email, company, dob, country, address, nie, status, client_id, note
     );
 
-    res.status(201).json({ message: 'Company created successfully', companyId });
+    res.status(201).json({ message: 'Client created successfully', clientId });
   } catch (error) {
-    console.error('Error creating company:', error);
+    console.error('Error creating client:', error);
     next(error); // Passes the error to the error-handling middleware
   }
-};
+}
 
 
-async function getCompaniesController(req, res) {
+async function getClientController(req, res) {
   try {
-    const companies = await getCompanyName();
-    res.json(companies);
+    const clients = await getClientName();
+    res.json(clients);
   } catch (error) {
-    console.error('Error fetching companies:', error);
+    console.error('Error fetching clients:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
 
-async function getAllCompanyController(req, res) {
+async function getAllClientController(req, res) {
   try {
-    const companies = await getAllCompany();
-    res.json(companies);
+    const clients = await getAllClient();
+    res.json(clients);
   } catch (error) {
-    console.error('Error fetching companies:', error);
+    console.error('Error fetching clients:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
-
-async function deleteCompanyController(req, res) {
-  const { companyId} = req.params;
+async function getClientsControllerById(req, res, next) {
+  const clientId = req.params.id;
+  console.log("Fetching client with ID:", clientId)
   try {
-    const success = await deleteCompanyById(companyId);
-    if (success) {
-      res.status(200).json({ message: 'Company deleted successfully' });
+    const client = await getClientById(clientId);
+    if (client) {
+      res.status(200).json(client);
     } else {
-      res.status(404).json({ message: 'Company not found' });
+      res.status(404).json({ message: 'client not found' });
     }
   } catch (error) {
-    console.error('Error deleting Company:', error);
+    console.error('Error fetching client:', error);
+    res.status(500).json({ message: 'Failed to fetch client' });
+  }
+}
+async function updateClientController(req, res, next) {
+  const clientId = req.params.id;
+  const clientData = req.body;
+  try {
+    const result = await updateClient(clientId, clientData);
+    if (result.affectedRows === 0) {
+      res.status(404).json({ message: 'client not found' });
+    } else {
+      res.status(200).json({ message: 'client updated successfully' });
+    }
+  } catch (error) {
+    console.error('Error updating client:', error);
+    res.status(500).json({ message: 'Failed to update client' });
+  }
+}
+
+async function deleteClientController(req, res) {
+  const { clientId} = req.params;
+  console.log("..................",req.params)
+  try {
+    const success = await deleteClientById(clientId);
+    if (success) {
+      res.status(200).json({ message: 'client deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'client not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting clinet:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
 
 
-export {createCompanyController,getCompaniesController,getAllCompanyController,deleteCompanyController}
+export {createClientController,getClientController,getClientsControllerById,getAllClientController,deleteClientController,updateClientController}
