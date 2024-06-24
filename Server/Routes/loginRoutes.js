@@ -1,8 +1,10 @@
 import express from 'express';
-import { login } from '../controllers/loginController.js';
+import { login,logOut } from '../controllers/loginController.js';
 
 const router = express.Router();
 router.post('/login', login);
+router.post('/logout',logOut)
+
 console.log("IN ROUTEEEE")
 
 // router.post("/adminlogin", (req, res) => {
