@@ -72,11 +72,15 @@ export default function Login() {
       });
   };
 
-  React.useEffect(()=>{
-    getCompanyName().then((response)=>{
-     setCompnayList([...response])
-    })
-  },[])
+  React.useEffect(() => {
+    getCompanyName().then((response) => {
+      const formattedCompanies = response.map(company => ({
+        label: company.name,
+        value: company.company_id
+      }));
+      setCompnayList(formattedCompanies);
+    });
+  }, []);
   
 
   return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
-
 import { useFormContext } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
@@ -9,9 +8,8 @@ import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import countyList from '../../../public/country.json'
 const mandatoryError = 'This field is mandatory'
 
-const BasicDetails = ({ fields }) => {
-
-
+const BasicDetails = ({ fields }) => 
+{
 
   const handleChange = (event) => {
     setCountry(event.target.value);
@@ -21,11 +19,9 @@ const BasicDetails = ({ fields }) => {
     // Implement form submission logic here
   };
   const { register, formState: { errors },control } = useFormContext()
-
   return (
     <Cards borderRadius={1} height={'400'}>
       <Grid container spacing={3} >
-
         <Grid item xs={12}>
           <Typography gutterBottom variant="h4" component="h3">
             Personal Details
@@ -49,9 +45,7 @@ const BasicDetails = ({ fields }) => {
             }
             error={errors?.['name']}
             helperText={errors?.['name'] ? errors['name'].message : ""}
-
           />
-
         </Grid>
         <Grid item xs={6}>
           <TextField

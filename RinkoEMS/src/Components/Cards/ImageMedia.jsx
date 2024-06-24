@@ -19,17 +19,17 @@ export default function ImgMediaCard() {
     <Card variant="outlined">
       <CardContent>
         <Typography gutterBottom variant="h4" component="h3" >
-         Mohammad Abuzar
+         Md Abubakar
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
-         Software Engineer
+         Shopify Developer
         </Typography>
        <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={3}>
          <Item>
          <Typography gutterBottom variant="h3" component="h3" ali>
-         32
+         75
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
           Hours logged
@@ -39,7 +39,7 @@ export default function ImgMediaCard() {
          <Grid item xs={3}>
        <Item>
          <Typography gutterBottom variant="h3" component="h3" ali>
-         5
+         10
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
           Days Worked
@@ -49,7 +49,7 @@ export default function ImgMediaCard() {
         <Grid item xs={3}>
         <Item>
          <Typography gutterBottom variant="h3" component="h3" ali>
-         $3,560
+         25,500
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
           Earnings
@@ -59,7 +59,7 @@ export default function ImgMediaCard() {
         <Grid item xs={3}>
         <Item>
          <Typography gutterBottom variant="h3" component="h3" ali>
-         98%
+         100%
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
           Attendence
@@ -74,3 +74,4 @@ export default function ImgMediaCard() {
     </Card>
   );
 }
+
