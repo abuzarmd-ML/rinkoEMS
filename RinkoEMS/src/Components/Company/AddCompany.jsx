@@ -7,12 +7,7 @@ import { Toolbar, Container } from '@mui/material';
 import CompanyFormContext from './CompanyFormContext';
 
 const AddCompany = () => {
-  const [image, setImage] = useState(null);
-
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-  };
-  
+  const [image, setImage] = useState(null);  
 
   return (
     <AdminLayout title="Company Management">
