@@ -10,16 +10,12 @@ import SignUp from '../Components/SignUp/SignUp'
 import Dashboards from '../Components/Dashboard/Dashboard'
 import ManageUsers from '../Components/domain/ManageUsers'
 import Obra from '../Components/Obra/Obra'
-import Client from '../Components/Client/Client'
-import AddClient from '../Components/Client/AddClient'
+import Clients from '../Components/Client/Client'
 import Attendance from '../Components/Attendance/Attendance'
 import AddEmployee from '../Components/Employee/AddEmployee'
 import AddObra from '../Components/Obra/AddObra'
 import Company from '../Components/Company/Company'
-import AddCompany from '../Components/Company/AddCompany'
 import ProtectedRoute from './ProtectedRoute'
-import Project from '../Components/Project/Project'
-import AddProject from '../Components/Project/AddProject'
 
 const RoutesPage = () => {
 
@@ -30,40 +26,13 @@ const RoutesPage = () => {
                 <Route exact path='/' element={<ProtectedRoute />}>
                     <Route exact path='/' element={<ManageUsers />} />
                 </Route>
-                <Route exact path='/client' element={<ProtectedRoute />}>
-                    <Route exact path='/client' element={<Client />} />
+                <Route exact path='/clients' element={<ProtectedRoute />}>
+                    <Route exact path='/clients' element={<Clients />} />
                 </Route>
-                <Route exact path='/client' element={<ProtectedRoute />}>
-                    <Route exact path='/client/add' element={<AddClient  />} />
-                </Route>
-                <Route exact path='/client' element={<ProtectedRoute />}>
-                    <Route exact path='/client/add/:id' element={<AddClient  />} />
-                </Route>
-               
-                <Route exact path='/company' element={<ProtectedRoute />}>
-                     <Route path='/company' element={<Company />} />
-                </Route>
+                <Route exact path='/companies' element={<ProtectedRoute />}>
+                <Route path='/companies' element={<Company />} />
 
-                <Route exact path='/company' element={<ProtectedRoute />}>
-                    <Route path='/company/add' element={<AddCompany />} />
                 </Route>
-               
-                <Route exact path='/company' element={<ProtectedRoute />}>
-                    <Route path='/company/add/:id' element={<AddCompany />} />
-                </Route>
-
-                <Route exact path='/project' element={<ProtectedRoute />}>
-                     <Route path='/project' element={<Project />} />
-                </Route>
-
-                <Route exact path='/project' element={<ProtectedRoute />}>
-                    <Route path='/project/add' element={<AddProject />} />
-                </Route>
-               
-                <Route exact path='/project' element={<ProtectedRoute />}>
-                    <Route path='/project/add/:id' element={<AddProject />} />
-                </Route> 
-
                 <Route exact path='/employee' element={<ProtectedRoute />}>
                     <Route exact path='/employee' element={<Employee />} />
                 </Route>
@@ -71,6 +40,7 @@ const RoutesPage = () => {
                 <Route path='/employee/add' element={<AddEmployee />} />
                 </Route>
                 <Route exact path='/employee/add/:id' element={<ProtectedRoute />}>
+
                 <Route path='/employee/add/:id' element={<AddEmployee />} />
                 </Route>
                 <Route exact path='/obra' element={<ProtectedRoute />}>
@@ -97,6 +67,24 @@ const RoutesPage = () => {
                 <Route path='/adminlogin' element={<SignIn />}></Route>
                 <Route path='/employee_login' element={<EmployeeLogin />}></Route>
                
+                {/* <Route path='/employee' element={<Employee />}></Route> */}
+               
+              
+              
+               
+                {/* <Route path='/clients' element={<Clients />}></Route> */}
+                
+                {/* <Route path='/dashboard' element={<Dashboards />}> */}
+
+                    {/* <Route path='' element={<Home />}></Route>
+                    <Route path='/dashboard/employee' element={<Employee />}></Route> */}
+                    {/* <Route path='/dashboard/employee' element={<Employee />}></Route> */}
+                    {/* <Route path='/dashboard/category' element={<Category />}></Route>
+        <Route path='/dashboard/profile' element={<Profile />}></Route>
+        <Route path='/dashboard/add_category' element={<AddCategory />}></Route>
+        <Route path='/dashboard/add_employee' element={<AddEmployee />}></Route>
+        <Route path='/dashboard/edit_employee/:id' element={<EditEmployee />}></Route> */}
+                {/* </Route> */}
             </Routes>
         </BrowserRouter>
 

@@ -20,13 +20,3 @@ export const deleteObra = async (obraId) => {
       throw error;
     }
   };
-  export const getObraId = async () => {
-    try {
-      const response = await axiosInstance.get('/obras');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching obras:', error);
-      throw error;
-    }
-  };
-  

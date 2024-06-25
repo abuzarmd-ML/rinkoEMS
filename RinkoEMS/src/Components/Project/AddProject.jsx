@@ -4,6 +4,9 @@ import BasicDetails from '../ProjectForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
+import BankDetails from '../ProjectForm/BankDetails';
+import CompanyDetails from  '../ProjectForm/CompanyDetails';
+import FileUpload from '../ProjectForm/FileUpload';
 import ProjectFormContext from './ProjectFormContext';
 
 const AddProject = () => {
@@ -19,7 +22,7 @@ const AddProject = () => {
   };
 
   return (
-    <AdminLayout title="Project Management">
+    <AdminLayout title="Employee Management">
       <Box 
         component="main"
         sx={{
@@ -35,7 +38,17 @@ const AddProject = () => {
         <ProjectFormContext  >
          <Toolbar />
          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <BasicDetails />    
+          <BasicDetails />
+          
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <CompanyDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < BankDetails  />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        < FileUpload/>
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>

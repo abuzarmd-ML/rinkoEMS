@@ -1,10 +1,10 @@
 import React from 'react'
 import {  FormProvider } from "react-hook-form"
-import useAddProject from "./useAddProject"
+import useAddEmployee from "./useAddEmployee"
 import axiosInstance from "../../../services/axiosInstance"
 import { useParams } from "react-router-dom"
 
-const ProjectFormContext = ({ children }) => {
+const EmployeeFormContext = ({ children }) => {
      const[defaultValue,setDefaultValues] = React.useState({name:''})
      const [isLoading,setIsloading] = React.useState(true)
     const { id } = useParams()
@@ -12,8 +12,8 @@ const ProjectFormContext = ({ children }) => {
 
     React.useEffect(() => {
         if (id) {
-         axiosInstance.get(`/projectsById/${id}`).then((response) => {
-            console.log('data..****', response)
+         axiosInstance.get(`/employeesById/${id}`).then((response) => {
+            console.log('data', response)
             setDefaultValues({...response.data})
             setIsloading(false)
           })
@@ -21,7 +21,7 @@ const ProjectFormContext = ({ children }) => {
     
       }, [id])
 
-    const { form, handleSubmitForm } = useAddProject(defaultValue)
+    const { form, handleSubmitForm } = useAddEmployee(defaultValue)
     if(isLoading && id){
         return <h2>Data loading</h2>
     }
@@ -36,4 +36,4 @@ const ProjectFormContext = ({ children }) => {
 
 }
 
-export default ProjectFormContext
+export default EmployeeFormContext

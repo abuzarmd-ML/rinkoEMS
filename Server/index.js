@@ -7,8 +7,7 @@ import { userRoute } from "./routes/userRoutes.js";
 import { EmployeeRouter } from "./routes/EmployeeRoute.js";
 import { CompanyRoute } from "./Routes/companyRoute.js"
 import { ClientRoute } from "./Routes/ClientRoute.js";
-import { ObraRoute } from "./Routes/ObraRoute.js";
-import { ProjectRoute } from "./Routes/ProjectRoute.js";
+import { ObraRoute } from "./Routes/ObraRoute.js"
 
 const app = express() 
 
@@ -26,7 +25,6 @@ app.use(EmployeeRouter)
 app.use(CompanyRoute)
 app.use(ClientRoute)
 app.use(ObraRoute)
-app.use(ProjectRoute)
 // app.use(express.static('Public'))
 
 app.listen(3000 , () =>{
