@@ -4,9 +4,10 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { Controller } from "react-hook-form";
 
 export default function SelectAutoComplete(props) {
-  const { control, fieldName, label, options, defaultValue} = props;
-  const apiValue = defaultValue ? { label: defaultValue } : null
-  console.log("#####", props)
+
+  const { control, options, fieldName, defaultValue, label, onChange } = props;
+  const apiValue = defaultValue ? { label: defaultValue } : null;
+
   return (
     <Controller
       control={control}
@@ -15,32 +16,34 @@ export default function SelectAutoComplete(props) {
       rules={{
         required: {
           value: true,
-          message: "This fields is required",
+          message: "This field is required",
         },
       }}
-      render={({ field, fieldState: { error } }) => {
-        return (
-          <Autocomplete
-            {...field}
-            autoHighlight
-            options={options}
-            onChange={(_, data) => {
-              console.log('data', data)
-              field.onChange(data || null);
-            }}
-            filterOptions={createFilterOptions({ matchFrom: 'start' })}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={label || fieldName || ""}
-                error={error}
-                helperText={error ? error.message : ""}
-                variant="outlined"
-              />
-            )}
-          />
-        );
-      }}
+      render={({ field, fieldState: { error } }) => (
+        <Autocomplete
+          {...field}
+          autoHighlight
+          options={options}
+          getOptionLabel={(option) => (option && option.label ? option.label.toString() : '')} // Ensure label is a string
+          onChange={(_, data) => {
+            field.onChange(data || null);
+            if (onChange) {
+              onChange(data); // Call the onChange handler passed as prop
+            }
+          }}
+          filterOptions={createFilterOptions({ matchFrom: 'start' })}
+          isOptionEqualToValue={(option, value) => option.value === value.value} // Custom equality check
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={label || fieldName || ""}
+              error={!!error}
+              helperText={error ? error.message : ""}
+              variant="outlined"
+            />
+          )}
+        />
+      )}
     />
   );
 }
