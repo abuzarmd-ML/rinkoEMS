@@ -2,67 +2,62 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
-import { fetchEmployees, deleteEmployee } from '../../api/employeeApi';
+import { fetchProjects,deleteProjects } from '../../api/projectApi';
 
 const Project = () => {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-  const [employeeIdToDelete, setEmployeeIdToDelete] = useState(null);
+  const [projectIdToDelete, setProjectIdToDelete] = useState(null);
 
   useEffect(() => {
-    const getEmployees = async () => {
+    const getProjects = async () => {
       try {
-        const employees = await fetchEmployees();
-        setData(employees);
+        const projects = await fetchProjects();
+        setData(projects);
       } catch (error) {
-        console.error('Error fetching employees:', error);
+        console.error('Error fetching projects:', error);
       }
     };
-    getEmployees();
+    getProjects();
   }, []);
 
-  const handleClickOpen = (employeeId) => {
-    setEmployeeIdToDelete(employeeId);
+  const handleClickOpen = (projectId) => {
+    setProjectIdToDelete(projectId);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-    setEmployeeIdToDelete(null);
+    setProjectIdToDelete(null);
   };
 
   const handleDelete = async () => {
     try {
-      await deleteEmployee(employeeIdToDelete);
-      setData(data.filter(employee => employee.employee_id !== employeeIdToDelete));
+      await deleteProjects(projectIdToDelete);
+      console.log("...........deleteing...........")
+      setData(data.filter(project => project.project_id !== projectIdToDelete));
       handleClose();
     } catch (error) {
-      console.error('Error deleting employee:', error);
+      console.error('Error deleting project:', error);
     }
   };
 
   const columns = [
-    { accessorKey: 'name', header: 'Name', size: 150 },
-    { accessorKey: 'phone', header: 'Phone', size: 150 },
-    { accessorKey: 'country', header: 'Country', size: 150 },
-    { accessorKey: 'dob', header: 'DOB', size: 150 },
+    { accessorKey: 'project_id', header: 'Project Id', size: 150 },
+    { accessorKey: 'comunidad_name', header: 'Comunidad Name', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
-    { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
-    { accessorKey: 'social_security', header: 'Social Security', size: 150 },
-    { accessorKey: 'company_id', header: 'Company ID', size: 150 },
-    { accessorKey: 'type', header: 'Type', size: 150 },
-    { accessorKey: 'status', header: 'Status', size: 150 },
-    { accessorKey: 'rate', header: 'Rate', size: 150 },
-    { accessorKey: 'reference', header: 'Reference', size: 150 },
-    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
-    { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
-    { accessorKey: 'iban', header: 'IBAN', size: 150 },
+    { accessorKey: 'fact_email', header: 'Fact Email', size: 150 },
+    { accessorKey: 'company', header: 'Company ID', size: 150 },
+    { accessorKey: 'obra_id', header: 'Obra ID', size: 150 },
+    { accessorKey: 'obra_website', header: 'obra Website', size: 150 },
+    { accessorKey: 'cudad_id', header: 'cudad Id', size: 150 },
+    { accessorKey: 'venc_days', header: 'venc Days', size: 150 },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
           <>
-            <Button href={`/employee/add/${row.original.employee_id}`} variant="outlined">View</Button>
-            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.employee_id)}>Delete</Button>
+            <Button href={`/project/add/${row.original.project_id}`} variant="outlined">View</Button>
+            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.project_id)}>Delete</Button>
           </>
         )
       }
@@ -70,7 +65,7 @@ const Project = () => {
   ];
 
   return (
-    <AdminLayout title="Employee Management">
+    <AdminLayout title="Project Management">
       <Box
         component="main"
         sx={{
@@ -98,7 +93,7 @@ const Project = () => {
         <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this employee? This action cannot be undone.
+            Are you sure you want to delete this project? This action cannot be undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

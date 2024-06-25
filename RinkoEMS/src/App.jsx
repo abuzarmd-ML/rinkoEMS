@@ -37,7 +37,7 @@ function App() {
 
       <Route path='/project' element={<Project />}></Route>
       <Route path='/project/add' element={<AddProject />}></Route>
-      <Route path='/prject/add/:id' element={<AddProject />}></Route>
+      <Route path='/project/add/:id' element={<AddProject />}></Route>
 
       <Route path='/company' element={<Company />}></Route>
       <Route path='/company/add' element={<AddCompany />}></Route>
