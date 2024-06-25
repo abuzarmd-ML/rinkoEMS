@@ -5,39 +5,30 @@ async function createCompanyController(req, res, next) {
     const {
       name,
       address,
-      status,
-      phone,
+      city,
       country,
+      pincode,
+      phone,
+      email,
       nie,
       caducidad,
-      company_id,
-      city,
-      email,
-      system_date,
-      pincode
+      status,      
+      system_date
     } = req.body;
 
     console.log("Request body:", req.body); // Log the entire request body
-
-    // Extract the country label
-    // const countryLabel = country?.label;
-
-    console.log("Country label extracted:", country); // Log the extracted country label
-
-    // Call the createCompany function with the extracted label
     const companyId = await createCompany(
       name,
       address,
-      status,
+      city,
+      country,
+      pincode,
       phone,
-      country, // Pass only the label to the createCompany function
+      email,
       nie,
       caducidad,
-      company_id,
-      city,
-      email,
-      system_date,
-      pincode
+      status,      
+      system_date
     );
 
     res.status(201).json({ message: 'Company created successfully', companyId });

@@ -19,7 +19,7 @@ import Company from './Components/Company/Company'
 import Project from './Components/Project/Project'
 import AddProject from './Components/Project/AddProject'
 import AddCompany from './Components/Company/AddCompany'
-
+import RoutesPage from './Routes/Routes'
 
 function App() {
   return (
@@ -60,6 +60,7 @@ function App() {
       </Route>
     </Routes>
     </BrowserRouter>
+   <RoutesPage  />
   )
 }
 
