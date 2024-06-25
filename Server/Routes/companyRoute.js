@@ -2,7 +2,6 @@
 import express from 'express';
 // import { getCompanies } from '../controllers/companyController.js';
 import {createCompanyController,getCompaniesController,getCompaniesControllerById,updateCompanyController,getAllCompanyController,deleteCompanyController} from '../controllers/companyController.js'
-import {createCompanyController,getCompaniesController,getAllCompanyController} from '../controllers/companyController.js'
 import verifyTokenAndRole from '../auth/verifyTokenAndRole.js';
 const router = express.Router();
 

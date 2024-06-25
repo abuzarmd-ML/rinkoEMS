@@ -82,22 +82,22 @@ async function getClientById(clientId) {
 async function updateClient(id, clientData) {
   const connection = await pool.getConnection();
   try {
-      const { name, phone, email, company, dob, country, address, nie, status, note } = clientData;
-      
-      // Check if all fields are present
-      if ([name, phone, email, company, dob, country, address, nie, status, note].includes(undefined)) {
-          throw new Error("Missing required fields in clientData");
-      }
+    const { name, phone, email, company, dob, country, address, nie, status, note } = clientData;
+    
+    // Check if all fields are present
+    if ([name, phone, email, company, dob, country, address, nie, status, note].includes(undefined)) {
+      throw new Error("Missing required fields in clientData");
+    }
 
-      const [result] = await connection.execute(
-          `UPDATE clients 
-           SET name = ?, phone = ?, email = ?, company = ?, dob = ?, country = ?, address = ?, nie = ?, status = ?, note = ?
-           WHERE client_id = ?`,
-          [name, phone, email, company, dob, country, address, nie, status, note, id]
-      );
-      return result;
+    const [result] = await connection.execute(
+      `UPDATE clients 
+       SET name = ?, phone = ?, email = ?, company = ?, dob = ?, country = ?, address = ?, nie = ?, status = ?, note = ?
+       WHERE client_id = ?`,
+      [name, phone, email, company, dob, country, address, nie, status, note, id]
+    );
+    return result;
   } finally {
-      connection.release();
+    connection.release();
   }
 }
 

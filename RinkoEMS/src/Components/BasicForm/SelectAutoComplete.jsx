@@ -4,15 +4,10 @@ import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
 import { Controller } from "react-hook-form";
 
 export default function SelectAutoComplete(props) {
-<<<<<<< HEAD
+
   const { control, options, fieldName, defaultValue, label, onChange } = props;
   const apiValue = defaultValue ? { label: defaultValue } : null;
 
-=======
-  const { control, fieldName, label, options, defaultValue} = props;
-  const apiValue = defaultValue ? { label: defaultValue } : null
-  console.log("#####", props)
->>>>>>> d00aff6cd9b1b3f49db38817d6bf1185f6110538
   return (
     <Controller
       control={control}
