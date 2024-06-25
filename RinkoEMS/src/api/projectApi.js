@@ -13,10 +13,10 @@ export async function fetchProjects() {
 
 export const deleteProjects = async (projectId) => {
     try {
-      const response = await axiosInstance.delete(`/project/${projectId}`);
+      const response = await axiosInstance.delete(`/projects/${projectId}`);
       return response.data;
     } catch (error) {
-      console.error('Error deleting employee:', error);
+      console.error('Error deleting project:', error);
       throw error;
     }
   };

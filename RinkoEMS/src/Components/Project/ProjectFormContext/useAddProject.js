@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom"
 import moment from "moment"
 
-const useAddEmployee = (defaultValue) => {
+const useAddProject = (defaultValue) => {
   const form = useForm({
     mode: 'onBlur',
     values: { ...defaultValue,
@@ -14,12 +14,11 @@ const useAddEmployee = (defaultValue) => {
   })
 
   const { id } = useParams()
-
   console.log(form.error)
   const navigate = useNavigate()
   const handleSubmitForm = (formData, e) => {
-    const payload = id ? { url: `/employeesById/${id}`, method: 'PUT' } : {
-      url: '/employees',
+    const payload = id ? { url: `/projectsById/${id}`, method: 'PUT' } : {
+      url: '/projects',
       method: 'POST'
     }
     e.preventDefault()
@@ -32,18 +31,14 @@ const useAddEmployee = (defaultValue) => {
       data: {
         ...formData,
         type:formData.type?.label??formData.type,
-        status:formData.status?.label??formData.status,
-        country:formData.country?.label??formData.country,
-        dob: moment(formData.dob).format('YYYY-MM-DD'),
-        caducidad: moment(formData.caducidad).format('YYYY-MM-DD'),
         company: formData.company?.value??formData.company
       }
     }).then(response => {
-      navigate('/employee');
+      navigate('/project');
     })
       .catch(error => {
         // Handle network errors or other exceptions
-        console.error("Error in submitting employee form:", error);
+        console.error("Error in submitting Project form:", error);
         setError(true);
       });
   }
@@ -54,4 +49,4 @@ const useAddEmployee = (defaultValue) => {
   }
 }
 
-export default useAddEmployee
+export default useAddProject
