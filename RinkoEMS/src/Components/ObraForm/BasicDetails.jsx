@@ -130,7 +130,7 @@ const BasicDetails = ({ fields }) => {
         </Grid>
 
         <Grid item xs={6}>
-          <BasicDatePicker   control={control} fieldName="f_date" label="F_Date" size="small"/>
+          <BasicDatePicker   control={control} fieldName="F_Date" label="F_Date" size="small"/>
         </Grid>
         <Grid item xs={6}>
           <TextField

@@ -77,6 +77,9 @@ const RoutesPage = () => {
                 <Route exact path='/obra/add' element={<ProtectedRoute />}>
                 <Route path='/obra/add' element={<AddObra />} />
                 </Route>
+                <Route exact path='/obra/add/:id' element={<ProtectedRoute />}>
+                <Route path='/obra/add/:id' element={<AddObra />} />
+                </Route>
                 <Route exact path='/mamage-users' element={<ProtectedRoute />}>
                 <Route path='/mamage-users' element={<ManageUsers />} />
                 </Route>
