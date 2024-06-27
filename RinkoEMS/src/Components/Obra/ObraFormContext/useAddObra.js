@@ -24,15 +24,19 @@ const useAddObra = (defaultValue) => {
     }
     e.preventDefault()
     console.log('form-data', formData)
+
+     
+    // Filter out unwanted fields
+    const { obra, ...filteredData } = formData;
     axiosInstance({
       ...payload,
       headers: {
         'Content-Type': 'application/json'
       },
       data: {
-        ...formData,
+        ...filteredData,
         status:formData.status?.label??formData.status,
-        company: formData.company?.value??formData.company
+        company: formData.company?.label ?? formData.company
       }
     }).then(response => {
       navigate('/obra');

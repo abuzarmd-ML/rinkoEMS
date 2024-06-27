@@ -23,16 +23,20 @@ const useAddClient = (defaultValue) => {
     }
     e.preventDefault()
     console.log('form-data.......', formData)
+
+      // Filter out unwanted fields
+    const { client, ...filteredData } = formData;
     axiosInstance({
       ...payload,
       headers: {
         'Content-Type': 'application/json'
       },
       data: {
-        ...formData,
+        ...filteredData,
         status:formData.status?.label??formData.status,
         country:formData.country?.label??formData.country,
-        dob: moment(formData.dob).format('YYYY-MM-DD'),
+        note: formData.note?.label??formData.note,
+        company: formData.company?.label??formData.company
       }
     }).then(response => {
       navigate('/client');

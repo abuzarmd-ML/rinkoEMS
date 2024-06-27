@@ -51,6 +51,7 @@ const Client = () => {
     { accessorKey: 'address', header: 'address', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     { accessorKey: 'status', header: 'Status', size: 150 },
+    { accessorKey: 'note', header: 'Note', size: 150 },
 
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
