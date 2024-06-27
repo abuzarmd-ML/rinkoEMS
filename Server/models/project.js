@@ -6,37 +6,37 @@ import config from '../config/database.js';
 const pool = mysql.createPool(config);
 
 async function createProject(comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days) {
-  const connection = await pool.getConnection();
-  try {
-    console.log("[MODEL]:", { comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days });
-
+    const connection = await pool.getConnection();
+    try {
+      console.log("[MODEL]:", { comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days });
+  
+      
     // Extract the actual value from the company object
-    // const companyValue = company && company.value ? company.value : null;
+    // const companyLabel = company && company.label ? company.label : null;
 
-    // Ensure all fields are properly formatted
-    const fields = [
-      comunidad_name || null,
-      fact_email || null,
-      company,
-      obra_id || null,
-      nie || null,
-      obra_website || null,
-      cudad_id || null,
-      venc_days || null
-    ];
-
-    // Log the fields array to debug
-    console.log("Fields array:", fields);
-
-    const [result] = await connection.execute(
-      'INSERT INTO projects (comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      fields
-    );
-    return result.insertId;
-  } finally {
-    connection.release();
+      const fields = [
+        comunidad_name || null,
+        fact_email || null,
+        company || null,
+        obra_id || null,
+        nie || null,
+        obra_website || null,
+        cudad_id || null,
+        venc_days || null
+      ];
+  
+      console.log("Fields array:", fields);
+  
+      const [result] = await connection.execute(
+        'INSERT INTO projects (comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        fields
+      );
+      return result.insertId;
+    } finally {
+      connection.release();
+    }
   }
-}
+  
 
 async function getProjectName() {
   const connection = await pool.getConnection();
