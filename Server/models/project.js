@@ -17,7 +17,7 @@ async function createProject(comunidad_name, fact_email, company, obra_id, nie, 
       const fields = [
         comunidad_name || null,
         fact_email || null,
-        company || null,
+        company,
         obra_id || null,
         nie || null,
         obra_website || null,
