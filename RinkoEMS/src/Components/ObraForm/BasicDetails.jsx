@@ -60,7 +60,7 @@ const BasicDetails = ({ fields }) => {
           <TextField
             required
             fullWidth
-            id={'name'}
+            id={'obra_name'}
             label="Obra Name"
             variant="outlined"
             name='name'

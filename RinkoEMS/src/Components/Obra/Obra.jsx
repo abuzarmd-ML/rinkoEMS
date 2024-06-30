@@ -42,7 +42,7 @@ const Obra = () => {
   };
 
   const columns = [
-    { accessorKey: 'name', header: 'Name', size: 150 },
+    { accessorKey: 'obra_name', header: 'Obra Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
     { accessorKey: 'address', header: 'Address', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },

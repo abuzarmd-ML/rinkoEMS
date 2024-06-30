@@ -5,14 +5,14 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createObra(name, phone, email, company,address, nie, status,obra_website,F_Date) {
+async function createObra(obra_name, phone, email, company,address, nie, status,obra_website,F_Date) {
   const connection = await pool.getConnection();
   try {
 
-    console.log("[MODEL]:", name, address, status);
+    console.log("[MODEL]:", obra_name, address, status);
     // Ensure all fields are properly formatted
     const fields = [
-      name || null,
+      obra_name || null,
       phone || null,
       email || null,
       company,
@@ -27,7 +27,7 @@ async function createObra(name, phone, email, company,address, nie, status,obra_
     console.log("Fields array:", fields);
 
     const [result] = await connection.execute(
-      'INSERT INTO obras (name, phone, email, company,address, nie, status,obra_website,F_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO obras (obra_name, phone, email, company,address, nie, status,obra_website,F_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
       fields
     );
     return result.insertId;
@@ -76,17 +76,17 @@ async function getObraById(obraId) {
 async function updateObra(id, ObraData) {
   const connection = await pool.getConnection();
   try {
-      const { name, phone, email, company,address, nie, status,obra_website,F_Date } = ObraData;
+      const { obra_name, phone, email, company,address, nie, status,obra_website,F_Date } = ObraData;
       
       // Check if all fields are present
-      if ([name, phone, email, company,address, nie, status,obra_website,F_Date].includes(undefined)) {
+      if ([obra_name, phone, email, company,address, nie, status,obra_website,F_Date].includes(undefined)) {
           throw new Error("Missing required fields in ObraData");
       }
 
       const [result] = await connection.execute(
           `UPDATE obras 
-           SET name = ?, phone = ?, email = ?, company = ?, address = ?, nie = ?, status = ?, obra_website = ?, F_Date=? WHERE obra_id = ?`,
-          [name, phone, email, company,address, nie, status,obra_website,F_Date,id]
+           SET obra_name = ?, phone = ?, email = ?, company = ?, address = ?, nie = ?, status = ?, obra_website = ?, F_Date=? WHERE obra_id = ?`,
+          [obra_name, phone, email, company,address, nie, status,obra_website,F_Date,id]
       );
       return result;
   } finally {
