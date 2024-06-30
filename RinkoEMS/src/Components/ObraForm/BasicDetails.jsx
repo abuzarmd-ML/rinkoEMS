@@ -63,17 +63,17 @@ const BasicDetails = ({ fields }) => {
             id={'obra_name'}
             label="Obra Name"
             variant="outlined"
-            name='name'
+            name='obra_name'
             {
-            ...register('name', {
+            ...register('obra_name', {
               required: {
                 value: true,
                 message: mandatoryError
               }
             })
             }
-            error={errors?.['name']}
-            helperText={errors?.['name'] ? errors['name'].message : ""}
+            error={errors?.['obra_name']}
+            helperText={errors?.['obra_name'] ? errors['obra_name'].message : ""}
           />
         </Grid>
 
