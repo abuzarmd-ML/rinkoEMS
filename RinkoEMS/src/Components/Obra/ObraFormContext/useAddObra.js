@@ -23,9 +23,9 @@ const useAddObra = (defaultValue) => {
       method: 'POST'
     }
     e.preventDefault()
-    console.log('form-data', formData)
+    
+    console.log('obra all data: ', formData)
 
-     
     // Filter out unwanted fields
     const { obra, ...filteredData } = formData;
     axiosInstance({

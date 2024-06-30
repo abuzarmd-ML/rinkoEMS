@@ -66,7 +66,7 @@ async function getObraById(obraId) {
       'SELECT * FROM obras WHERE obra_id = ?',
       [obraId]
     );
-    console.log(obraId,rows)
+    console.log("All details: ",obraId,rows)
     return rows[0];
   } finally {
     connection.release();

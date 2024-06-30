@@ -13,10 +13,8 @@ const ObraFormContext = ({ children }) => {
     React.useEffect(() => {
         if (id) {
          axiosInstance.get(`/obrasById/${id}`).then((response) => {
-            console.log('data', response)
-            setDefaultValues({...response.data,
-                company: response.data.company?.company_id ?? null
-            })
+            console.log('data',  response.data.company)
+            setDefaultValues({...response.data})
             setIsloading(false)
           })
         }

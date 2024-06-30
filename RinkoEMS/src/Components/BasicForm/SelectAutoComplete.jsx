@@ -6,7 +6,6 @@ import { Controller } from "react-hook-form";
 export default function SelectAutoComplete(props) {
   const { control, fieldName, label, options, defaultValue} = props;
   const apiValue = defaultValue ? { label: defaultValue } : null
-  console.log("#####", props)
   return (
     <Controller
       control={control}
