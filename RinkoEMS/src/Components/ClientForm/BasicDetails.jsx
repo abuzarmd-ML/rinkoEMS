@@ -184,15 +184,16 @@ const BasicDetails = ({ fields }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            
             fullWidth
             type="text"
-            label={'Nota'}
+            label="Nota"
             variant="outlined"
-            name='note'  
-            
+            name="note"
+            {...register('note')}
+            error={errors?.note}
+            helperText={errors?.note ? errors.note.message : ''}
           />
-        </Grid> 
+        </Grid>
       </Grid>
     </Cards>
   );

@@ -31,7 +31,7 @@ const useAddProject = (defaultValue) => {
       data: {
         ...formData,
         type:formData.type?.label??formData.type,
-        company: formData.company?.value??formData.company
+        company: formData.company?.label ?? formData.company
       }
     }).then(response => {
       navigate('/project');

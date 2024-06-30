@@ -64,7 +64,7 @@ const BasicDetails = ({ fields }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList} />
+        <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList} />
         </Grid>
         <Grid item xs={6}>
           <ObraWebsiteField obrasList={obrasList} />
@@ -108,7 +108,7 @@ const BasicDetails = ({ fields }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <BasicDatePicker control={control} fieldName="venc_days" label="Venc _Days" size="small" />
+          <BasicDatePicker   control={control} fieldName="venc_days" label="Venc_Days" size="small"/>
         </Grid>
         <Grid item xs={6}>
           <TextField

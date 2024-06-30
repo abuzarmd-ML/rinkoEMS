@@ -7,39 +7,10 @@ async function createEmployeeController(req, res, next) {
   
   console.log("[Controller] : ", req.body)
   const {
-  name,
-  phone,
-  country,
-  dob,
-  nie,
-  caducidad,
-  social_security,
-  company,
-  type,
-  status,
-  rate,
-  reference,
-  remarks,
-  bank_name,
-  iban
+  name,phone,country,dob,nie,caducidad,social_security,company,type,status,rate,reference,remarks,bank_name,iban
   } = req.body;
 
-  console.log("####",
-  name,
-  phone,
-  country,
-  dob,
-  nie,
-  caducidad,
-  social_security,
-  company,
-  type,
-  status,
-  rate,
-  reference,
-  remarks,
-  bank_name,
-  iban)
+  console.log("####",name,phone,country,dob,nie,caducidad,social_security,company,type,status,rate,reference,remarks,bank_name,iban)
 
   try {
     const employeeId = await createEmployee(

@@ -5,26 +5,25 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createClient(name, phone, email, company, dob, country, address, nie, status, client_id, note) {
+async function createClient(name, phone, email, company, dob, country, address, nie, status, note) {
   const connection = await pool.getConnection();
   try {
     console.log("[MODEL]:", name, address, status);
 
     // Extract the actual value from the company object
-    const companyLabel = company && company.label ? company.label : null;
+    // const companyLabel = company && company.label ? company.label : null;
 
     // Ensure all fields are properly formatted
     const fields = [
       name || null,
       phone || null,
       email || null,
-      companyLabel,
+      company,
       dob || null,
       country || null,
       address || null,
       nie || null,
       status || null,
-      client_id || null,
       note || null
     ];
 
@@ -32,7 +31,7 @@ async function createClient(name, phone, email, company, dob, country, address, 
     console.log("Fields array:", fields);
 
     const [result] = await connection.execute(
-      'INSERT INTO clients (name, phone, email, company, dob, country, address, nie, status, client_id, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO clients (name, phone, email, company, dob, country, address, nie, status, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       fields
     );
     return result.insertId;

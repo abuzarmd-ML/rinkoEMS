@@ -6,12 +6,12 @@ async function createClientController(req, res, next) {
   console.log("[Controller]:", req.body);
 
   const {
-    name, phone, email, company, dob, country, address, nie, status, client_id, note
+    name, phone, email, company, dob, country, address, nie, status, note
   } = req.body;
 
   try {
     const clientId = await createClient(
-      name, phone, email, company, dob, country, address, nie, status, client_id, note
+      name, phone, email, company, dob, country, address, nie, status, note
     );
 
     res.status(201).json({ message: 'Client created successfully', clientId });

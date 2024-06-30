@@ -3,25 +3,28 @@ import { getProjectName,createProject,getAllProject } from '../models/project.js
 import { deleteProjectById,updateProject,getProjectById } from '../models/project.js';
 
 async function createProjectController(req, res, next) {
-  console.log("[Controller]:", req.body);
-
-  const {
-    comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days
-  } = req.body;
-
-  try {
-    const projectId = await createProject(
+    console.log("[Controller]:", req.body);
+  
+    const {
       comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days
-    );
-
-    res.status(201).json({ message: 'project created successfully', projectId });
-  } catch (error) {
-    console.error('Error creating project:', error);
-    next(error); // Passes the error to the error-handling middleware
+    } = req.body;
+  
+    try {
+      // Extract the label from the company object correctly
+    //   const companyLabel = company && company.label ? company.label : null;
+      console.log("Company Label:", company); // Check the extracted company label
+  
+      const projectId = await createProject(
+        comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days
+      );
+  
+      res.status(201).json({ message: 'Project created successfully', projectId });
+    } catch (error) {
+      console.error('Error creating project:', error);
+      next(error); // Passes the error to the error-handling middleware
+    }
   }
-}
-
-
+  
 
 async function getProjectController(req, res) {
   try {

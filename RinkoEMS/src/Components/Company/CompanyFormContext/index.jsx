@@ -28,7 +28,7 @@ const CompanyFormContext = ({ children }) => {
 
   React.useEffect(() => {
     if (!isLoading) {
-      console.log("DEfault values........", defaultValues)
+      console.log("Default values:", defaultValues);
       form.reset(defaultValues); // Reset form values whenever defaultValues change
     }
   }, [defaultValues, isLoading, form]);

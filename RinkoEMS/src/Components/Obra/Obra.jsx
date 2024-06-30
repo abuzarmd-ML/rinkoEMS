@@ -48,7 +48,7 @@ const Obra = () => {
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     { accessorKey: 'F_Date', header: 'F_Date', size: 150 },
     { accessorKey: 'email', header: 'Email', size: 150 },
-    { accessorKey: 'company', header: 'Company ID', size: 150 },
+    { accessorKey: 'company', header: 'Company', size: 150 },
     { accessorKey: 'obra_website', header: 'Website', size: 150 },
     { accessorKey: 'status', header: 'Status', size: 150 },
 

@@ -47,7 +47,7 @@ const Project = () => {
     { accessorKey: 'comunidad_name', header: 'Comunidad Name', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     { accessorKey: 'fact_email', header: 'Fact Email', size: 150 },
-    { accessorKey: 'company', header: 'Company ID', size: 150 },
+    { accessorKey: 'company', header: 'Company', size: 150 },
     { accessorKey: 'obra_id', header: 'Obra ID', size: 150 },
     { accessorKey: 'obra_website', header: 'obra Website', size: 150 },
     { accessorKey: 'cudad_id', header: 'cudad Id', size: 150 },

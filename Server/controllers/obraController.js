@@ -6,12 +6,13 @@ async function createObraController(req, res, next) {
   console.log("[Controller]:", req.body);
 
   const {
-    name, phone, email, company,address, nie, status,obra_website,f_date
+    name, phone, email, company,address, nie, status,obra_website,F_Date
   } = req.body;
 
   try {
+    console.log("Company Label:", company);
     const obraId = await createObra(
-      name, phone, email, company,address, nie, status,obra_website,f_date
+      name, phone, email, company,address, nie, status,obra_website,F_Date
     );
 
     res.status(201).json({ message: 'obra created successfully', obraId });
