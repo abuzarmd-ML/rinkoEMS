@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchCompanies, deleteCompany } from '../../api/companyApi';
@@ -47,13 +48,15 @@ const Company = () => {
     { accessorKey: 'phone', header: 'Phone', size: 150 },
     { accessorKey: 'country', header: 'Country', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
-    { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
-    { accessorKey: 'system_date', header: 'System_date', size: 150 },
+    // { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
+    // { accessorKey: 'system_date', header: 'System_date', size: 150 },
     { accessorKey: 'address', header: 'Address', size: 150 },
-    { accessorKey: 'status', header: 'Status', size: 150 },
+    {accessorKey: 'status',header: 'Status',size: 150,
+      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
+    },
     { accessorKey: 'city', header: 'City', size: 150 },
-    { accessorKey: 'email', header: 'Email', size: 150 },
-    { accessorKey: 'pincode', header: 'Postal_code', size: 150 },
+    // { accessorKey: 'email', header: 'Email', size: 150 },
+    // { accessorKey: 'pincode', header: 'Postal_code', size: 150 },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (
