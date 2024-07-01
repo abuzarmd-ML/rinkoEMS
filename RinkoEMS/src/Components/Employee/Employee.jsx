@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchEmployees, deleteEmployee } from '../../api/employeeApi';
@@ -52,7 +53,9 @@ const Employee = () => {
     { accessorKey: 'social_security', header: 'Social Security', size: 150 },
     { accessorKey: 'company_id', header: 'Company ID', size: 150 },
     { accessorKey: 'type', header: 'Type', size: 150 },
-    { accessorKey: 'status', header: 'Status', size: 150 },
+    {accessorKey: 'status',header: 'Status',size: 150,
+      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
+    },
     { accessorKey: 'rate', header: 'Rate', size: 150 },
     { accessorKey: 'reference', header: 'Reference', size: 150 },
     { accessorKey: 'remarks', header: 'Remarks', size: 150 },

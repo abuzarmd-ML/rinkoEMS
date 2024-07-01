@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchObra, deleteObra } from '../../api/ObraApi';
@@ -50,8 +51,9 @@ const Obra = () => {
     { accessorKey: 'email', header: 'Email', size: 150 },
     { accessorKey: 'company', header: 'Company', size: 150 },
     { accessorKey: 'obra_website', header: 'Website', size: 150 },
-    { accessorKey: 'status', header: 'Status', size: 150 },
-
+    {accessorKey: 'status',header: 'Status',size: 150,
+      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
+    },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
         return (

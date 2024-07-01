@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchClient, deleteClient } from '../../api/clientApi';
@@ -50,7 +51,9 @@ const Client = () => {
     { accessorKey: 'country', header: 'Country', size: 150 },
     { accessorKey: 'address', header: 'address', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
-    { accessorKey: 'status', header: 'Status', size: 150 },
+    {accessorKey: 'status',header: 'Status',size: 150,
+      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
+    },
     { accessorKey: 'note', header: 'Note', size: 150 },
 
     {
