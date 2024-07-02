@@ -6,16 +6,16 @@ async function createProjectController(req, res, next) {
     console.log("[Controller]:", req.body);
   
     const {
-      comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days
+      comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address
     } = req.body;
   
     try {
       // Extract the label from the company object correctly
     //   const companyLabel = company && company.label ? company.label : null;
-      console.log("Company Label:", company); // Check the extracted company label
+      console.log("Company Label:", company_name); // Check the extracted company label
   
       const projectId = await createProject(
-        comunidad_name, fact_email, company, obra_id, nie, obra_website, cudad_id, venc_days
+        comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days, company_address
       );
   
       res.status(201).json({ message: 'Project created successfully', projectId });

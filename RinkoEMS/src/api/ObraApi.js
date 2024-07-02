@@ -28,5 +28,6 @@ export const deleteObra = async (obraId) => {
       console.error('Error fetching obras:', error);
       throw error;
     }
+    
   };
   
