@@ -9,20 +9,7 @@ import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
-  const [companyList,setCompanyList] = React.useState([])
   const { register, formState: { errors }, control } = useFormContext()
-
-
-  React.useEffect(() => {
-    getCompanyName().then((response) => {
-      const formattedCompanies = response.map(company => ({
-        label: company.name,
-        value: company.company_id
-      }));
-      setCompanyList(formattedCompanies);
-    });
-  }, []);
-
 
   const ClientStatusOptions = [
     {
@@ -39,7 +26,7 @@ const BasicDetails = ({ fields }) => {
     }]
 
 
-  const handleChange = (event) => {
+    const handleChange = (event) => {
     setCountry(event.target.value);
   };
   const handleSubmit = (event) => {
@@ -77,9 +64,6 @@ const BasicDetails = ({ fields }) => {
           />
         </Grid>
 
-        <Grid item xs={6}>
-           <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
-        </Grid>
         <Grid item xs={6}>
           <TextField
             required

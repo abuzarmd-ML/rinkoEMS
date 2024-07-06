@@ -7,35 +7,12 @@ import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
 import BasicDatePicker from '../BasicForm/DatePicker';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
-import ObraWebsiteField from '../ObraForm/ObraWebsiteField';
 
 const mandatoryError = 'This field is mandatory';
 
 const BasicDetails = ({ fields }) => {
-  const [companyList, setCompanyList] = React.useState([]);
-  const [obrasList, setObraList] = React.useState([]);
+
   const { register, formState: { errors }, control } = useFormContext();
-
-  React.useEffect(() => {
-    getObraId().then((response) => {
-      const formattedObras = response.map(obra => ({
-        value: obra.obra_id,
-        label: String(obra.obra_id), // Ensure label is a string
-        website: obra.obra_website
-      })).filter(obra => obra.value !== undefined && obra.value !== null);
-      setObraList(formattedObras);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    getCompanyName().then((response) => {
-      const formattedCompanies = response.map(company => ({
-        label: company.name,
-        value: company.company_id
-      }));
-      setCompanyList(formattedCompanies);
-    });
-  }, []);
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -63,12 +40,7 @@ const BasicDetails = ({ fields }) => {
             helperText={errors?.['comunidad_name'] ? errors['comunidad_name'].message : ""}
           />
         </Grid>
-        <Grid item xs={6}>
-        <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList} />
-        </Grid>
-        <Grid item xs={6}>
-          <ObraWebsiteField obrasList={obrasList} />
-        </Grid>
+
         <Grid item xs={6}>
           <TextField
             required
