@@ -57,7 +57,8 @@ export default function Login() {
         if (response.status === 200) {
           if (response.data.loginStatus) {
             localStorage.setItem('valid', true);
-            navigate('/dashboard');
+            const navigateLink = formData.isAdmin?'/dashboard':'/attendance'
+            navigate(navigateLink);
           } else {
             setError(true);
           }

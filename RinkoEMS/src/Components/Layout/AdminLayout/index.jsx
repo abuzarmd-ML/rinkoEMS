@@ -14,7 +14,9 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { MenuList } from './MenuList';
+import useGlobalContext from '../../../ContextApi/useGlobalContext';
+import UserMenuList from './UserMenuList';
+import AdminMenuList from './AdminList';
 
 function Copyright(props) {
     return (
@@ -85,6 +87,9 @@ const AdminLayout = ({ children, title }) => {
         setOpen(!open);
     };
 
+    const {state} = useGlobalContext()
+    const {roleId} = state
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -138,9 +143,8 @@ const AdminLayout = ({ children, title }) => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                       <MenuList />
+                       {roleId===3?(<UserMenuList  />):(<AdminMenuList />)}
                         <Divider sx={{ my: 1 }} />
-                        {/* {secondaryListItems} */}
                     </List>
                 </Drawer>
                 {children}

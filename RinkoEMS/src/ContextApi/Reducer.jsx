@@ -6,8 +6,8 @@ const GlobalReducer = (state,action)=>{
         case UPDATE_USER_INFO:
             return {
                 ...state,
-                userInfo:action?.userInfo,
-                roleType: action?.roleType
+                ...action?.userAndRoleInfo,
+               
             }
         case CHANGE_LOADING_STATE:
             return {

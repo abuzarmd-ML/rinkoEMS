@@ -5,8 +5,8 @@ import GlobalReducer from "./Reducer"
 import axiosInstance from "../services/axiosInstance"
 
 export const UserContext = createContext({
-    userInfo: {},
-    roleType: 'user',
+    userInfo: {
+    },
     isLoading: true
 })
 
@@ -16,11 +16,24 @@ const GlobalContext = ({ children }) => {
     const token = Cookies.get('token');
     
     useEffect(()=>{
-        console.log('token',token)
      if(token){
-        dispatch({
-            type:CHANGE_LOADING_STATE,
-            isLoading:false
+        axiosInstance
+        .get('/getUserInfo')
+        .then((response)=>{
+            dispatch({
+                type:UPDATE_USER_INFO,
+                userAndRoleInfo:response.data.userAndRoleInfo
+            })
+            dispatch({
+                type:CHANGE_LOADING_STATE,
+                isLoading:false
+            })
+        })
+        .catch(()=>{
+            dispatch({
+                type:CHANGE_LOADING_STATE,
+                isLoading:false
+            })
         })
      }else{
         dispatch({
