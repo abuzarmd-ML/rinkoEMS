@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {Avatar,Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,} from '@mui/material';
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alerts from '../Alert';
 import { getCompanyName } from '../../api/companyApi';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import axiosInstance from '../../services/axiosInstance';
+import useGlobalContext from '../../ContextApi/useGlobalContext';
 
 const defaultTheme = createTheme();
 const mandatoryError = 'This field is mandatory';
@@ -29,6 +30,8 @@ export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = React.useState(false);
 
+  const { state } = useGlobalContext()
+
   const form = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -40,7 +43,7 @@ export default function Login() {
   });
   const { register, formState: { errors }, control, watch, handleSubmit } = form;
   const isAdmin = watch('isAdmin');
-  const [companyList,setCompnayList] = React.useState([])
+  const [companyList, setCompnayList] = React.useState([])
 
   axiosInstance.defaults.withCredentials = true;
 
@@ -57,7 +60,7 @@ export default function Login() {
         if (response.status === 200) {
           if (response.data.loginStatus) {
             localStorage.setItem('valid', true);
-            const navigateLink = formData.isAdmin?'/dashboard':'/attendance'
+            const navigateLink = formData.isAdmin ? '/dashboard' : '/attendance'
             navigate(navigateLink);
           } else {
             setError(true);
@@ -82,7 +85,17 @@ export default function Login() {
       setCompnayList(formattedCompanies);
     });
   }, []);
-  
+
+  React.useEffect(() => {
+    if (state.roleId) {
+      const navigateLink = state.roleId === 3 ? '/attendance' : '/dashboard'
+      navigate(navigateLink);
+    }
+  }, [state.roleId])
+
+  if (state.roleId) {
+    return <h2>Loading...</h2>
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -124,7 +137,7 @@ export default function Login() {
                 autoComplete="current-password"
               />
               {!isAdmin && (
-                <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
+                <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList} />
               )}
               <FormControlLabel
                 control={
