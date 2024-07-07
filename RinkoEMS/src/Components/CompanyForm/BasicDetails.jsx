@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Grid, TextField, Typography, MenuItem } from '@mui/material';
 import Cards from '../Cards/Cards';
 import BasicDatePicker from '../BasicForm/DatePicker';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import countryList from '../../../public/country.json';
 
 const BasicDetails = () => {
+
+  const { control, formState: { errors }, setValue  } = useFormContext();
+  const [selectedColor, setSelectedColor] = useState('');
+
   const StatusOptions = [
     { label: 'Active', value: 'Active' },
     { label: 'Inactive', value: 'Inactive' },
     { label: 'Prospect', value: 'Prospect' }
   ];
+  
+  const colorOptions = [
+    { label: 'Red', value: '#FF0000' },
+    { label: 'Green', value: '#00FF00' },
+    { label: 'Blue', value: '#0000FF' },
+    { label: 'Yellow', value: '#FFFF00' },
+    { label: 'Purple', value: '#800080' },
+    { label: 'Orange', value: '#FFA500' },
+  ];
 
-  const { control, formState: { errors } } = useFormContext();
+  const handleColorChange = (colorValue) => {
+    setValue('color', colorValue); // Set the form value for 'color' field
+    setSelectedColor(colorValue); // Update state for displaying selected color
+  };
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -37,6 +53,28 @@ const BasicDetails = () => {
                 error={!!errors.name}
                 helperText={errors.name ? errors.name.message : ""}
               />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="color"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                select
+                label="Select Color"
+                value={field.value || selectedColor}
+                onChange={(e) => handleColorChange(e.target.value)}
+                variant="outlined"
+                fullWidth
+              >
+                {colorOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             )}
           />
         </Grid>
