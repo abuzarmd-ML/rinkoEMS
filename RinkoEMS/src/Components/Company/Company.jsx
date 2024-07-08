@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchCompanies, deleteCompany } from '../../api/companyApi';
+import MakeCompanyTable from './MakeCompanyTable';
 
 
 const Company = () => {
@@ -43,32 +42,6 @@ const Company = () => {
     }
   };
 
-  const columns = [
-    { accessorKey: 'name', header: 'Company_Name', size: 150 },
-    { accessorKey: 'phone', header: 'Phone', size: 150 },
-    { accessorKey: 'country', header: 'Country', size: 150 },
-    { accessorKey: 'nie', header: 'NIE', size: 150 },
-    // { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
-    // { accessorKey: 'system_date', header: 'System_date', size: 150 },
-    { accessorKey: 'address', header: 'Address', size: 150 },
-    {accessorKey: 'status',header: 'Status',size: 150,
-      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
-    },
-    { accessorKey: 'city', header: 'City', size: 150 },
-    // { accessorKey: 'email', header: 'Email', size: 150 },
-    // { accessorKey: 'pincode', header: 'Postal_code', size: 150 },
-    {
-      accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
-        return (
-          <>
-            <Button href={`/company/add/${row.original.company_id}`} variant="outlined">View</Button>
-            <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.company_id)}>Delete</Button>
-          </>
-        )
-      }
-    },
-  ];
-
   return (
     <AdminLayout title="company Management">
       <Box
@@ -85,8 +58,10 @@ const Company = () => {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid spacing={2} sx={{ m: "1px" }}>
-            <BasicMuiTable columns={columns} data={data} />
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <MakeCompanyTable data={data} handleClickOpen={handleClickOpen} />
+            </Grid>
           </Grid>
         </Container>
       </Box>

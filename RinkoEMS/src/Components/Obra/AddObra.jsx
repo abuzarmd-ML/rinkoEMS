@@ -4,7 +4,8 @@ import BasicDetails from '../ObraForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
-import ObraFormContext from './ObraFormContext'
+import ObraFormContext from './ObraFormContext';
+import CompanyDetails from '../ProjectForm/CompanyDetails';
 
 const AddObra = () => {
   const [image, setImage] = useState(null);
@@ -36,6 +37,9 @@ const AddObra = () => {
          <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <BasicDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <CompanyDetails />
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>

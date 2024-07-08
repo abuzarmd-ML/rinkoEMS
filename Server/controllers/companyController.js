@@ -13,7 +13,7 @@ async function createCompanyController(req, res, next) {
       nie,
       caducidad,
       status,      
-      system_date
+      system_date,color
     } = req.body;
 
     console.log("Request body:", req.body); // Log the entire request body
@@ -28,7 +28,7 @@ async function createCompanyController(req, res, next) {
       nie,
       caducidad,
       status,      
-      system_date
+      system_date,color
     );
 
     res.status(201).json({ message: 'Company created successfully', companyId });

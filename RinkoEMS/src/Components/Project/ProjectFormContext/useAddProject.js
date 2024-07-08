@@ -9,7 +9,7 @@ const useAddProject = (defaultValue) => {
   const form = useForm({
     mode: 'onBlur',
     values: { ...defaultValue,
-      company:defaultValue?.company_id??''
+      company_name:defaultValue?.company_name??''
      }
   })
 
@@ -31,7 +31,7 @@ const useAddProject = (defaultValue) => {
       data: {
         ...formData,
         type:formData.type?.label??formData.type,
-        company: formData.company?.label ?? formData.company
+        company_name: formData.company_name?.label ?? formData.company_name
       }
     }).then(response => {
       navigate('/project');

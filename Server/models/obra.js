@@ -5,7 +5,7 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createObra(obra_name, phone, email, company,address, nie, status,obra_website,F_Date) {
+async function createObra(obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address) {
   const connection = await pool.getConnection();
   try {
 
@@ -15,19 +15,20 @@ async function createObra(obra_name, phone, email, company,address, nie, status,
       obra_name || null,
       phone || null,
       email || null,
-      company,
+      company_name,
       address || null,
       nie || null,
       status || null,
       obra_website || null,
-      F_Date || null
+      F_Date || null,
+      company_address
     ];
 
     // Log the fields array to debug
     console.log("Fields array:", fields);
 
     const [result] = await connection.execute(
-      'INSERT INTO obras (obra_name, phone, email, company,address, nie, status,obra_website,F_Date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO obras (obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       fields
     );
     return result.insertId;
@@ -76,17 +77,17 @@ async function getObraById(obraId) {
 async function updateObra(id, ObraData) {
   const connection = await pool.getConnection();
   try {
-      const { obra_name, phone, email, company,address, nie, status,obra_website,F_Date } = ObraData;
+      const { obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address } = ObraData;
       
       // Check if all fields are present
-      if ([obra_name, phone, email, company,address, nie, status,obra_website,F_Date].includes(undefined)) {
+      if ([obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address].includes(undefined)) {
           throw new Error("Missing required fields in ObraData");
       }
 
       const [result] = await connection.execute(
           `UPDATE obras 
-           SET obra_name = ?, phone = ?, email = ?, company = ?, address = ?, nie = ?, status = ?, obra_website = ?, F_Date=? WHERE obra_id = ?`,
-          [obra_name, phone, email, company,address, nie, status,obra_website,F_Date,id]
+           SET obra_name = ?, phone = ?, email = ?, company_name = ?, address = ?, nie = ?, status = ?, obra_website = ?, F_Date=?, company_address=? WHERE obra_id = ?`,
+          [obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,id]
       );
       return result;
   } finally {
