@@ -90,7 +90,7 @@ const AppRouter = {"admin":[
         name:'Get Employee',
         url:'/employee/add/:id',
         path:'/employee',
-        component: <AddProject  />
+        component: <AddEmployee  />
     },
     {
         name:'Obra',

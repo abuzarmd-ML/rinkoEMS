@@ -1,5 +1,5 @@
 
-import { CHANGE_LOADING_STATE,UPDATE_USER_INFO } from "./GlobalActions"
+import { CHANGE_LOADING_STATE,UPDATE_USER_INFO,UPDATE_COMPANY_COLOR } from "./GlobalActions"
 
 const GlobalReducer = (state,action)=>{
     switch(action.type){
@@ -13,6 +13,11 @@ const GlobalReducer = (state,action)=>{
             return {
                 ...state,
                 isLoading:!!action?.isLoading
+            }
+        case UPDATE_COMPANY_COLOR:
+            return {
+                ...state,
+                companyColor: action?.companyColor,
             }
         default:
             return state

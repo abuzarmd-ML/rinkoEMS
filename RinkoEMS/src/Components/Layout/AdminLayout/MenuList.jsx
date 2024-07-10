@@ -59,6 +59,9 @@ export const MenuList = () => {
       console.log('success')
       navigate('/login')
     })
+    .catch((error) => {
+      console.error('Error logging out:', error);
+    });
   } 
 
   return (

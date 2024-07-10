@@ -1,13 +1,14 @@
 import { createContext,useEffect, useReducer } from "react"
 import Cookies from 'js-cookie';
-import { UPDATE_USER_INFO,CHANGE_LOADING_STATE } from "./GlobalActions";
+import { UPDATE_USER_INFO,CHANGE_LOADING_STATE,UPDATE_COMPANY_COLOR } from "./GlobalActions";
 import GlobalReducer from "./Reducer"
 import axiosInstance from "../services/axiosInstance"
 
 export const UserContext = createContext({
     userInfo: {
     },
-    isLoading: true
+    isLoading: true,
+    companyColor: "#0d6efd"
 })
 
 const GlobalContext = ({ children }) => {
@@ -27,6 +28,10 @@ const GlobalContext = ({ children }) => {
             dispatch({
                 type:CHANGE_LOADING_STATE,
                 isLoading:false
+            })
+            dispatch({
+                type:UPDATE_COMPANY_COLOR,
+                companyColor: "0d6efd"
             })
         })
         .catch(()=>{

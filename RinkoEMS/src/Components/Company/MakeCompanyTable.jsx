@@ -19,20 +19,7 @@ const MakeCompanyTable = ({ data, handleClickOpen }) => {
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
     },
     { accessorKey: 'city', header: 'City', size: 150 },
-    {
-      accessorKey: 'color',
-      header: 'Company Color',
-      size: 150,
-      Cell: ({ row }) => (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: row.original.color,
-          }}
-        ></div>
-      ),
-    },
+    {accessorKey: 'color',header: 'Company Color',size: 150},
     {
       accessorKey: 'id',
       header: 'Actions',
