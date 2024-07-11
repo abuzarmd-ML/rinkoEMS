@@ -13,7 +13,7 @@ import AddObra from "../Components/Obra/AddObra"
 import Attendance from '../Components/Attendance/Attendance'
 import Dashboards from '../Components/Dashboard/Dashboard'
 
-const AppRouter = {"admin":[
+const AppRouter = {"1":[
     {
         name:'Manage Users',
         url:'/',
@@ -127,7 +127,7 @@ const AppRouter = {"admin":[
 
 
 ],
-"user":[
+"3":[
     {
         name:'Employee',
         url:'/employee',
