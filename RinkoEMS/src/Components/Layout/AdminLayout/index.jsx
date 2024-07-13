@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Cookies from 'js-cookie';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,7 +13,10 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from 'react-router-dom';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import { UPDATE_USER_INFO } from '../../../ContextApi/GlobalActions';
+import axiosInstance from '../../../services/axiosInstance';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import useGlobalContext from '../../../ContextApi/useGlobalContext';
 import UserMenuList from './UserMenuList';
@@ -83,15 +87,41 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const AdminLayout = ({ children, title }) => {
 
     const [open, setOpen] = React.useState(true);
+    const [role, setRole] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    const navigate   = useNavigate()
 
-    const {state} = useGlobalContext()
-    const {roleId} = state
+    const {state,dispatch} = useGlobalContext()
+    const {roleId} = state.userAndRoleInfo
 
+    React.useEffect(()=>{
+      if(roleId){
+        setRole(roleId)
+      }
+    },[roleId])
+
+    console.log('roleIdAAA',roleId)
+    const handleClickLogout =()=>{
+      axiosInstance.post('/logout')
+      .then((response)=>{
+        Cookies.remove('token')
+
+        dispatch({
+          type:UPDATE_USER_INFO,
+          userAndRoleInfo:{}
+        })
+        
+        navigate('/login')
+      }).catch((e)=>{
+        console.log('error',e)
+      })
+    } 
+
+   
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={defaultTheme} key={roleId}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
@@ -143,7 +173,9 @@ const AdminLayout = ({ children, title }) => {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                       {roleId===3?(<UserMenuList  />):(<AdminMenuList />)}
+                      
+                       {role===3&&(<UserMenuList handleClickLogout={handleClickLogout} />)}
+                       {role===1&&(<AdminMenuList handleClickLogout={handleClickLogout} />)}
                         <Divider sx={{ my: 1 }} />
                     </List>
                 </Drawer>

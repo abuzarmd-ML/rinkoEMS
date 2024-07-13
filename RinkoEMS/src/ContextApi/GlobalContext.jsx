@@ -4,11 +4,13 @@ import { UPDATE_USER_INFO,CHANGE_LOADING_STATE } from "./GlobalActions";
 import GlobalReducer from "./Reducer"
 import axiosInstance from "../services/axiosInstance"
 
-export const UserContext = createContext({
-    userInfo: {
+const IntitalState = {
+    userAndRoleInfo: {
     },
     isLoading: true
-})
+}
+
+export const UserContext = createContext(IntitalState)
 
 const GlobalContext = ({ children }) => {
 
@@ -16,6 +18,8 @@ const GlobalContext = ({ children }) => {
     const token = Cookies.get('token');
     
     useEffect(()=>{
+      
+
      if(token){
         axiosInstance
         .get('/getUserInfo')
@@ -43,6 +47,7 @@ const GlobalContext = ({ children }) => {
      }
      },[token])
     const {isLoading} = state
+    console.log('isLoading',isLoading)
     if(isLoading) {
         return <h2>Loading state</h2>
     }

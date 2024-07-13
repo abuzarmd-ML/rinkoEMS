@@ -24,7 +24,7 @@ import { Link,useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosInstance from '../../../services/axiosInstance';
 
- const AdminMenuList = () => {
+ const AdminMenuList = ({handleClickLogout}) => {
   const [projectOpen, setHandleProjectOpen] = useState(false);
   const [obraOpen, setObraOpen] = useState(false);
   const [obraEntradaOpen, setObraEntradaOpen] = useState(false);
@@ -52,13 +52,13 @@ import axiosInstance from '../../../services/axiosInstance';
   };
 
 
-  const handleClickLogout =()=>{
-    axiosInstance.post('/logout')
-    .then((response)=>{
-      console.log('success')
-      navigate('/login')
-    })
-  } 
+  // const handleClickLogout =()=>{
+  //   axiosInstance.post('/logout')
+  //   .then((response)=>{
+  //     console.log('success')
+  //     navigate('/login')
+  //   })
+  // } 
 
   return (
     <React.Fragment>

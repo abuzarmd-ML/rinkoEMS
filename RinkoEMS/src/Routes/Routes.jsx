@@ -12,16 +12,25 @@ import PageNotFound from '../Components/404/PageNotFound'
 
 const RoutesPage = () => {
   const {state} = useGlobalContext()
+  const [stateAppRouter,setStateAppRouter] =React.useState([])
 
-  const {roleId} = state
- const getAppRouter = AppRouter[roleId]
+  const {roleId} = state?.userAndRoleInfo??{}
+  React.useEffect(()=>{
+    if(roleId){
+        const getAppRouter = AppRouter[roleId]
+        setStateAppRouter([...getAppRouter])
+    }
+   
+  },[roleId])
+  
+
     return (
         <BrowserRouter>
             <Routes>
 
-                {getAppRouter?.map((router)=>{
+                {stateAppRouter?.map((router)=>{
                     return (
-                        <Route key={router.name} exact path={router.url} element={<ProtectedRoute />}>
+                        <Route key={router.id} exact path={router.url} element={<ProtectedRoute />}>
                         <Route exact path={router.url} element={router.component} />
                     </Route>
                     )
