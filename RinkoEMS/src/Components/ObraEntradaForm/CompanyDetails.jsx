@@ -18,30 +18,32 @@ const CompanyDetails = ({ fields }) => {
       const formattedCompanies = response.map(company => ({
         label: company.name,
         value: company.company_id,
-        address: company.address
+        status: company.status
       })).filter(company => company.label !== undefined && company.value !== null);
       setCompanyList(formattedCompanies);
+  
     });
   }, []);
 
   const handleCompanyChange = (selectedOption) => {
     if (selectedOption) {
       setValue('company_name', selectedOption.label);
-      setValue('company_address', selectedOption.address);
+      setValue('company_status', selectedOption.status);
       setValue('company_id', selectedOption.value);
     } else {
       setValue('company_name', '');
-      setValue('company_address', '');
       setValue('company_id', '');
+      setValue('company_status', '');
     }
+    
   };
 
   React.useEffect(() => {
     if (selectedCompanyName) {
       const selectedCompany = companyList.find(company => company.label === selectedCompanyName);
       if (selectedCompany) {
-        setValue('address', selectedCompany.company_address);
-        setValue('value',selectedCompany.company_id);
+        setValue('status', selectedCompany.company_status);
+        setValue('value', selectedCompany.company_id);
       }
     }
   }, [selectedCompanyName, companyList, setValue]);
@@ -55,7 +57,7 @@ const CompanyDetails = ({ fields }) => {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Controller
             name="company_name"
             control={control}
@@ -98,15 +100,15 @@ const CompanyDetails = ({ fields }) => {
         <Grid item xs={4}>
           <TextField
             required
-            id="company_address"
+            id="company_status"
             fullWidth
-            name="company_address"
-            label="Company address"
+            name="company_status"
+            label="Company status"
             variant="outlined"
             InputProps={{
               readOnly: true,
             }}
-            value={watch('company_address') || ''}
+            value={watch('company_status') || ''}
           />
         </Grid>
       </Grid>

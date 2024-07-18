@@ -28,9 +28,11 @@ const CompanyDetails = ({ fields }) => {
     if (selectedOption) {
       setValue('company_name', selectedOption.label);
       setValue('company_address', selectedOption.address);
+      setValue('company_id', selectedOption.value);
     } else {
       setValue('company_name', '');
       setValue('company_address', '');
+      setValue('company_id', '');
     }
   };
 
@@ -39,6 +41,7 @@ const CompanyDetails = ({ fields }) => {
       const selectedCompany = companyList.find(company => company.label === selectedCompanyName);
       if (selectedCompany) {
         setValue('address', selectedCompany.company_address);
+        setValue('value',selectedCompany.company_id);
       }
     }
   }, [selectedCompanyName, companyList, setValue]);
@@ -52,7 +55,7 @@ const CompanyDetails = ({ fields }) => {
           </Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Controller
             name="company_name"
             control={control}
@@ -78,7 +81,21 @@ const CompanyDetails = ({ fields }) => {
             )}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
+          <TextField
+            required
+            id="company_id"
+            fullWidth
+            name="company_id"
+            label="Company ID"
+            variant="outlined"
+            InputProps={{
+              readOnly: true,
+            }}
+            value={watch('company_id') || ''}
+          />
+        </Grid>
+        <Grid item xs={4}>
           <TextField
             required
             id="company_address"

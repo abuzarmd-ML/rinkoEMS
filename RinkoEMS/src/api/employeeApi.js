@@ -21,3 +21,14 @@ export const deleteEmployee = async (employeeId) => {
     throw error;
   }
 };
+
+export const getEmployeeId = async () => {
+  try {
+    const response = await axiosInstance.get('/employees');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching employees:', error);
+    throw error;
+  }
+  
+};

@@ -6,13 +6,13 @@ async function createObraController(req, res, next) {
   console.log("[Controller]:", req.body);
 
   const {
-    obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address
+    obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,company_id
   } = req.body;
 
   try {
     console.log("Company Label:", company_name);
     const obraId = await createObra(
-      obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address
+      obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,company_id
     );
 
     res.status(201).json({ message: 'obra created successfully', obraId });
@@ -88,5 +88,7 @@ async function deleteObraController(req, res) {
     res.status(500).json({ message: 'Server error' });
   }
 }
+
+
 
 export {createObraController,getObraController,getObraControllerById,getAllObraController,deleteObraController,updateObraController}

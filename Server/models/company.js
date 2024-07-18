@@ -64,7 +64,7 @@ async function updateCompany(id, companyData) {
     const {name, address, status, phone, country, nie, caducidad, company_id, city, email, system_date, pincode,color} = companyData;
      const [result] = await connection.execute(
       `UPDATE companies 
-       SET name = ?, address = ?, status = ?, phone = ?, country = ?, nie = ?, caducidad = ?, company_id = ?, city = ?, email = ?, system_date = ?, pincode = ?,,color= ?
+       SET name = ?, address = ?, status = ?, phone = ?, country = ?, nie = ?, caducidad = ?, company_id = ?, city = ?, email = ?, system_date = ?, pincode = ?,color= ?
        WHERE company_id = ?`,
        [name, address, status, phone, country, nie, caducidad, company_id, city, email, system_date, pincode,color, id]
     );

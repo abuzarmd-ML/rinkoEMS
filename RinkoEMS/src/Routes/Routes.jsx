@@ -18,6 +18,9 @@ import AddCompany from '../Components/Company/AddCompany'
 import ProtectedRoute from './ProtectedRoute'
 import Project from '../Components/Project/Project'
 import AddProject from '../Components/Project/AddProject'
+import ObraEntrada from '../Components/ObraEntrada/ObraEntrada'
+import AddObraEntrada from '../Components/ObraEntrada/AddObraEntrada'
+
 
 const RoutesPage = () => {
 
@@ -79,6 +82,15 @@ const RoutesPage = () => {
                 </Route>
                 <Route exact path='/obra/add/:id' element={<ProtectedRoute />}>
                 <Route path='/obra/add/:id' element={<AddObra />} />
+                </Route>
+                <Route exact path='/obra_entrada/add' element={<ProtectedRoute />}>
+                <Route path='/obra_entrada/add' element={<AddObraEntrada />} />
+                </Route>
+                <Route exact path='/obra_entrada' element={<ProtectedRoute />}>
+                <Route path='/obra_entrada' element={<ObraEntrada />} />
+                </Route>
+                <Route exact path='/obra_entrada/add/:id' element={<ProtectedRoute />}>
+                <Route path='/obra_entrada/add/:id' element={<AddObraEntrada />} />
                 </Route>
                 <Route exact path='/mamage-users' element={<ProtectedRoute />}>
                 <Route path='/mamage-users' element={<ManageUsers />} />
