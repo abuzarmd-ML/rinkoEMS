@@ -250,6 +250,12 @@ export const MenuList = () => {
         </ListItemIcon>
         <ListItemText primary="Profile" />
       </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Configuration" />
+      </ListItemButton>
       <ListItemButton onClick={handleClickLogout}>
         <ListItemIcon>
           <LogoutIcon />

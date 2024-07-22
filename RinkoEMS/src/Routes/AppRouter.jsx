@@ -12,6 +12,7 @@ import Obra from "../Components/Obra/Obra"
 import AddObra from "../Components/Obra/AddObra"
 import Attendance from '../Components/Attendance/Attendance'
 import Dashboards from '../Components/Dashboard/Dashboard'
+import AdminConfigurations from "../Components/AdminConfigurations/AdminConfigurations"
 
 const AppRouter = {"admin":[
     {
@@ -123,6 +124,12 @@ const AppRouter = {"admin":[
         url:'/dashboard',
         path:'/dashboard',
         component: <Dashboards />
+    },
+    {
+        name:'Configurations',
+        url:'/configurations',
+        path:'/configurations',
+        component: <AdminConfigurations />
     },
 
 
