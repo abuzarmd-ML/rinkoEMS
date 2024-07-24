@@ -9,6 +9,7 @@ import { CompanyRoute } from "./Routes/companyRoute.js"
 import { ClientRoute } from "./Routes/ClientRoute.js";
 import { ObraRoute } from "./Routes/ObraRoute.js";
 import { ProjectRoute } from "./Routes/ProjectROute.js";
+import { DropDownOptionsRouter } from "./routes/DropdownOptionsRoute.js";
 
 
 const app = express() 
@@ -28,6 +29,7 @@ app.use(CompanyRoute)
 app.use(ClientRoute)
 app.use(ObraRoute)
 app.use(ProjectRoute)
+app.use(DropDownOptionsRouter)
 // app.use(express.static('Public'))
 
 app.listen(3000 , () =>{

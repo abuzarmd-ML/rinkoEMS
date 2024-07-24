@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Card, CardContent, Typography, IconButton, Divider, Modal, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
+import axiosInstance from '../../services/axiosInstance';
 
 const EmployeeStatus = () => {
-  const [dropdownOptions, setDropdownOptions] = useState([
-    { id: 1, name: 'Option 1' },
-    { id: 2, name: 'Option 2' },
-    { id: 3, name: 'Option 3' }
-  ]);
-
+  const [dropdownOptions, setDropdownOptions] = useState([]);
   const [newOption, setNewOption] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editOption, setEditOption] = useState({ id: null, name: '' });
+
+  useEffect(() => {
+    // Fetch dropdown options from the backend
+    axiosInstance.get('/employee_status_options')
+      .then(response => {
+        const options = Array.isArray(response.data) ? response.data : [];
+        setDropdownOptions(options);
+      })
+      .catch(error => console.error('Error fetching options:', error));
+  }, []);
 
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
 
   const handleAddOption = () => {
     if (newOption.trim()) {
-      setDropdownOptions([...dropdownOptions, { id: dropdownOptions.length + 1, name: newOption }]);
-      setNewOption('');
-      handleClose();
+      axiosInstance.post('/employee_status_options', { name: newOption })
+        .then(response => {
+          setDropdownOptions([...dropdownOptions, response.data]);
+          setNewOption('');
+          handleClose();
+        })
+        .catch(error => console.error('Error adding option:', error));
     }
   };
 
@@ -34,10 +44,22 @@ const EmployeeStatus = () => {
   };
 
   const handleSaveEdit = () => {
-    setDropdownOptions(dropdownOptions.map(opt => (opt.id === editOption.id ? editOption : opt)));
-    setEditOption({ id: null, name: '' });
-    setIsEditing(false);
-    handleClose();
+    axiosInstance.put(`/employee_status_options/${editOption.id}`, { name: editOption.name })
+      .then(response => {
+        setDropdownOptions(dropdownOptions.map(opt => (opt.id === editOption.id ? response.data : opt)));
+        setEditOption({ id: null, name: '' });
+        setIsEditing(false);
+        handleClose();
+      })
+      .catch(error => console.error('Error editing option:', error));
+  };
+
+  const handleDeleteOption = (id) => {
+    axiosInstance.delete(`/employee_status_options/${id}`)
+      .then(() => {
+        setDropdownOptions(dropdownOptions.filter(opt => opt.id !== id));
+      })
+      .catch(error => console.error('Error deleting option:', error));
   };
 
   const handleCancelEdit = () => {
@@ -63,7 +85,7 @@ const EmployeeStatus = () => {
                 <IconButton color="primary" aria-label="edit" onClick={() => handleEditOption(option)}>
                   <EditIcon />
                 </IconButton>
-                <IconButton color="secondary" aria-label="delete">
+                <IconButton color="secondary" aria-label="delete" onClick={() => handleDeleteOption(option.id)}>
                   <DeleteIcon />
                 </IconButton>
               </Box>
