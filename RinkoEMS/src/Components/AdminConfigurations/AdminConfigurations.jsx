@@ -3,6 +3,9 @@ import React from 'react';
 import { Box, Grid, Typography,Toolbar } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import EmployeeStatus from '../DropdownOptions/EmployeeStatus';
+import EmployeeType from '../DropdownOptions/EmployeeType';
+import StatusOptions from '../DropdownOptions/StatusOptions';
+import CompanyColors from '../DropdownOptions/CompanyColors';
 
 const AdminConfigurations = () => {
   return (
@@ -24,6 +27,16 @@ const AdminConfigurations = () => {
             <Grid item md={4}>
                 <EmployeeStatus />
             </Grid>
+            <Grid item md={4}>
+                <EmployeeType />
+            </Grid>
+            <Grid item md={4}>
+                <StatusOptions />
+            </Grid>
+            <Grid item md={4}>
+                <CompanyColors />
+            </Grid>
+            
             </Grid>
       </Box>
     </AdminLayout>
