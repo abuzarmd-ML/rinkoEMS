@@ -5,46 +5,16 @@ import { Grid, Typography } from '@mui/material';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import Cards from '../Cards/Cards';
 import { getCompanyName } from '../../api/companyApi';
+import { fetchEmployeeStatus, fetchEmployeeTypes } from '../../api/dropdownOptionsApi';
+
 const mandatoryError = 'This field is mandatory'
-
-const statusOptions = [
-  {
-    label: 'Alta',
-    value: 'Alta'
-  },
-  {
-    label: 'Baja',
-    value: 'Baja'
-  },
-  {
-    label: 'Medical Baja',
-    value: 'Medical Baja'
-  },
-  {
-    label: 'Terminated',
-    value: 'Terminated'
-  }
-]
-
-const employeeTypeOptions = [
-  {
-    label: 'Contract',
-    value: 'Contract'
-  },
-  {
-    label: 'Full Type',
-    value: 'Full Type'
-  },
-  {
-    label: 'Terminated',
-    value: 'Terminated'
-
-  }]
 
 const BasicDetails = ({ fields }) => {
 
   const [companyList,setCompnayList] = React.useState([])
   const { register, formState: { errors }, control } = useFormContext()
+  const [EmployeeStatusOptions,setEmployeeStatusOptions]= React.useState([])
+  const [employeeTypeOptions,setEmployeeTypeOptions]= React.useState([])
 
   React.useEffect(() => {
     getCompanyName().then((response) => {
@@ -55,6 +25,27 @@ const BasicDetails = ({ fields }) => {
       setCompnayList(formattedCompanies);
     });
   }, []);
+
+  React.useEffect(() => {
+    fetchEmployeeStatus().then((response) => {
+      const formattedStatus = response.map(employee_statuses => ({
+        label: employee_statuses.name,
+        value: employee_statuses.employee_statuses_id
+      }));
+      setEmployeeStatusOptions(formattedStatus);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    fetchEmployeeTypes().then((response) => {
+      const formattedEmployeeTypes = response.map(employee_types => ({
+        label: employee_types.name,
+        value: employee_types.employee_types_id
+      }));
+      setEmployeeTypeOptions(formattedEmployeeTypes);
+    });
+  }, []);
+
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -75,7 +66,7 @@ const BasicDetails = ({ fields }) => {
 
         </Grid>
         <Grid item xs={6}>
-          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={statusOptions} />
+          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={EmployeeStatusOptions} />
 
         </Grid>
         <Grid item xs={6}>

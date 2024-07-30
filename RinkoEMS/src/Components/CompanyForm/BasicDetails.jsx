@@ -5,31 +5,36 @@ import Cards from '../Cards/Cards';
 import BasicDatePicker from '../BasicForm/DatePicker';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import countryList from '../../../public/country.json';
+import { fetchStatusOptions, fetchCompanyColors } from '../../api/dropdownOptionsApi';
+
+
 
 const BasicDetails = () => {
 
   const { control, formState: { errors }, setValue  } = useFormContext();
-  const [selectedColor, setSelectedColor] = useState('');
+  const [colorOptions, setColorOptions] = useState('');
+  const [StatusOptions,setStatusOptions]= React.useState([])
 
-  const StatusOptions = [
-    { label: 'Active', value: 'Active' },
-    { label: 'Inactive', value: 'Inactive' },
-    { label: 'Prospect', value: 'Prospect' }
-  ];
-  
-  const colorOptions = [
-    { label: 'Red', value: '#FF0000' },
-    { label: 'Green', value: '#00FF00' },
-    { label: 'Blue', value: '#0000FF' },
-    { label: 'Yellow', value: '#FFFF00' },
-    { label: 'Purple', value: '#800080' },
-    { label: 'Orange', value: '#FFA500' },
-  ];
+React.useEffect(() => {
+  fetchStatusOptions().then((response) => {
+    const formattedStatus = response.map(statuses => ({
+      label: statuses.name,
+      value: statuses.statuses_id
+    }));
+    setStatusOptions(formattedStatus);
+  });
+}, []);
 
-  const handleColorChange = (colorValue) => {
-    setValue('color', colorValue); // Set the form value for 'color' field
-    setSelectedColor(colorValue); // Update state for displaying selected color
-  };
+React.useEffect(() => {
+  fetchCompanyColors().then((response) => {
+    const formattedColors = response.map(company_colors => ({
+      label: company_colors.name,
+      value: company_colors.company_colors_id
+    }));
+    setColorOptions(formattedColors);
+  });
+}, []);
+
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -57,25 +62,11 @@ const BasicDetails = () => {
           />
         </Grid>
         <Grid item xs={6}>
-          <Controller
-            name="color"
+          <SelectAutoComplete
             control={control}
-            render={({ field }) => (
-              <TextField
-                select
-                label="Select Color"
-                value={field.value || selectedColor}
-                onChange={(e) => handleColorChange(e.target.value)}
-                variant="outlined"
-                fullWidth
-              >
-                {colorOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-            )}
+            fieldName='colors'
+            label='Select Colors'
+            options={colorOptions}
           />
         </Grid>
         <Grid item xs={6}>
