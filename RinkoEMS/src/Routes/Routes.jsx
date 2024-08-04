@@ -2,37 +2,26 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import EmployeeLogin from '../Components/EmployeeLogin'
+import useGlobalContext from '../ContextApi/useGlobalContext'
 import SignIn from '../Components/Login/Login'
 import SignUp from '../Components/SignUp/SignUp'
 import ManageUsers from '../Components/domain/ManageUsers'
 import ProtectedRoute from './ProtectedRoute'
 import AppRouter from './AppRouter'
-import useGlobalContext from '../ContextApi/useGlobalContext'
-import PageNotFound from '../Components/404/PageNotFound'
 
 const RoutesPage = () => {
-  const {state} = useGlobalContext()
-  const [stateAppRouter,setStateAppRouter] =React.useState([])
-
-  const {roleId} = state?.userAndRoleInfo??{}
-  React.useEffect(()=>{
-    if(roleId){
-        const getAppRouter = AppRouter[roleId]
-        setStateAppRouter([...getAppRouter])
-    }
-   
-  },[roleId])
+    const contextData = useGlobalContext()
+    const roleId = contextData?.userAndRoleInfo?.roleId
   
-
     return (
         <BrowserRouter>
             <Routes>
 
-                {stateAppRouter?.map((router)=>{
+                {AppRouter[roleId]?.map((router) => {
                     return (
                         <Route key={router.id} exact path={router.url} element={<ProtectedRoute />}>
-                        <Route exact path={router.url} element={router.component} />
-                    </Route>
+                            <Route exact path={router.url} element={router.component} />
+                        </Route>
                     )
                 })}
 
