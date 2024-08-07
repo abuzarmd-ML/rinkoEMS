@@ -159,7 +159,7 @@ const AdminLayout = ({ children, title }) => {
           <List component="nav">
 
             {roleId === 3 && (<UserMenuList handleClickLogout={handleClickLogout} />)}
-            {roleId === 1 && (<AdminMenuList handleClickLogout={handleClickLogout} />)}
+            {(roleId === 1 || roleId === 2)&& (<AdminMenuList handleClickLogout={handleClickLogout} />)}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>
