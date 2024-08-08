@@ -4,10 +4,14 @@ import BasicDetails from '../ObraForm/BasicDetails';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { Toolbar,Container } from '@mui/material';
-import ObraFormContext from './ObraFormContext';
-import CompanyDetails from '../ObraForm/CompanyDetails';
+import ObraFormContext from './ObraEntradaFormContext';
+import CompanyDetails from '../ObraEntradaForm/CompanyDetails';
+import EmployeeDetails from '../ObraEntradaForm/EmployeeDetails';
+import ObraDetails from '../ObraEntradaForm/ObraDetails';
+import ProjectDetails from '../ObraEntradaForm/ProjectDetails';
+import WorkDate from '../ObraEntradaForm/WorkDate';
 
-const AddObra = () => {
+const AddObraEntrada = () => {
   const [image, setImage] = useState(null);
 
   const handleImageChange = (event) => {
@@ -20,7 +24,7 @@ const AddObra = () => {
   };
 
   return (
-    <AdminLayout title="Obra Management">
+    <AdminLayout title="Obra Entrada Management">
       <Box 
         component="main"
         sx={{
@@ -36,10 +40,19 @@ const AddObra = () => {
         <ObraFormContext  >
          <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <BasicDetails />
+        <EmployeeDetails />
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <CompanyDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <ObraDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <ProjectDetails />
+        </Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <WorkDate />
         </Container>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>
@@ -52,4 +65,4 @@ const AddObra = () => {
   );
 };
 
-export default AddObra;
+export default AddObraEntrada;

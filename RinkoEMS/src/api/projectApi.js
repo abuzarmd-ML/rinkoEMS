@@ -20,3 +20,15 @@ export const deleteProjects = async (projectId) => {
       throw error;
     }
   };
+
+  export const getProjectId = async () => {
+    try {
+      const response = await axiosInstance.get('/projects');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      throw error;
+    }
+    
+  };
+  

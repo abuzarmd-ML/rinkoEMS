@@ -9,6 +9,7 @@ import ManageUsers from '../Components/domain/ManageUsers'
 import ProtectedRoute from './ProtectedRoute'
 import AppRouter from './AppRouter'
 
+
 const RoutesPage = () => {
     const contextData = useGlobalContext()
     const roleId = contextData?.userAndRoleInfo?.roleId
@@ -16,7 +17,6 @@ const RoutesPage = () => {
     return (
         <BrowserRouter>
             <Routes>
-
                 {AppRouter[roleId]?.map((router) => {
                     return (
                         <Route key={router.id} exact path={router.url} element={<ProtectedRoute />}>

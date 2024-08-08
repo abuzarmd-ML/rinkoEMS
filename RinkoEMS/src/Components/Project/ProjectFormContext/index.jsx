@@ -8,7 +8,7 @@ const ProjectFormContext = ({ children }) => {
   const [defaultValue, setDefaultValues] = React.useState({
     comunidad_name: '',
     fact_email: '',
-    company_name: null, // Initialize company as null
+    company: null, // Initialize company as null
     obra_id: '',
     venc_days: null,
     nie: '',
@@ -26,7 +26,7 @@ const ProjectFormContext = ({ children }) => {
           if (response.data) {
             setDefaultValues({
               ...response.data,
-              company_name: response.data.company_name?.company_name ??null, // Assuming company_id is the correct field
+              company: response.data.company?.company ??null, // Assuming company is the correct field
               venc_days: response.data.venc_days
                 ? new Date(response.data.venc_days) // Parse date if it exists
                 : null,

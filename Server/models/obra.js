@@ -5,7 +5,7 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createObra(obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address) {
+async function createObra(obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,company_id) {
   const connection = await pool.getConnection();
   try {
 
@@ -21,14 +21,15 @@ async function createObra(obra_name, phone, email, company_name,address, nie, st
       status || null,
       obra_website || null,
       F_Date || null,
-      company_address
+      company_address,
+      company_id
     ];
 
     // Log the fields array to debug
     console.log("Fields array:", fields);
 
     const [result] = await connection.execute(
-      'INSERT INTO obras (obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO obras (obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date, company_address,company_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       fields
     );
     return result.insertId;
