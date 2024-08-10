@@ -4,6 +4,7 @@ async function createCompanyController(req, res, next) {
   try {
     const {
       name,
+      colors,
       address,
       city,
       country,
@@ -13,12 +14,13 @@ async function createCompanyController(req, res, next) {
       nie,
       caducidad,
       status,      
-      system_date,color
+      system_date
     } = req.body;
 
     console.log("Request body:", req.body); // Log the entire request body
     const companyId = await createCompany(
       name,
+      colors,
       address,
       city,
       country,
@@ -28,7 +30,7 @@ async function createCompanyController(req, res, next) {
       nie,
       caducidad,
       status,      
-      system_date,color
+      system_date
     );
 
     res.status(201).json({ message: 'Company created successfully', companyId });

@@ -29,6 +29,7 @@ const useAddCompany = (defaultValue) => {
         status: formData.status?.label ?? formData.status,
         country: formData.country?.label ?? formData.country,
         caducidad: moment(formData.caducidad).format('YYYY-MM-DD'),
+        colors: formData.colors?.label ?? formData.colors
       }
     })
     .then(response => navigate('/company'))

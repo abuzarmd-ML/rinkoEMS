@@ -3,15 +3,15 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createCompany(name,address,city,country,pincode,phone,email,nie,caducidad,status,system_date,color) {
+async function createCompany(name,colors,address,city,country,pincode,phone,email,nie,caducidad,status,system_date) {
   const connection = await pool.getConnection();
   try {
-    console.log("[MODEL]:", name,address,city,country,pincode,phone,email,nie,caducidad,status,system_date,color);
+    console.log("[MODEL]:", name,colors,address,city,country,pincode,phone,email,nie,caducidad,status,system_date);
 
-    const fields = [name,address,city,country,pincode,phone,email,nie,caducidad,status,system_date,color].map(field => field === undefined ? null : field);
+    const fields = [name,colors,address,city,country,pincode,phone,email,nie,caducidad,status,system_date].map(field => field === undefined ? null : field);
 
     const [result] = await connection.execute(
-      'INSERT INTO companies (name,address,city,country,pincode,phone,email,nie,caducidad,status,system_date,color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO companies (name,colors,address,city,country,pincode,phone,email,nie,caducidad,status,system_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       fields
     );
     return result.insertId;
