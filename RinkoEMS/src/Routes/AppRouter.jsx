@@ -12,6 +12,9 @@ import Obra from "../Components/Obra/Obra"
 import AddObra from "../Components/Obra/AddObra"
 import Attendance from '../Components/Attendance/Attendance'
 import Dashboards from '../Components/Dashboard/Dashboard'
+import ObraEntrada from '../Components/ObraEntrada/ObraEntrada'
+import AddObraEntrada from '../Components/ObraEntrada/AddObraEntrada'
+
 
 const AdminObject = [
     {
@@ -130,13 +133,36 @@ const AdminObject = [
     },
     {
         id: 17,
+        name: 'Obra Entrada',
+        url: '/obra_entrada',
+        path: '/obra_entrada',
+        component: <ObraEntrada />
+    },
+
+    {
+        id: 18,
+        name: 'Add Obra Entrada',
+        url: '/obra_entrada/add/',
+        path: '/obra_entrada',
+        component: <AddObraEntrada />
+    },
+
+    {
+        id: 19,
+        name: 'Get Obra Entrada',
+        url: '/obra_entrada/add/:id',
+        path: '/obra_entrada',
+        component: <AddObraEntrada />
+    },
+    {
+        id: 20,
         name: 'Attendance',
         url: '/attendance',
         path: '/attendance',
         component: <Attendance />
     },
     {
-        id: 18,
+        id: 21,
         name: 'dashboard',
         url: '/dashboard',
         path: '/dashboard',
