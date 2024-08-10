@@ -57,7 +57,7 @@ const Company = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
             <Grid item xs={12}>
               <MakeCompanyTable data={data} handleClickOpen={handleClickOpen} />

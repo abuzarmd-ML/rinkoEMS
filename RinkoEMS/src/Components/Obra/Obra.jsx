@@ -82,7 +82,7 @@ const Obra = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Grid spacing={2} sx={{ m: "1px" }}>
             <BasicMuiTable columns={columns} data={data} />
           </Grid>

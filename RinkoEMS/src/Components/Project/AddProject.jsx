@@ -36,16 +36,16 @@ const AddProject = () => {
       >
         <ProjectFormContext  >
          <Toolbar />
-         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+         <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <BasicDetails />    
         </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <CompanyDetails />
         </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <ObraDetails />
         </Container>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <Button variant="contained" type='submit'>
           Submit
         </Button>
