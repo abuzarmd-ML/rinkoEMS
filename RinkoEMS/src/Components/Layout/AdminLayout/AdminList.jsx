@@ -20,6 +20,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import BusinessIcon from '@mui/icons-material/Business';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { Link,useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosInstance from '../../../services/axiosInstance';
@@ -245,6 +246,12 @@ import axiosInstance from '../../../services/axiosInstance';
           <AccountCircleIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
+      </ListItemButton>
+      <ListItemButton component={Link} to="/configurations">
+        <ListItemIcon>
+          <AdminPanelSettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Configuration" />
       </ListItemButton>
       <ListItemButton onClick={handleClickLogout}>
         <ListItemIcon>

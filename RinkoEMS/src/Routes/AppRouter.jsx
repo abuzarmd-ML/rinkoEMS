@@ -12,6 +12,7 @@ import Obra from "../Components/Obra/Obra"
 import AddObra from "../Components/Obra/AddObra"
 import Attendance from '../Components/Attendance/Attendance'
 import Dashboards from '../Components/Dashboard/Dashboard'
+import AdminConfigurations from "../Components/AdminConfigurations/AdminConfigurations"
 import ObraEntrada from '../Components/ObraEntrada/ObraEntrada'
 import AddObraEntrada from '../Components/ObraEntrada/AddObraEntrada'
 
@@ -145,6 +146,12 @@ const AdminObject = [
         url: '/obra_entrada/add/',
         path: '/obra_entrada',
         component: <AddObraEntrada />
+    },
+    {
+        name:'Configurations',
+        url:'/configurations',
+        path:'/configurations',
+        component: <AdminConfigurations />
     },
 
     {

@@ -68,7 +68,7 @@ export default function ImgMediaCard() {
         </Grid>
         
       </Grid>
-    </Box>
+    </Box> 
        
       </CardContent>
     </Card>

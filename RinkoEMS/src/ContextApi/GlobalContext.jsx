@@ -1,7 +1,6 @@
 import React from 'react'
 import { createContext } from "react"
 import Cookies from 'js-cookie';
-
 import axiosInstance from "../services/axiosInstance"
 
 const IntitalState = {
@@ -9,13 +8,11 @@ const IntitalState = {
     },
     isLoading: true
 }
-
 export const UserContext = createContext(IntitalState)
 
 const GlobalContext = ({ children }) => {
     const token = Cookies.get('token');
-
-     const [isLoading,setIsloading] = React.useState(false)
+    const [isLoading,setIsloading] = React.useState(false)
     const [roleInfo,setRoleInfo] =React.useState({userAndRoleInfo:{},isLogin:!!token})
 
     const setUserInfoContext = React.useCallback(

@@ -45,16 +45,16 @@ const Client = () => {
   const columns = [
     { accessorKey: 'name', header: 'Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
-    { accessorKey: 'email', header: 'Email', size: 150 },
+    // { accessorKey: 'email', header: 'Email', size: 150 },
     { accessorKey: 'company', header: 'company', size: 150 },
-    { accessorKey: 'dob', header: 'DOB', size: 150 },
+    // { accessorKey: 'dob', header: 'DOB', size: 150 },
     { accessorKey: 'country', header: 'Country', size: 150 },
     { accessorKey: 'address', header: 'address', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     {accessorKey: 'status',header: 'Status',size: 150,
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
     },
-    { accessorKey: 'note', header: 'Note', size: 150 },
+    // { accessorKey: 'note', header: 'Note', size: 150 },
 
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
