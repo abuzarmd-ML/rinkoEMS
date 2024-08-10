@@ -106,7 +106,7 @@ const AdminObject = [
         name: 'Get Employee',
         url: '/employee/add/:id',
         path: '/employee',
-        component: <AddProject />
+        component: <AddEmployee />
     },
     {
         id: 14,
@@ -190,7 +190,7 @@ const userRoute = [
         name: 'Get Employee',
         url: '/employee/add/:id',
         path: '/employee',
-        component: <AddProject />
+        component: <AddEmployee />
     },
     {
         id: 4,
