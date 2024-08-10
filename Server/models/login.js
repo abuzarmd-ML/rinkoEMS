@@ -9,9 +9,10 @@ async function loginUser(username, password) {
   const connection = await pool.getConnection();
   console.log("DATABASE CONNECT: ", [username, password])
   try {
+    
     const [rows] = await connection.execute(
-      'SELECT * FROM users WHERE username = ? AND password = ?',
-      [username, password]
+      'SELECT * FROM users WHERE username = ? ',
+      [username]
     );
     return rows.length ? rows[0] : null;
   } finally {
