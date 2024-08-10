@@ -4,13 +4,13 @@ import { loginRoute } from "./routes/loginRoutes.js";
 import Jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import { userRoute } from "./routes/userRoutes.js";
-import { EmployeeRouter } from "./routes/EmployeeRoute.js";
+import { EmployeeRouter } from "./Routes/EmployeeRoute.js";
 import { CompanyRoute } from "./Routes/companyRoute.js"
 import { ClientRoute } from "./Routes/ClientRoute.js";
 import { ObraRoute } from "./Routes/ObraRoute.js";
 import { ProjectRoute } from "./Routes/ProjectROute.js";
 import { DropDownOptionsRouter } from "./Routes/DropdownOptionsRoute.js";
-
+import { ObraEntradaRouter } from "./Routes/ObraEntradaRoute.js";
 
 const app = express() 
 
@@ -30,7 +30,7 @@ app.use(ClientRoute)
 app.use(ObraRoute)
 app.use(ProjectRoute)
 app.use(DropDownOptionsRouter)
-// app.use(express.static('Public'))
+app.use(ObraEntradaRouter)
 
 app.listen(3000 , () =>{
     console.log("Server is running !!")

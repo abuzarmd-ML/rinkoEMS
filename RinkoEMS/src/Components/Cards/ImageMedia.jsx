@@ -19,7 +19,7 @@ export default function ImgMediaCard() {
     <Card variant="outlined">
       <CardContent>
         <Typography gutterBottom variant="h4" component="h3" >
-         Md AbuZar
+         Md Abuzar
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
          Software Developer

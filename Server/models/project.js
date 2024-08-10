@@ -5,10 +5,10 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createProject(comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address) {
+async function createProject(comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id) {
     const connection = await pool.getConnection();
     try {
-      console.log("[MODEL]:", { comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address });
+      console.log("[MODEL]:", { comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id });
   
       
     // Extract the actual value from the company object
@@ -23,13 +23,13 @@ async function createProject(comunidad_name, fact_email, company_name, obra_id, 
         obra_website || null,
         cudad_id || null,
         venc_days || null,
-        company_address
+        company_address,company_id
       ];
   
       console.log("Fields array:", fields);
   
       const [result] = await connection.execute(
-        'INSERT INTO projects (comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO projects (comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)',
         fields
       );
       return result.insertId;

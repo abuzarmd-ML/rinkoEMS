@@ -13,117 +13,139 @@ import AddObra from "../Components/Obra/AddObra"
 import Attendance from '../Components/Attendance/Attendance'
 import Dashboards from '../Components/Dashboard/Dashboard'
 import AdminConfigurations from "../Components/AdminConfigurations/AdminConfigurations"
+import ObraEntrada from '../Components/ObraEntrada/ObraEntrada'
+import AddObraEntrada from '../Components/ObraEntrada/AddObraEntrada'
 
-const AppRouter = {"admin":[
+
+const AdminObject = [
     {
-        name:'Manage Users',
-        url:'/',
-        path:'/',
+        id: 1,
+        name: 'Manage Users',
+        url: '/',
+        path: '/',
         component: <ManageUsers />
     },
     {
-        name:'Client',
-        url:'/client',
-        path:'/client',
+        id: 2,
+        name: 'Client',
+        url: '/client',
+        path: '/client',
         component: <Client />
     },
     {
-        name:'Add Client',
-        url:'/client/add',
-        path:'/client',
-        component: <AddClient  />
+        id: 3,
+        name: 'Add Client',
+        url: '/client/add',
+        path: '/client',
+        component: <AddClient />
     },
     {
-        name:'Get Client',
-        url:'/client/add/:id',
-        path:'/cleint',
-        component: <AddClient  />
+        id: 4,
+        name: 'Get Client',
+        url: '/client/add/:id',
+        path: '/cleint',
+        component: <AddClient />
     },
     {
-        name:'Compnay',
-        url:'/company',
-        path:'/company',
-        component: <Company  />
+        id: 5,
+        name: 'Compnay',
+        url: '/company',
+        path: '/company',
+        component: <Company />
     },
     {
-        name:'Add Compny',
-        url:'/company/add',
-        path:'/compnay',
-        component: <AddCompany  />
+        id: 6,
+        name: 'Add Compny',
+        url: '/company/add',
+        path: '/compnay',
+        component: <AddCompany />
     },
     {
-        name:'Get Compnay',
-        url:'/company/add/:id',
-        path:'/compnay',
-        component: <AddCompany   />
+        id: 7,
+        name: 'Get Compnay',
+        url: '/company/add/:id',
+        path: '/compnay',
+        component: <AddCompany />
     },
     {
-        name:'Project',
-        url:'/project',
-        path:'/project',
-        component: <Project  />
+        id: 8,
+        name: 'Project',
+        url: '/project',
+        path: '/project',
+        component: <Project />
     },
     {
-        name:'Add Project',
-        url:'/project/add/',
-        path:'/project',
-        component: <AddProject  />
+        id: 9,
+        name: 'Add Project',
+        url: '/project/add/',
+        path: '/project',
+        component: <AddProject />
     },
     {
-        name:'Get Project',
-        url:'/project/add/:id',
-        path:'/project',
-        component: <AddProject  />
+        id: 10,
+        name: 'Get Project',
+        url: '/project/add/:id',
+        path: '/project',
+        component: <AddProject />
     },
     {
-        name:'Employee',
-        url:'/employee',
-        path:'/employee',
-        component: <Employee  />
+        id: 11,
+        name: 'Employee',
+        url: '/employee',
+        path: '/employee',
+        component: <Employee />
     },
     {
-        name:'Add Employee',
-        url:'/employee/add',
-        path:'/employee',
-        component: <AddEmployee  />
+        id: 12,
+        name: 'Add Employee',
+        url: '/employee/add',
+        path: '/employee',
+        component: <AddEmployee />
     },
     {
-        name:'Get Employee',
-        url:'/employee/add/:id',
-        path:'/employee',
-        component: <AddEmployee  />
+        id: 13,
+        name: 'Get Employee',
+        url: '/employee/add/:id',
+        path: '/employee',
+        component: <AddEmployee />
     },
     {
-        name:'Obra',
-        url:'/obra',
-        path:'/obra',
-        component: <Obra  />
+        id: 14,
+        name: 'Obra',
+        url: '/obra',
+        path: '/obra',
+        component: <Obra />
     },
 
     {
-        name:'Add Obra',
-        url:'/obra/add/',
-        path:'/obra',
+        id: 15,
+        name: 'Add Obra',
+        url: '/obra/add/',
+        path: '/obra',
         component: <AddObra />
     },
 
     {
-        name:'Get Obra',
-        url:'/obra/add/:id',
-        path:'/obra',
-        component: <AddObra  />
+        id: 16,
+        name: 'Get Obra',
+        url: '/obra/add/:id',
+        path: '/obra',
+        component: <AddObra />
     },
     {
-        name:'Attendance',
-        url:'/attendance',
-        path:'/attendance',
-        component: <Attendance  />
+        id: 17,
+        name: 'Obra Entrada',
+        url: '/obra_entrada',
+        path: '/obra_entrada',
+        component: <ObraEntrada />
     },
+
     {
-        name:'dashboard',
-        url:'/dashboard',
-        path:'/dashboard',
-        component: <Dashboards />
+        id: 18,
+        name: 'Add Obra Entrada',
+        url: '/obra_entrada/add/',
+        path: '/obra_entrada',
+        component: <AddObraEntrada />
     },
     {
         name:'Configurations',
@@ -132,54 +154,86 @@ const AppRouter = {"admin":[
         component: <AdminConfigurations />
     },
 
+    {
+        id: 19,
+        name: 'Get Obra Entrada',
+        url: '/obra_entrada/add/:id',
+        path: '/obra_entrada',
+        component: <AddObraEntrada />
+    },
+    {
+        id: 20,
+        name: 'Attendance',
+        url: '/attendance',
+        path: '/attendance',
+        component: <Attendance />
+    },
+    {
+        id: 21,
+        name: 'dashboard',
+        url: '/dashboard',
+        path: '/dashboard',
+        component: <Dashboards />
+    },
+]
 
-],
-"user":[
+const userRoute = [
     {
-        name:'Employee',
-        url:'/employee',
-        path:'/employee',
-        component: <Employee  />
+        id: 1,
+        name: 'Employee',
+        url: '/employee',
+        path: '/employee',
+        component: <Employee />
     },
     {
-        name:'Add Employee',
-        url:'/employee/add',
-        path:'/employee',
-        component: <AddEmployee  />
+        id: 2,
+        name: 'Add Employee',
+        url: '/employee/add',
+        path: '/employee',
+        component: <AddEmployee />
     },
     {
-        name:'Get Employee',
-        url:'/employee/add/:id',
-        path:'/employee',
-        component: <AddProject  />
+        id: 3,
+        name: 'Get Employee',
+        url: '/employee/add/:id',
+        path: '/employee',
+        component: <AddEmployee />
     },
     {
-        name:'Obra',
-        url:'/obra',
-        path:'/obra',
-        component: <Obra  />
+        id: 4,
+        name: 'Obra',
+        url: '/obra',
+        path: '/obra',
+        component: <Obra />
     },
 
     {
-        name:'Add Obra',
-        url:'/obra/add/',
-        path:'/obra',
+        id: 5,
+        name: 'Add Obra',
+        url: '/obra/add/',
+        path: '/obra',
         component: <AddObra />
     },
 
     {
-        name:'Get Obra',
-        url:'/obra/add/:id',
-        path:'/obra',
-        component: <AddObra  />
+        id: 6,
+        name: 'Get Obra',
+        url: '/obra/add/:id',
+        path: '/obra',
+        component: <AddObra />
     },
     {
-        name:'Attendance',
-        url:'/attendance',
-        path:'/attendance',
-        component: <Attendance  />
+        id: 7,
+        name: 'Attendance',
+        url: '/attendance',
+        path: '/attendance',
+        component: <Attendance />
     },
 ]
+const AppRouter = {
+    "1": AdminObject,
+    "2": AdminObject,
+    "3": userRoute
 }
 
 export default AppRouter

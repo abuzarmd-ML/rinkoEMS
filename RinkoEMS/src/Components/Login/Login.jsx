@@ -10,6 +10,12 @@ import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import axiosInstance from '../../services/axiosInstance';
 import useGlobalContext from '../../ContextApi/useGlobalContext';
 
+const navigateRoute = {
+  '1':'/dashboard',
+  '3':'/attendance'
+
+}
+
 const defaultTheme = createTheme();
 const mandatoryError = 'This field is mandatory';
 
@@ -29,9 +35,6 @@ function Copyright(props) {
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = React.useState(false);
-
-  const { state } = useGlobalContext()
-
   const form = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -44,7 +47,8 @@ export default function Login() {
   const { register, formState: { errors }, control, watch, handleSubmit } = form;
   const isAdmin = watch('isAdmin');
   const [companyList, setCompnayList] = React.useState([])
-
+  const contextData = useGlobalContext()
+  const {setUserInfoContext} = contextData
   axiosInstance.defaults.withCredentials = true;
 
   const onSubmit = (formData, event) => {
@@ -60,6 +64,7 @@ export default function Login() {
         if (response.status === 200) {
           if (response.data.loginStatus) {
             localStorage.setItem('valid', true);
+            setUserInfoContext({userAndRoleInfo:{},isLogin:true})
             const navigateLink = formData.isAdmin ? '/dashboard' : '/attendance'
             navigate(navigateLink);
           } else {
@@ -85,17 +90,14 @@ export default function Login() {
       setCompnayList(formattedCompanies);
     });
   }, []);
-
+  const roleId = contextData?.userAndRoleInfo?.roleId
   React.useEffect(() => {
-    if (state.roleId) {
-      const navigateLink = state.roleId === 3 ? '/attendance' : '/dashboard'
-      navigate(navigateLink);
+    if (roleId) {
+      navigate(navigateRoute[roleId]);
     }
-  }, [state.roleId])
+  }, [roleId])
 
-  if (state.roleId) {
-    return <h2>Loading...</h2>
-  }
+ 
 
   return (
     <ThemeProvider theme={defaultTheme}>
