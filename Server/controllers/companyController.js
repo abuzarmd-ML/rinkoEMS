@@ -4,7 +4,7 @@ async function createCompanyController(req, res, next) {
   try {
     const {
       name,
-      colors,
+      color,
       address,
       city,
       country,
@@ -20,7 +20,7 @@ async function createCompanyController(req, res, next) {
     console.log("Request body:", req.body); // Log the entire request body
     const companyId = await createCompany(
       name,
-      colors,
+      color,
       address,
       city,
       country,

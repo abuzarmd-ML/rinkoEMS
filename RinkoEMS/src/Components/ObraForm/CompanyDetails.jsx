@@ -1,50 +1,24 @@
-import { getCompanyName } from '../../api/companyApi';
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import { useFormContext, Controller } from 'react-hook-form';
-import MenuItem from '@mui/material/MenuItem';
+import { useFormContext } from 'react-hook-form';
 import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
+import { getCompanyName } from '../../api/companyApi';
+import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 
-const mandatoryError = 'This field is mandatory';
-
-const CompanyDetails = ({ fields }) => {
+const CompanyDetails = () => {
   const [companyList, setCompanyList] = React.useState([]);
-  const { register, watch, setValue, formState: { errors }, control } = useFormContext();
-  const selectedCompanyName = watch('company_name', '');
+  const { setValue, control, register } = useFormContext();
 
+  // Fetch company names and IDs
   React.useEffect(() => {
     getCompanyName().then((response) => {
       const formattedCompanies = response.map(company => ({
-        label: company.name,
-        value: company.company_id,
-        address: company.address
-      })).filter(company => company.label !== undefined && company.value !== null);
+        label: company.name,  // Display company_name
+        value: company.company_id  // Store company_id
+      }));
       setCompanyList(formattedCompanies);
     });
   }, []);
-
-  const handleCompanyChange = (selectedOption) => {
-    if (selectedOption) {
-      setValue('company_name', selectedOption.label);
-      setValue('company_address', selectedOption.address);
-      setValue('company_id', selectedOption.value);
-    } else {
-      setValue('company_name', '');
-      setValue('company_address', '');
-      setValue('company_id', '');
-    }
-  };
-
-  React.useEffect(() => {
-    if (selectedCompanyName) {
-      const selectedCompany = companyList.find(company => company.label === selectedCompanyName);
-      if (selectedCompany) {
-        setValue('address', selectedCompany.company_address);
-        setValue('value',selectedCompany.company_id);
-      }
-    }
-  }, [selectedCompanyName, companyList, setValue]);
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -55,60 +29,18 @@ const CompanyDetails = ({ fields }) => {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
-          <Controller
-            name="company_name"
+        <Grid item xs={6}>
+          {/* Use SelectAutoComplete component to display company names and store company_id */}
+          <SelectAutoComplete
             control={control}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                select
-                fullWidth
-                variant="outlined"
-                label="Select Company Name"
-                onChange={(e) => {
-                  const selectedCompany = companyList.find(company => company.label === e.target.value);
-                  field.onChange(e);
-                  handleCompanyChange(selectedCompany);
-                }}
-                value={selectedCompanyName || ''}
-              >
-                <MenuItem value="" disabled>Select company Name</MenuItem>
-                {companyList.map(company => (
-                  <MenuItem key={company.value} value={company.label}>{company.label}</MenuItem>
-                ))}
-              </TextField>
-            )}
+            fieldName="company_id"  // Store company_id internally
+            label="Select Company"
+            options={companyList}
           />
         </Grid>
-        <Grid item xs={4}>
-          <TextField
-            required
-            id="company_id"
-            fullWidth
-            name="company_id"
-            label="Company ID"
-            variant="outlined"
-            InputProps={{
-              readOnly: true,
-            }}
-            value={watch('company_id') || ''}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            required
-            id="company_address"
-            fullWidth
-            name="company_address"
-            label="Company address"
-            variant="outlined"
-            InputProps={{
-              readOnly: true,
-            }}
-            value={watch('company_address') || ''}
-          />
-        </Grid>
+
+        {/* Hidden input to store company_id */}
+        <input type="hidden" {...register('company_id')} />
       </Grid>
     </Cards>
   );

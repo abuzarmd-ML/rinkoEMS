@@ -9,47 +9,51 @@ import { getObraId } from '../../api/ObraApi'; // Adjust path as per your projec
 const ObraDetails = () => {
   const { control, watch, setValue } = useFormContext();
   const [obrasList, setObraList] = useState([]);
-  const selectedObraName = watch('obra_name', '');
+  const selectedObraId = watch('obra_id', '');
 
+  // Fetch obras from backend
   useEffect(() => {
     const fetchObras = async () => {
       try {
         const response = await getObraId();
         const formattedObras = response.map(obra => ({
-          value: obra.obra_id,
-          label: obra.obra_name, // Ensure label is a string
-          address: obra.address
-        })).filter(obra => obra.label !== undefined && obra.value !== null);
+          value: obra.obra_id,   // Obra ID to submit
+          label: obra.obra_name, // Show obra name in the dropdown
+          address: obra.address  // Additional obra details
+        })).filter(obra => obra.value !== undefined && obra.value !== null);
         setObraList(formattedObras);
-        console.log("......obra..",formattedObras);
       } catch (error) {
         console.error('Error fetching obras:', error);
       }
     };
-
     fetchObras();
   }, []);
 
+  // Handle obra selection
   const handleObraChange = (event) => {
-    const selectedLabel = event.target.value;
-    const selectedObra = obrasList.find(obra => obra.label === selectedLabel);
+    const selectedObraId = event.target.value;
+    const selectedObra = obrasList.find(obra => obra.value === selectedObraId);
+    
     if (selectedObra) {
-      setValue('obra_name', selectedObra.label);
-      setValue('obra_address', selectedObra.address);
+      setValue('obra_id', selectedObra.value); // Set obra ID for submission
+      setValue('obra_name', selectedObra.label); // Set obra name for display
+      setValue('obra_address', selectedObra.address); // Populate obra address
     } else {
+      setValue('obra_id', '');
       setValue('obra_name', '');
       setValue('obra_address', '');
     }
   };
 
+  // Populate obra address if obra ID changes
   useEffect(() => {
-    if (selectedObraName) {
-      const selectedObra = obrasList.find(obra => obra.label === selectedObraName);
+    if (selectedObraId) {
+      const selectedObra = obrasList.find(obra => obra.value === selectedObraId);
       if (selectedObra) {
         setValue('obra_address', selectedObra.address);
       }
     }
-  }, [selectedObraName, obrasList, setValue]);
+  }, [selectedObraId, obrasList, setValue]);
 
   return (
     <Cards borderRadius={1} height={'400'}>
@@ -59,9 +63,11 @@ const ObraDetails = () => {
             Obra Details
           </Typography>
         </Grid>
+
+        {/* Obra Name Dropdown */}
         <Grid item xs={4}>
           <Controller
-            name="obra_name"
+            name="obra_id" // Bind to obra_id for submission
             control={control}
             render={({ field }) => (
               <TextField
@@ -69,24 +75,27 @@ const ObraDetails = () => {
                 select
                 fullWidth
                 variant="outlined"
-                label="Select Obra Name"
+                label="Select Obra"
                 onChange={(event) => {
-                  field.onChange(event); // Update the form state
-                  handleObraChange(event); // Handle the obra change
+                  field.onChange(event); // Update form state
+                  handleObraChange(event); // Handle obra change
                 }}
-                value={selectedObraName || ''}
+                value={selectedObraId || ''}
               >
-                <MenuItem value="" disabled>Select Obra Name</MenuItem>
+                <MenuItem value="" disabled>Select Obra</MenuItem>
                 {obrasList.map(obra => (
-                  <MenuItem key={obra.value} value={obra.label}>{obra.label}</MenuItem>
+                  <MenuItem key={obra.value} value={obra.value}>
+                    {obra.label} {/* Show obra name */}
+                  </MenuItem>
                 ))}
               </TextField>
             )}
           />
         </Grid>
+
+        {/* Obra Address (Read-Only) */}
         <Grid item xs={4}>
           <TextField
-            required
             id="obra_address"
             fullWidth
             name="obra_address"

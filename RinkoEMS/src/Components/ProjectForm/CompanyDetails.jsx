@@ -17,31 +17,29 @@ const CompanyDetails = ({ fields }) => {
     getCompanyName().then((response) => {
       const formattedCompanies = response.map(company => ({
         label: company.name,
-        value: company.company_id,
-        address: company.address
+        value: company.company_id
       })).filter(company => company.label !== undefined && company.value !== null);
       setCompanyList(formattedCompanies);
+  
     });
   }, []);
 
   const handleCompanyChange = (selectedOption) => {
     if (selectedOption) {
       setValue('company_name', selectedOption.label);
-      setValue('company_address', selectedOption.address);
       setValue('company_id', selectedOption.value);
     } else {
       setValue('company_name', '');
-      setValue('company_address', '');
       setValue('company_id', '');
     }
+    
   };
 
   React.useEffect(() => {
     if (selectedCompanyName) {
       const selectedCompany = companyList.find(company => company.label === selectedCompanyName);
       if (selectedCompany) {
-        setValue('address', selectedCompany.company_address);
-        setValue('value',selectedCompany.company_id);
+        setValue('value', selectedCompany.company_id);
       }
     }
   }, [selectedCompanyName, companyList, setValue]);
@@ -55,7 +53,7 @@ const CompanyDetails = ({ fields }) => {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Controller
             name="company_name"
             control={control}
@@ -93,20 +91,6 @@ const CompanyDetails = ({ fields }) => {
               readOnly: true,
             }}
             value={watch('company_id') || ''}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            required
-            id="company_address"
-            fullWidth
-            name="company_address"
-            label="Company address"
-            variant="outlined"
-            InputProps={{
-              readOnly: true,
-            }}
-            value={watch('company_address') || ''}
           />
         </Grid>
       </Grid>

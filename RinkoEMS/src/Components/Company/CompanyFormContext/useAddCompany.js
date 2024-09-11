@@ -13,10 +13,14 @@ const useAddCompany = (defaultValue) => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+
   const handleSubmitForm = (formData, e) => {
     e.preventDefault();
     console.log('form-data', formData);
-    const payload = id ? { url: `/companiesById/${id}`, method: 'PUT' } : { url: '/companies', method: 'POST' };
+    
+    const payload = id 
+      ? { url: `/companiesById/${id}`, method: 'PUT' }
+      : { url: '/companies', method: 'POST' };
     
     // Filter out unwanted fields
     const { company, ...filteredData } = formData;
@@ -26,10 +30,10 @@ const useAddCompany = (defaultValue) => {
       headers: { 'Content-Type': 'application/json' },
       data: {
         ...filteredData,
-        status: formData.status?.label ?? formData.status,
-        country: formData.country?.label ?? formData.country,
-        caducidad: moment(formData.caducidad).format('YYYY-MM-DD'),
-        colors: formData.colors?.label ?? formData.colors
+        status: formData.status?.label ?? formData.status, // Ensure status is a string
+        country: formData.country?.label ?? formData.country, // Ensure country is a string
+        caducidad: moment(formData.caducidad).format('YYYY-MM-DD'), // Ensure proper date format
+        color: formData.color?.label ?? formData.color // Extract color label or pass as is
       }
     })
     .then(response => navigate('/company'))
@@ -37,7 +41,7 @@ const useAddCompany = (defaultValue) => {
       console.error("Error in submitting company form:", error);
     });
   };
-  
+
   return { form, handleSubmitForm };
 };
 

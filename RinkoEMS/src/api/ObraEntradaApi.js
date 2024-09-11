@@ -1,16 +1,16 @@
-// src/api/employeeApi.js
+
 import axiosInstance from "../services/axiosInstance";
 
 export async function fetchObraEntrada() {
-    const response = await fetch('http://localhost:3000/obraentradas');
-    if (!response.ok) {
-        throw new Error('Failed to fetch Obra');
-    }
-    const data = await response.json();
-    console.log("Dataaaaa: ",data)
-    return data;
+  try {
+    const response = await axiosInstance.get('/obraentradas');
+    console.log("Data:...... ", response.data);
+    return response.data; // axios automatically parses the response to JSON
+  } catch (error) {
+    console.error("Failed to fetch ObraEntradas:", error);
+    throw new Error('Failed to fetch ObraEntradas');
+  }
 };
-
 export const deleteObraEntrada = async (obraEntradaId) => {
   try {
     const response = await axiosInstance.delete(`/obraentradas/${obraEntradaId}`);
@@ -25,6 +25,7 @@ export const deleteObraEntrada = async (obraEntradaId) => {
   export const getObraEntradaId = async () => {
     try {
       const response = await axiosInstance.get('/obraentradas');
+      
       return response.data;
     } catch (error) {
       console.error('Error fetching obras:', error);

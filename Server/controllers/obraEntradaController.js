@@ -11,32 +11,18 @@ async function createObraEntradaController(req, res)  {
   try {
     const {
       emp_id,
-      emp_name,
-      emp_social_security,
-      emp_type,
       company_id,
-      company_name,
-      company_status,
-      obra_name,
-      obra_address,
       project_id,
-      project_name,
+      obra_id,
       work_date
     } = req.body;
 
     // Ensure undefined values are set to null
     const data = {
       emp_id: emp_id ?? null,
-      emp_name: emp_name ?? null,
-      emp_social_security: emp_social_security ?? null,
-      emp_type: emp_type ?? null,
       company_id: company_id ?? null,
-      company_name: company_name ?? null,
-      company_status: company_status ?? null,
-      obra_name: obra_name ?? null,
-      obra_address: obra_address ?? null,
+      obra_id: obra_id ?? null,
       project_id: project_id ?? null,
-      project_name: project_name ?? null,
       work_date: work_date ?? null,
     };
 
@@ -100,6 +86,7 @@ async function deleteObraEntradaController(req, res) {
 async function updateObraEntradaController(req, res, next) {
   const obraEntradaId = req.params.id;
   const obraEntradaData = req.body;
+  
   try {
     const result = await updateObraEntrada(obraEntradaId, obraEntradaData);
     if (result.affectedRows === 0) {

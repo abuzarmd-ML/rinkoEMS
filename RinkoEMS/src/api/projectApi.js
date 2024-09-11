@@ -11,6 +11,16 @@ export async function fetchProjects() {
     return data;
 };
 
+export async function fetchAllProjects() {
+  try {
+    const response = await axiosInstance.get('/all_projects'); // Correct endpoint
+    return response.data; // Expecting company_name and company_address
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    throw error;
+  }
+}
+
 export const deleteProjects = async (projectId) => {
     try {
       const response = await axiosInstance.delete(`/projects/${projectId}`);
