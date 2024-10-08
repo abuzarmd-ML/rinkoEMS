@@ -19,10 +19,10 @@ export default function ImgMediaCard() {
     <Card variant="outlined">
       <CardContent>
         <Typography gutterBottom variant="h4" component="h3" >
-         Md Abubakar
+         Md Abuzar
         </Typography>
         <Typography gutterBottom variant="p" component="h4">
-         Shopify Developer
+         Software Developer
         </Typography>
        <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
@@ -68,7 +68,7 @@ export default function ImgMediaCard() {
         </Grid>
         
       </Grid>
-    </Box>
+    </Box> 
        
       </CardContent>
     </Card>

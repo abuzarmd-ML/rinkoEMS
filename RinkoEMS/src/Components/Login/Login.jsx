@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {Avatar,Button,CssBaseline,TextField,FormControlLabel,Checkbox,Link,Grid,Box,Typography,Container,} from '@mui/material';
+import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Alerts from '../Alert';
 import { getCompanyName } from '../../api/companyApi';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
 import axiosInstance from '../../services/axiosInstance';
+import useGlobalContext from '../../ContextApi/useGlobalContext';
+
+const navigateRoute = {
+  '1':'/dashboard',
+  '3':'/attendance'
+
+}
 
 const defaultTheme = createTheme();
 const mandatoryError = 'This field is mandatory';
@@ -28,7 +35,6 @@ function Copyright(props) {
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = React.useState(false);
-
   const form = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -40,8 +46,9 @@ export default function Login() {
   });
   const { register, formState: { errors }, control, watch, handleSubmit } = form;
   const isAdmin = watch('isAdmin');
-  const [companyList,setCompnayList] = React.useState([])
-
+  const [companyList, setCompnayList] = React.useState([])
+  const contextData = useGlobalContext()
+  const {setUserInfoContext} = contextData
   axiosInstance.defaults.withCredentials = true;
 
   const onSubmit = (formData, event) => {
@@ -57,7 +64,9 @@ export default function Login() {
         if (response.status === 200) {
           if (response.data.loginStatus) {
             localStorage.setItem('valid', true);
-            navigate('/dashboard');
+            setUserInfoContext({userAndRoleInfo:{},isLogin:true})
+            const navigateLink = formData.isAdmin ? '/dashboard' : '/attendance'
+            navigate(navigateLink);
           } else {
             setError(true);
           }
@@ -81,7 +90,14 @@ export default function Login() {
       setCompnayList(formattedCompanies);
     });
   }, []);
-  
+  const roleId = contextData?.userAndRoleInfo?.roleId
+  React.useEffect(() => {
+    if (roleId) {
+      navigate(navigateRoute[roleId]);
+    }
+  }, [roleId])
+
+ 
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,7 +139,7 @@ export default function Login() {
                 autoComplete="current-password"
               />
               {!isAdmin && (
-                <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList}  />
+                <SelectAutoComplete control={control} fieldName={'company'} label={'Select company'} options={companyList} />
               )}
               <FormControlLabel
                 control={

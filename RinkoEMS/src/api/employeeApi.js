@@ -2,7 +2,7 @@ import axiosInstance from "../services/axiosInstance";
 
 export async function fetchEmployees() {
   try {
-    const response = await axiosInstance.get('http://localhost:3000/employees');
+    const response = await axiosInstance.get('/employees');
     const data = await response.data;
 
     return data;

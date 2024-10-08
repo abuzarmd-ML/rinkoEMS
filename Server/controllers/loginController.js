@@ -2,26 +2,27 @@
 
 import { loginUser } from '../models/login.js';
 import createToken from '../utils/createToken.js';
+import bcryptjs from 'bcryptjs'
 
 export async function login(req, res) {
   try {
     const { username, password, company } = req.body;
-    console.log("[Controller]: ",[ username, password, company])
     // Authenticate user
     const user = await loginUser(username, password);
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
+    if (!bcryptjs.compareSync(password, user.password)) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
     // Check user role and company access
     if (user.role_id === 'superadmin' || hasCompanyAccess(user.role_id, company)) {
-      // Set user session or token
-    //   req.session.user = user;
 
-      const token = createToken(user.id,company,user.role_id)
-      console.log("TOKEN : ",token)
-       res.cookie('token', token)
-      return res.status(200).json({ message: 'Login successful', loginStatus: 'True' ,user });
+
+      const token = createToken(user.id, company, user.role_id)
+      res.cookie('token', token)
+      return res.status(200).json({ message: 'Login successful', loginStatus: 'True', user });
     } else {
       return res.status(403).json({ error: 'Unauthorized access to company' });
     }
@@ -31,9 +32,9 @@ export async function login(req, res) {
   }
 }
 
-export const logOut = (req,res)=>{
-   res.clearCookie('token')
-   return res.status(204).json({message:'Success '})
+export const logOut = (req, res) => {
+  res.clearCookie('token')
+  return res.status(204).json({ message: 'Success ' })
 }
 
 function hasCompanyAccess(role, company) {

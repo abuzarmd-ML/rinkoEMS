@@ -224,11 +224,11 @@ export default function Dashboard() {
               : theme.palette.grey[900],
           flexGrow: 1,
           height: '100vh',
-          overflow: 'auto',
+          // overflow: 'auto',
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             {/* Chart */}
             {/* Recent CardContents */}

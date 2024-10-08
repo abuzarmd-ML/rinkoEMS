@@ -46,10 +46,10 @@ const Employee = () => {
   const columns = [
     { accessorKey: 'name', header: 'Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
-    { accessorKey: 'country', header: 'Country', size: 150 },
-    { accessorKey: 'dob', header: 'DOB', size: 150 },
+    // { accessorKey: 'country', header: 'Country', size: 150 },
+    // { accessorKey: 'dob', header: 'DOB', size: 150 },
     { accessorKey: 'nie', header: 'NIE', size: 150 },
-    { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
+    // { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
     { accessorKey: 'social_security', header: 'Social Security', size: 150 },
     { accessorKey: 'company_id', header: 'Company ID', size: 150 },
     { accessorKey: 'type', header: 'Type', size: 150 },
@@ -57,8 +57,8 @@ const Employee = () => {
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
     },
     { accessorKey: 'rate', header: 'Rate', size: 150 },
-    { accessorKey: 'reference', header: 'Reference', size: 150 },
-    { accessorKey: 'remarks', header: 'Remarks', size: 150 },
+    // { accessorKey: 'reference', header: 'Reference', size: 150 },
+    // { accessorKey: 'remarks', header: 'Remarks', size: 150 },
     { accessorKey: 'bank_name', header: 'Bank Name', size: 150 },
     { accessorKey: 'iban', header: 'IBAN', size: 150 },
     {
@@ -88,7 +88,7 @@ const Employee = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
           <Grid spacing={2} sx={{ m: "1px" }}>
             <BasicMuiTable columns={columns} data={data} />
           </Grid>

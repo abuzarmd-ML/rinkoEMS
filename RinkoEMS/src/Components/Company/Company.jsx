@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import StatusChip from '../BasicForm/StatusChip';
 import AdminLayout from '../Layout/AdminLayout';
-import BasicMuiTable from '../Table/BasicMuiTable';
 import { fetchCompanies, deleteCompany } from '../../api/companyApi';
-import CompanyContext from '../CompanyForm/CompanyContext';
+import MakeCompanyTable from './MakeCompanyTable';
 
 
 const Company = () => {
@@ -59,10 +57,10 @@ const Company = () => {
         }}
       >
         <Toolbar />
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={2}>
             <Grid item xs={12}>
-              <CompanyContext data={data} handleClickOpen={handleClickOpen} />
+              <MakeCompanyTable data={data} handleClickOpen={handleClickOpen} />
             </Grid>
           </Grid>
         </Container>

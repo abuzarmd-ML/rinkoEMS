@@ -6,25 +6,23 @@ import { Grid, Typography } from '@mui/material';
 import Cards from '../Cards/Cards';
 import BasicDatePicker from '../BasicForm/DatePicker';
 import SelectAutoComplete from '../BasicForm/SelectAutoComplete';
+import { fetchStatusOptions } from '../../api/dropdownOptionsApi';
+
 const mandatoryError = 'This field is mandatory'
 
 const BasicDetails = ({ fields }) => {
   const { register, formState: { errors }, control } = useFormContext()
+  const [StatusOptions,setStatusOptions]= React.useState([])
 
-  const ClientStatusOptions = [
-    {
-      label: 'Active',
-      value: 'Active'
-    },
-    {
-      label: 'Inactive',
-      value: 'Inactive'
-    },
-    {
-      label: 'Prospect',
-      value: 'Prospect'
-    }]
-
+  React.useEffect(() => {
+    fetchStatusOptions().then((response) => {
+      const formattedStatus = response.map(statuses => ({
+        label: statuses.name,
+        value: statuses.statuses_id
+      }));
+      setStatusOptions(formattedStatus);
+    });
+  }, []);
 
     const handleChange = (event) => {
     setCountry(event.target.value);
@@ -109,7 +107,7 @@ const BasicDetails = ({ fields }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={ClientStatusOptions} />
+          <SelectAutoComplete control={control} fieldName={'status'} label={'Select Status'} options={StatusOptions} />
 
         </Grid>
 

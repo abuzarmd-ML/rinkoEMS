@@ -1,3 +1,16 @@
+## rinkoEMS
+
+Employee Management System & Attendance System for one of the largest man power supplying company in Barcelona, Spain.
+
+![rinko_instalaciones_internacionales_sl_logo](https://github.com/user-attachments/assets/f4c0d86f-7c4e-484c-8724-0e1f830c7c53)
+
+## Tech Stack
+**Frontend:** Material UI, Javascript, React JS
+
+**Backend:** Node JS
+
+**DataBase:** MySQL
+
 ## Database Structure:
 Role Table (roles):
 id: Unique identifier for each role (primary key).

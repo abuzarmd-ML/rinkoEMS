@@ -59,6 +59,9 @@ export const MenuList = () => {
       console.log('success')
       navigate('/login')
     })
+    .catch((error) => {
+      console.error('Error logging out:', error);
+    });
   } 
 
   return (
@@ -246,6 +249,12 @@ export const MenuList = () => {
           <AccountCircleIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
+      </ListItemButton>
+      <ListItemButton>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Configuration" />
       </ListItemButton>
       <ListItemButton onClick={handleClickLogout}>
         <ListItemIcon>

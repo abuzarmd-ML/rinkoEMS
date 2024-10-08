@@ -1,11 +1,11 @@
-// CompanyContext.jsx
+// MakeCompanyTable.jsx
 
 import React from 'react';
 import { Button } from '@mui/material';
 import StatusChip from '../BasicForm/StatusChip';
 import BasicMuiTable from '../Table/BasicMuiTable';
 
-const CompanyContext = ({ data, handleClickOpen }) => {
+const MakeCompanyTable = ({ data, handleClickOpen }) => {
   const columns = [
     { accessorKey: 'name', header: 'Company Name', size: 150 },
     { accessorKey: 'phone', header: 'Phone', size: 150 },
@@ -19,20 +19,7 @@ const CompanyContext = ({ data, handleClickOpen }) => {
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
     },
     { accessorKey: 'city', header: 'City', size: 150 },
-    {
-      accessorKey: 'color',
-      header: 'Company Color',
-      size: 150,
-      Cell: ({ row }) => (
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: row.original.color,
-          }}
-        ></div>
-      ),
-    },
+    {accessorKey: 'color',header: 'Company Color',size: 150},
     {
       accessorKey: 'id',
       header: 'Actions',
@@ -49,4 +36,4 @@ const CompanyContext = ({ data, handleClickOpen }) => {
   return <BasicMuiTable columns={columns} data={data} />;
 };
 
-export default CompanyContext;
+export default MakeCompanyTable;
