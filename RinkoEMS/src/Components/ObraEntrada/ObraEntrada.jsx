@@ -60,7 +60,7 @@ const ObraEntrada = () => {
     { accessorKey: 'work_date', header: 'Work Date', size: 150 },
     { accessorKey: 'obra_name', header: 'Obra Name', size: 150 },
     { accessorKey: 'obra_address', header: 'Obra Address', size: 150 },
-    { accessorKey: 'project_id', header: 'Project ID', size: 150 },
+    { accessorKey: 'project_name', header: 'Project Name', size: 150 },
     {accessorKey: 'company_status',header: 'Company Status',size: 150,
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
     },

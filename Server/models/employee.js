@@ -29,7 +29,10 @@ async function getEmployees() {
   const connection = await pool.getConnection();
   try {
       const [rows] = await connection.execute(`
-          SELECT * FROM employee
+        SELECT e.*, c.name as company_name
+          FROM employee e
+        LEFT JOIN  
+          companies c ON e.company_id = c.company_id
       `);
       return rows;
   } finally {

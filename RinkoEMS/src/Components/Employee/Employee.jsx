@@ -51,7 +51,7 @@ const Employee = () => {
     { accessorKey: 'nie', header: 'NIE', size: 150 },
     // { accessorKey: 'caducidad', header: 'Caducidad', size: 150 },
     { accessorKey: 'social_security', header: 'Social Security', size: 150 },
-    { accessorKey: 'company_id', header: 'Company ID', size: 150 },
+    { accessorKey: 'company_name', header: 'Company Name', size: 150 },
     { accessorKey: 'type', header: 'Type', size: 150 },
     {accessorKey: 'status',header: 'Status',size: 150,
       Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
