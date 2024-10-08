@@ -105,18 +105,18 @@ async function getProjectById(projectId) {
 async function updateProject(id, projectData) {
   const connection = await pool.getConnection();
   try {
-      const { comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days } = projectData;
+      const { comunidad_name, fact_email, obra_id, company_id, nie, cudad_id, venc_days } = projectData;
       
       // Check if all fields are present
-      if ([comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days].includes(undefined)) {
+      if ([comunidad_name, fact_email, obra_id, company_id, nie, cudad_id, venc_days].includes(undefined)) {
           throw new Error("Missing required fields in projectData");
       }
 
       const [result] = await connection.execute(
           `UPDATE projects 
-           SET comunidad_name = ?, fact_email = ?, obra_id = ?, nie = ?, cudad_id = ?, venc_days = ?
+           SET comunidad_name = ?, fact_email = ?, obra_id = ?, company_id =?, nie = ?, cudad_id = ?, venc_days = ?
            WHERE project_id = ?`,
-          [comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days, id]
+          [comunidad_name, fact_email, obra_id, company_id, nie, cudad_id, venc_days, id]
       );
       return result;
   } finally {
