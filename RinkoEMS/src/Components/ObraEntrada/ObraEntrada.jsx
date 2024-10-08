@@ -15,6 +15,8 @@ const ObraEntrada = () => {
     const getObraEntrada = async () => {
       try {
         const data = await fetchObraEntrada();
+        console.log("Fetched data:", data);  // Check if `obraentrada_id` is present in the data
+     
         setData(data);
       } catch (error) {
         console.error('Error fetching obraEntrada:', error);
@@ -25,10 +27,10 @@ const ObraEntrada = () => {
     getObraEntrada();
   }, []);
 
-
-
   
   const handleClickOpen = (obraEntradaId) => {
+    console.log("Opening delete dialog for obraEntradaId:", obraEntradaId); // Log to check
+ 
     setObraEntradaIdToDelete(obraEntradaId);
     setOpen(true);
   };
@@ -37,6 +39,7 @@ const ObraEntrada = () => {
     setOpen(false);
     setObraEntradaIdToDelete(null);
   };
+  
 
   const handleDelete = async () => {
     try {
@@ -54,25 +57,26 @@ const ObraEntrada = () => {
     { accessorKey: 'emp_type', header: 'Emp NIE', size: 150 },
     { accessorKey: 'emp_social_security', header: 'Emp Social_Sec No', size: 150 },
     { accessorKey: 'company_name', header: 'Company Name', size: 150 },
-    {accessorKey: 'company_status',header: 'Company Status',size: 150,
-      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
-    },
     { accessorKey: 'work_date', header: 'Work Date', size: 150 },
     { accessorKey: 'obra_name', header: 'Obra Name', size: 150 },
     { accessorKey: 'obra_address', header: 'Obra Address', size: 150 },
     { accessorKey: 'project_id', header: 'Project ID', size: 150 },
-    
+    {accessorKey: 'company_status',header: 'Company Status',size: 150,
+      Cell: ({ cell }) => <StatusChip status={cell.getValue()} />,
+    },
     {
       accessorKey: 'id', header: 'Actions', size: 200, Cell: ({ row }) => {
+        console.log(".......row",row.original); 
         return (
           <>
             <Button href={`/obra_entrada/add/${row.original.obraentrada_id}`} variant="outlined">View</Button>
             <Button variant="outlined" color="error" onClick={() => handleClickOpen(row.original.obraentrada_id)}>Delete</Button>
           </>
         )
-      }
+      }  
     },
   ];
+ 
 
   return (
     <AdminLayout title="Obra Entrada Management">

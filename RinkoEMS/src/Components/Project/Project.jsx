@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Box, Toolbar, Container, Grid, Paper, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import AdminLayout from '../Layout/AdminLayout';
 import BasicMuiTable from '../Table/BasicMuiTable';
-import { fetchProjects,deleteProjects } from '../../api/projectApi';
+import { fetchAllProjects,deleteProjects } from '../../api/projectApi';
 
 const Project = () => {
   const [data, setData] = useState([]);
@@ -12,7 +12,7 @@ const Project = () => {
   useEffect(() => {
     const getProjects = async () => {
       try {
-        const projects = await fetchProjects();
+        const projects = await fetchAllProjects();
         setData(projects);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -49,7 +49,7 @@ const Project = () => {
     { accessorKey: 'fact_email', header: 'Fact Email', size: 150 },
     { accessorKey: 'company_name', header: 'Company Name', size: 150 },
     { accessorKey: 'company_address', header: 'Company Address', size: 150 },
-    { accessorKey: 'obra_id', header: 'Obra ID', size: 150 },
+    { accessorKey: 'obra_name', header: 'Obra Name', size: 150 },
     { accessorKey: 'obra_website', header: 'obra Website', size: 150 },
     { accessorKey: 'cudad_id', header: 'cudad Id', size: 150 },
     { accessorKey: 'venc_days', header: 'venc Days', size: 150 },

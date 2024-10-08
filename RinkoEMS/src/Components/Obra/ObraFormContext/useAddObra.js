@@ -36,7 +36,7 @@ const useAddObra = (defaultValue) => {
       data: {
         ...filteredData,
         status:formData.status?.label??formData.status,
-        company: formData.company?.label ?? formData.company
+        company_id: formData.company_id?.value ?? formData.company_id
       }
     }).then(response => {
       navigate('/obra');

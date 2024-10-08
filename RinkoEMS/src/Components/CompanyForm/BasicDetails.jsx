@@ -64,7 +64,7 @@ React.useEffect(() => {
         <Grid item xs={6}>
           <SelectAutoComplete
             control={control}
-            fieldName='colors'
+            fieldName='color'
             label='Select Colors'
             options={colorOptions}
           />

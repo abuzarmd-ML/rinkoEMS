@@ -6,13 +6,13 @@ async function createObraController(req, res, next) {
   console.log("[Controller]:", req.body);
 
   const {
-    obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,company_id
+    obra_name, phone, email,address, nie, status,obra_website,F_Date,company_id
   } = req.body;
 
   try {
-    console.log("Company Label:", company_name);
+    console.log("Company id:", company_id);
     const obraId = await createObra(
-      obra_name, phone, email, company_name,address, nie, status,obra_website,F_Date,company_address,company_id
+      obra_name, phone, email,address, nie, status,obra_website,F_Date,company_id
     );
 
     res.status(201).json({ message: 'obra created successfully', obraId });
@@ -21,7 +21,6 @@ async function createObraController(req, res, next) {
     next(error); // Passes the error to the error-handling middleware
   }
 }
-
 
 async function getObraController(req, res) {
   try {
@@ -35,11 +34,11 @@ async function getObraController(req, res) {
 
 async function getAllObraController(req, res) {
   try {
-    const clients = await getAllObra();
-    res.json(obras);
+    const obras = await getAllObra();
+    res.json(obras); // This should include company_name and company_address
   } catch (error) {
-    console.error('Error fetching obras:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error fetching obras:', error); // Log the error to see more details
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 }
 async function getObraControllerById(req, res, next) {
@@ -57,9 +56,11 @@ async function getObraControllerById(req, res, next) {
     res.status(500).json({ message: 'Failed to fetch obra' });
   }
 }
+
 async function updateObraController(req, res, next) {
   const obraId = req.params.id;
   const obraData = req.body;
+  console.log("...controller obraData",obraData)
   try {
     const result = await updateObra(obraId, obraData);
     if (result.affectedRows === 0) {

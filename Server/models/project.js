@@ -5,10 +5,10 @@ import config from '../config/database.js';
 
 const pool = mysql.createPool(config);
 
-async function createProject(comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id) {
+async function createProject(comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days,company_id) {
     const connection = await pool.getConnection();
     try {
-      console.log("[MODEL]:", { comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id });
+      console.log("[MODEL]:", { comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days,company_id });
   
       
     // Extract the actual value from the company object
@@ -17,19 +17,17 @@ async function createProject(comunidad_name, fact_email, company_name, obra_id, 
       const fields = [
         comunidad_name || null,
         fact_email || null,
-        company_name,
         obra_id || null,
         nie || null,
-        obra_website || null,
         cudad_id || null,
         venc_days || null,
-        company_address,company_id
+        company_id
       ];
   
       console.log("Fields array:", fields);
   
       const [result] = await connection.execute(
-        'INSERT INTO projects (comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address,company_id) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO projects (comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days,company_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
         fields
       );
       return result.insertId;
@@ -52,44 +50,73 @@ async function getProjectName() {
 async function getAllProject() {
   const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute('SELECT * FROM projects');
-    return rows; // Return the first (and presumably only) row
+    const [rows] = await connection.execute(`
+      SELECT p.*,
+             o.obra_name,
+             o.address AS obra_address,
+             o.obra_website AS obra_website,
+             c.name AS company_name,
+             c.address AS company_address
+      FROM projects p
+      LEFT JOIN obras o ON p.obra_id = o.obra_id
+      LEFT JOIN companies c ON p.company_id = c.company_id;
+    `);
+    return rows;
   } finally {
     connection.release();
   }
 }
 
-async function getProjectById(projectId) {
 
+async function getProjectById(projectId) {
   console.log("Executing query to fetch project with ID:", projectId);
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.execute(
-      'SELECT * FROM projects WHERE project_id = ?',
+      `SELECT p.*,
+              o.obra_name,
+              o.address AS obra_address,
+              o.obra_website AS obra_website,
+              c.name AS company_name,
+              c.address AS company_address
+       FROM 
+              projects p
+       LEFT JOIN 
+              obras o ON p.obra_id = o.obra_id
+       LEFT JOIN 
+              companies c ON p.company_id = c.company_id
+       WHERE project_id = ?`, 
       [projectId]
     );
-    console.log(projectId,rows)
-    return rows[0];
+    
+    console.log("Fetched project details:", rows);
+
+    if (rows.length > 0) {
+      return rows[0]; // Return the first row
+    } else {
+      return null; // Return null if no rows found
+    }
   } finally {
     connection.release();
   }
 }
 
+
 async function updateProject(id, projectData) {
   const connection = await pool.getConnection();
   try {
-      const { comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days, company_address } = projectData;
+      const { comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days } = projectData;
       
       // Check if all fields are present
-      if ([comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days, company_address].includes(undefined)) {
+      if ([comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days].includes(undefined)) {
           throw new Error("Missing required fields in projectData");
       }
 
       const [result] = await connection.execute(
           `UPDATE projects 
-           SET comunidad_name = ?, fact_email = ?, company_name = ?, obra_id = ?, nie = ?, obra_website = ?, cudad_id = ?, venc_days = ?, company_address =?
+           SET comunidad_name = ?, fact_email = ?, obra_id = ?, nie = ?, cudad_id = ?, venc_days = ?
            WHERE project_id = ?`,
-          [comunidad_name, fact_email, company_name, obra_id, nie, obra_website, cudad_id, venc_days,company_address, id]
+          [comunidad_name, fact_email, obra_id, nie, cudad_id, venc_days, id]
       );
       return result;
   } finally {
