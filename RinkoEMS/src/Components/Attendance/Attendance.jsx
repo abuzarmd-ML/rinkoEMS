@@ -200,6 +200,12 @@ const filteredEmployees = filters.project ? getFilteredOptions('emp') : [];
     }
   };
   
+   // Mark Attendance Handler - Place this function here
+   const handleMarkAttendance = (empId) => {
+    const url = `/mark-attendance/${empId}`; // Adjust the route as needed
+    // window.location.href = url; 
+    window.open(url, '_blank'); // Open in a new tab
+  };
 
   return (
     <AdminLayout title="Attendance System">
@@ -324,14 +330,14 @@ const filteredEmployees = filters.project ? getFilteredOptions('emp') : [];
                     <TableCell>{row.obra_address}</TableCell>
                     <TableCell>{row.company_status}</TableCell>
 
-                    {/* <TableCell>
+                    <TableCell>
                       <Button 
                         variant="contained" 
                         color="primary"
                         onClick={() => handleMarkAttendance(row.emp_id)}>
                         Mark Attendance
                       </Button>
-                    </TableCell> */}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

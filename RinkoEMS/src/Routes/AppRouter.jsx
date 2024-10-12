@@ -15,6 +15,7 @@ import Dashboards from '../Components/Dashboard/Dashboard'
 import AdminConfigurations from "../Components/AdminConfigurations/AdminConfigurations"
 import ObraEntrada from '../Components/ObraEntrada/ObraEntrada'
 import AddObraEntrada from '../Components/ObraEntrada/AddObraEntrada'
+import MarkAttendance from "../Components/Attendance/MarkAttendance"
 
 
 const AdminObject = [
@@ -175,6 +176,14 @@ const AdminObject = [
         path: '/dashboard',
         component: <Dashboards />
     },
+    {
+        id: 22,
+        name: 'mark-attendance',
+        url: '/mark-attendance/:emp_id',
+        path: '/mark-attendance',
+        component: <MarkAttendance />
+
+    }
 ]
 
 const userRoute = [
