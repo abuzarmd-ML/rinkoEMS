@@ -1,5 +1,5 @@
 import express from 'express';
-import { FilterDataController, AttendanceDataController, MarkAttendanceController } from '../controllers/AttendanceController.js'; 
+import { FilterDataController, AttendanceDataController, MarkAttendanceController,UpdateAttandance } from '../controllers/AttendanceController.js'; 
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.get('/filteredData', FilterDataController);
 router.get('/attendanceData', AttendanceDataController );
 
 router.post('/markAttendance', MarkAttendanceController);
+router.put('/updateAttandance',UpdateAttandance)
 
 export { router as AttendanceRouter };
