@@ -32,3 +32,13 @@ export const getEmployeeId = async () => {
   }
   
 };
+
+export const fetchEmployee = async (employeeId) => {
+  try {
+    const response = await axiosInstance.get(`/employeesById/${employeeId}`);
+    console.log("........response", response.data)
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching employee data:", error);
+  }
+};

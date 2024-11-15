@@ -31,7 +31,8 @@ const useAddProject = (defaultValue) => {
       data: {
         ...formData,
         type:formData.type?.label??formData.type,
-        company_name: formData.company_name?.label ?? formData.company_name
+        company_name: formData.company_name?.label ?? formData.company_name,
+        venc_days: moment(formData.venc_days).format('YYYY-MM-DD'),
       }
     }).then(response => {
       navigate('/project');

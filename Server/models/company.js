@@ -61,14 +61,13 @@ async function getAllCompany() {
 async function updateCompany(id, companyData) {
   const connection = await pool.getConnection();
   try {
-    const {name, address, status, phone, country, nie, caducidad, company_id, city, email, system_date, pincode,color} = companyData;
+    const {name,color,address,city,country,pincode,phone,email,nie,caducidad,status,system_date} = companyData;
      const [result] = await connection.execute(
       `UPDATE companies 
-       SET name = ?, address = ?, status = ?, phone = ?, country = ?, nie = ?, caducidad = ?, company_id = ?, city = ?, email = ?, system_date = ?, pincode = ?,color= ?
-       WHERE company_id = ?`,
-       [name, address, status, phone, country, nie, caducidad, company_id, city, email, system_date, pincode,color, id]
+       SET name = ?, color = ?, address = ?, city = ?, country = ?, pincode = ?, phone = ?, email = ?, nie = ?, caducidad = ?, status = ?, system_date = ? WHERE company_id = ?`,
+       [name,color,address,city,country,pincode,phone,email,nie,caducidad,status,system_date,id]
     );
-    console.log("[MOdel UPdate]:", name, address, status, phone, country, nie, caducidad, company_id, city, email, system_date, pincode,color); 
+    console.log("[MOdel UPdate]:", name,color,address,city,country,pincode,phone,email,nie,caducidad,status,system_date); 
    
     return result;
    

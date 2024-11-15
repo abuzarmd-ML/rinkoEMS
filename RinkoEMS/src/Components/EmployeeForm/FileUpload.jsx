@@ -1,117 +1,137 @@
-import React, { useState } from 'react';
-import { TextField, Button, Grid, Typography, Card, CardContent } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { Grid, Typography } from '@mui/material';
 
-const DocumentUpload = ({ fields }) => {
-  const [photo, setPhoto] = useState(null);
-  const [resumeDocument, setResumeDocument] = useState(null);
-  const [NIE, setNIE] = useState(null);
-  const [License, setLicense] = useState(null);
-  const [contract, setContract] = useState(null);
+const FileUpload = () => {
+  const { setValue, watch } = useFormContext();
+  const documents = watch("documents");
 
-  const handlePhotoChange = (event) => {
-    setPhoto(event.target.files[0]);
-  };
+  const [photoPreview, setPhotoPreview] = useState(null);
+  const [documentNames, setDocumentNames] = useState({});
 
-  const handleResumeDocumentChange = (event) => {
-    setResumeDocument(event.target.files[0]);
-  };
-  const handleNIEChange = (event) => {
-    setNIE(event.target.files[0]);
-  };
-
-  const handleDLDocumentChange = (event) => {
-    setLicense(event.target.files[0]);
-  };
-  const handleContractChange = (event) => {
-    setContract(event.target.files[0]);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Create FormData object
-    const formData = new FormData();
-    formData.append('photo', photo);
-    formData.append('resume', resumeDocument);
-
-    try {
-      // Send POST request to upload documents
-      const response = await fetch('http://localhost:3000/upload', {
-        method: 'POST',
-        body: formData
+  useEffect(() => {
+    if (documents) {
+      setDocumentNames({
+        photo: documents.photo && typeof documents.photo === 'string' ? extractFilename(documents.photo) : null,
+        license: documents.license && typeof documents.license === 'string' ? extractFilename(documents.license) : null,
+        nie: documents.nie && typeof documents.nie === 'string' ? extractFilename(documents.nie) : null,
+        resume: documents.resume && typeof documents.resume === 'string' ? extractFilename(documents.resume) : null,
+        contract: documents.contract && typeof documents.contract === 'string' ? extractFilename(documents.contract) : null,
       });
 
-      // Handle response
-      if (response.ok) {
-        console.log('Documents uploaded successfully');
-      } else {
-        console.error('Failed to upload documents');
+      if (documents.photo && typeof documents.photo === 'string') {
+        setPhotoPreview(documents.photo);
       }
-    } catch (error) {
-      console.error('Error uploading documents:', error);
     }
+  }, [documents]);
+
+  const handleFileChange = (field, file) => {
+    setValue(`documents.${field}`, file, { shouldValidate: true });
+
+    if (field === "photo") {
+      const previewUrl = file ? URL.createObjectURL(file) : null;
+      setPhotoPreview(previewUrl);
+    }
+    
+    if (file) {
+      setDocumentNames(prevNames => ({ ...prevNames, [field]: file.name }));
+    }
+  };
+  // Clean up preview URLs when component unmounts to avoid memory leaks
+useEffect(() => {
+  return () => {
+    if (photoPreview) {
+      URL.revokeObjectURL(photoPreview);
+    }
+  };
+}, [photoPreview]);
+
+
+  // Helper function to extract filename from a file path or URL
+  const extractFilename = (filePath) => {
+    return filePath.split('\\').pop().split('/').pop();
   };
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Document Upload
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <img src={photo ? URL.createObjectURL(photo) : ''} alt="Preview" style={{ width: '12%', maxHeight: '70px', marginBottom: '10px' }} />
-          </Grid>
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Typography variant="h6">Document Upload</Typography>
+      </Grid>
 
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: '120px',fontSize: '15px', fontWeight: 'bold' }}>Upload Photo (JPEG/PNG):</Typography>
-           <input
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoChange}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: '140px',fontSize: '15px', fontWeight: 'bold' }}>Upload NIE (JPEG/PNG):</Typography>
-           <input
-              type="file"
-              accept="image/*"
-              onChange={handleNIEChange}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: '50px',fontSize: '15px', fontWeight: 'bold' }}>Upload Driving License (JPEG/PNG):</Typography>
-           <input
-              type="file"
-              accept="image/*"
-              onChange={handleDLDocumentChange}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: '150px',fontSize: '15px', fontWeight: 'bold' }}>Upload Resume (PDF):</Typography>
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={handleResumeDocumentChange}
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
-          <Typography variant="body1" sx={{ marginRight: '150px',fontSize: '15px', fontWeight: 'bold' }}>Upload Contract (PDF):</Typography>
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={handleContractChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Upload Documents
-            </Button>
-          </Grid>
+      {/* Photo preview */}
+      {photoPreview && (
+        <Grid item xs={12}>
+          <Typography variant="body1">Photo Preview:</Typography>
+          <img src={photoPreview} alt="Photo Preview" style={{ maxWidth: '120px', maxHeight: '100px', marginTop: '10px' }} />
         </Grid>
-      </CardContent>
-    </Card>
+      )}
+
+      {/* Photo upload */}
+      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body1" sx={{ marginRight: '115px', fontSize: '15px', fontWeight: 'bold' }}>
+          Upload Photo (JPEG/PNG):
+        </Typography>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange("photo", e.target.files[0])}
+        />
+        {documentNames.photo && <Typography variant="body2" sx={{ ml: 2 }}>{documentNames.photo}</Typography>}
+      </Grid>
+
+      {/* License upload */}
+      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body1" sx={{ marginRight: '45px', fontSize: '15px', fontWeight: 'bold' }}>
+          Upload Driving License (JPEG/PNG):
+        </Typography>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange("license", e.target.files[0])}
+        />
+        {documentNames.license && <Typography variant="body2" sx={{ ml: 2 }}>{documentNames.license}</Typography>}
+      </Grid>
+
+      {/* NIE upload */}
+      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body1" sx={{ marginRight: '135px', fontSize: '15px', fontWeight: 'bold' }}>
+          Upload NIE (JPEG/PNG):
+        </Typography>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => handleFileChange("nie", e.target.files[0])}
+        />
+        {documentNames.nie && <Typography variant="body2" sx={{ ml: 2 }}>{documentNames.nie}</Typography>}
+      </Grid>
+
+      {/* Resume upload */}
+      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body1" sx={{ marginRight: '150px', fontSize: '15px', fontWeight: 'bold' }}>
+          Upload Resume (PDF):
+        </Typography>
+        <input
+          type="file"
+          accept=".pdf"
+          onChange={(e) => handleFileChange("resume", e.target.files[0])}
+        />
+        {documentNames.resume && <Typography variant="body2" sx={{ ml: 2 }}>{documentNames.resume}</Typography>}
+      </Grid>
+
+      {/* Contract upload */}
+      <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography variant="body1" sx={{ marginRight: '150px', fontSize: '15px', fontWeight: 'bold' }}>
+          Upload Contract (PDF):
+        </Typography>
+        <input
+          type="file"
+          accept=".pdf"
+          onChange={(e) => handleFileChange("contract", e.target.files[0])}
+        />
+        {documentNames.contract && <Typography variant="body2" sx={{ ml: 2 }}>{documentNames.contract}</Typography>}
+      </Grid>
+    </Grid>
   );
 };
 
-export default DocumentUpload;
+export default FileUpload;
