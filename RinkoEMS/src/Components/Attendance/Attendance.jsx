@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Table, TableBody, Button, TableCell, TableContainer, TableHead, TableRow, Paper, Container, TextField, Card, CardContent, Grid, Autocomplete } from '@mui/material';
 import AttendanceInput from '../Cards/AttendanceInput';
 import AdminLayout from '../Layout/AdminLayout';
+import { useNavigate } from 'react-router-dom';
 import { fetchFilterDataApi, fetchAttendanceDataApi, markAttendanceApi } from '../../api/AttendanceApi';
 
 const AttendancePage = () => {
@@ -14,6 +15,7 @@ const AttendancePage = () => {
     employee: null,
   });
   const [showTable, setShowTable] = useState(false);
+  const navigate = useNavigate(); // Initialize the hook
 
   useEffect(() => {
     const fetchData = async () => {
@@ -202,9 +204,11 @@ const filteredEmployees = filters.project ? getFilteredOptions('emp') : [];
   
    // Mark Attendance Handler - Place this function here
    const handleMarkAttendance = (empId) => {
-    const url = `/mark-attendance/${empId}`; // Adjust the route as needed
+    navigate(`/mark-attendance/${empId}`);
+    // const url = `/mark-attendance/${empId}`; // Adjust the route as needed
+    
     // window.location.href = url; 
-    window.open(url, '_blank'); // Open in a new tab
+    // window.open(url, '_blank'); // Open in a new tab
   };
 
   return (

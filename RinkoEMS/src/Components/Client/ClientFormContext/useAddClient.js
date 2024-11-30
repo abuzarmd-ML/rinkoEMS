@@ -36,7 +36,8 @@ const useAddClient = (defaultValue) => {
         status:formData.status?.label??formData.status,
         country:formData.country?.label??formData.country,
         note: formData.note?.label??formData.note,
-        company: formData.company?.label??formData.company
+        company: formData.company?.label??formData.company,
+        dob: moment(formData.dob).format('YYYY-MM-DD')
       }
     }).then(response => {
       navigate('/client');

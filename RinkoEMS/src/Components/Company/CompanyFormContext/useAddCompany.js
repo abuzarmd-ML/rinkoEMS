@@ -33,7 +33,8 @@ const useAddCompany = (defaultValue) => {
         status: formData.status?.label ?? formData.status, // Ensure status is a string
         country: formData.country?.label ?? formData.country, // Ensure country is a string
         caducidad: moment(formData.caducidad).format('YYYY-MM-DD'), // Ensure proper date format
-        color: formData.color?.label ?? formData.color // Extract color label or pass as is
+        color: formData.color?.label ?? formData.color, // Extract color label or pass as is
+        system_date: moment(formData.system_date).format('YYYY-MM-DD')
       }
     })
     .then(response => navigate('/company'))
