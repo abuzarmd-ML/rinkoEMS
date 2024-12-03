@@ -6,7 +6,7 @@ import path from 'path';
 import fs from 'fs';
 
 const router = express.Router();
-const uploadDir = 'D:/RinkoEMS/rinkoEMS/uploads';
+const uploadDir = 'E:/React-Node/rinkoEMS/rinkoEMS/uploads';
 
 // Ensure the upload directory exists
 if (!fs.existsSync(uploadDir)) {
