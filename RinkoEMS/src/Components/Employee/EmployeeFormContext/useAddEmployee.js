@@ -168,10 +168,9 @@ const useAddEmployee = (defaultValue) => {
   // };
 
   const handleSubmitForm = async (formData) => {
-    console.log("Inside handleSubmitForm");
-    console.log("Form data before payload creation:", formData); // Add this log
+
  
-    const payload = new FormData();
+    let getPayload = new FormData();
   
     const data = {
       ...formData,
@@ -182,30 +181,58 @@ const useAddEmployee = (defaultValue) => {
       caducidad: moment(formData.caducidad).toISOString(),
       company: formData.company?.value ?? formData.company,
     };
-    console.log("......")
-    // Append data fields to payload
-    Object.entries(data).forEach(([key, value]) => {
-      if (key === 'country' || key === 'company' || key === 'type' || key === 'status') {
-        payload.append(key, typeof value === 'object' ? value?.id || value.label : value);
-      } else {
-        payload.append(key, value);
-      }
-    });
+   
     
+   getPayload =  Object.entries(data).map(([key, value])=>{
+     if(['country','company','type','status'].includes(key)){
+      return {
+        [key]: typeof value === 'object' ? value?.id || value.label : value
+      }
+     }else{
+      return {
+        [key]:value
+      }
+     }
+  })
+   getPayload = getPayload.reduce((acc, obj) => {
+    return { ...acc, ...obj };
+  }, {});
   
-    // Append files directly to payload
     if (formData.documents) {
-      if (formData.documents.photo instanceof File) payload.append('photo', formData.documents.photo);
-      if (formData.documents.resume instanceof File) payload.append('resume', formData.documents.resume);
-      if (formData.documents.nie instanceof File) payload.append('nieDoc', formData.documents.nie);
-      if (formData.documents.license instanceof File) payload.append('license', formData.documents.license);
-      if (formData.documents.contract instanceof File) payload.append('contract', formData.documents.contract);
+      if (formData.documents.photo instanceof File) {
+        getPayload = {
+          ...getPayload,
+          photo:formData.documents.photo
+        }
+      };
+      if (formData.documents.resume instanceof File) {
+        getPayload = {
+          ...getPayload,
+          resume:formData.documents.resume
+        }
+      };
+      if (formData.documents.nie instanceof File){ 
+        getPayload = {
+          ...getPayload,
+          nieDoc:formData.documents.nie
+        }
+      };
+      if (formData.documents.license instanceof File) {
+        getPayload = {
+          ...getPayload,
+          license:formData.documents.license
+        }
+      };
+      if (formData.documents.contract instanceof File) {
+        payload.append('contract', formData.documents.contract)
+        getPayload = {
+          ...getPayload,
+          contract:formData.documents.contract
+        }
+      };
     }
   
-    // Log payload for debugging
-    for (let pair of payload.entries()) {
-      console.log(pair[0]+ ': ' + pair[1]);
-    }
+  
   
     const apiPayload = id
       ? { url: `/employeesById/${id}`, method: 'PUT' }
@@ -215,7 +242,7 @@ const useAddEmployee = (defaultValue) => {
       await axiosInstance({
         ...apiPayload,
         headers: { 'Content-Type': 'multipart/form-data' },
-        data: payload,
+        data: getPayload,
       });
       navigate('/employee');
     } catch (error) {
