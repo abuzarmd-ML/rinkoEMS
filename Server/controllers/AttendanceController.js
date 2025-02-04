@@ -1,5 +1,6 @@
 import { getFilterData, getAttendanceData, markAttendance } from '../models/attendanceModel.js';
 import { checkAndInsertAttendance, CheckEmployeeProjectQuery, CreateOrUpdateAttandance } from '../models/checkAndInsertAttendance.js';
+import generateAttendanceData from '../utils/generateAttendanceData.js';
 
 export const FilterDataController = async (req, res) => {
   try {
@@ -28,7 +29,10 @@ export const MarkAttendanceController = async (req, res) => {
   const attendanceData = req.body;
 
   try {
-    const result = await markAttendance(attendanceData);
+    const insertData = generateAttendanceData(attendanceData.yearMonth,attendanceData.attendance)
+    console.log('attendanceData',attendanceData,insertData)
+    
+    const result =  await markAttendance(insertData);
     res.status(201).json({ message: 'Attendance marked successfully', result });
   } catch (error) {
     console.error('Error marking attendance:', error);

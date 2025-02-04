@@ -1,12 +1,12 @@
-  import mysql from 'mysql2/promise';
-  import config from '../config/database.js';
+import mysql from 'mysql2/promise';
+import config from '../config/database.js';
 
-  const pool = mysql.createPool(config);
+const pool = mysql.createPool(config);
 
-  
-  export const getFilterData = async () => {
-    try {
-      const [obraEntradas] = await pool.query(`
+
+export const getFilterData = async () => {
+  try {
+    const [obraEntradas] = await pool.query(`
         SELECT 
           oe.obraentrada_id,
           oe.emp_id,
@@ -25,22 +25,22 @@
         LEFT JOIN obras o ON oe.obra_id = o.obra_id
         LEFT JOIN projects p ON oe.project_id = p.project_id
       `);
-      
-      // Return everything fetched in one response object
-      return { obraEntradas };
-  
-    } catch (error) {
-      console.error('Error fetching filter data:', error);
-      throw error;
-    }
-  };
-  
 
-  export const getAttendanceData = async (filters) => {
-    const { company, project, obra, employee } = filters;
-  
-    try {
-      let query = `
+    // Return everything fetched in one response object
+    return { obraEntradas };
+
+  } catch (error) {
+    console.error('Error fetching filter data:', error);
+    throw error;
+  }
+};
+
+
+export const getAttendanceData = async (filters) => {
+  const { company, project, obra, employee } = filters;
+
+  try {
+    let query = `
         SELECT 
           oe.*,
           e.name AS emp_name,
@@ -59,49 +59,60 @@
         LEFT JOIN projects p ON oe.project_id = p.project_id
         WHERE 1=1
       `;
-  
-      const params = [];
-      if (company) {
-        query += ' AND oe.company_id = ?';
-        params.push(company);
-      }
-      if (project) {
-        query += ' AND oe.project_id = ?';
-        params.push(project);
-      }
-      if (obra) {
-        query += ' AND oe.obra_id = ?';
-        params.push(obra);
-      }
-      if (employee) {
-        query += ' AND oe.emp_id = ?';
-        params.push(employee);
-      }
-  
-      const [results] = await pool.query(query, params);
-      return results;
-    } catch (error) {
-      console.error('Error fetching attendance data:', error);
-      throw error;
-    }
-  };
-  
-  
-export const markAttendance = async (attendanceData) => {
-    const { emp_id, company_id, project_id, obra_id, work_date } = attendanceData;
-  
-    try {
-      const query = `
-        INSERT INTO obraentradas (emp_id, company_id, project_id, obra_id, work_date)
-        VALUES (?, ?, ?, ?, ?)
-      `;
-  
-      const [result] = await pool.execute(query, [emp_id, company_id, project_id, obra_id, work_date]);
-      return result;
-    } catch (error) {
-      console.error('Error marking attendance:', error);
-      throw error;
-    }
-  };
 
-  
+    const params = [];
+    if (company) {
+      query += ' AND oe.company_id = ?';
+      params.push(company);
+    }
+    if (project) {
+      query += ' AND oe.project_id = ?';
+      params.push(project);
+    }
+    if (obra) {
+      query += ' AND oe.obra_id = ?';
+      params.push(obra);
+    }
+    if (employee) {
+      query += ' AND oe.emp_id = ?';
+      params.push(employee);
+    }
+
+    const [results] = await pool.query(query, params);
+    return results;
+  } catch (error) {
+    console.error('Error fetching attendance data:', error);
+    throw error;
+  }
+};
+
+function generateInsertQuery(data, empId, companyId, projectId, obraId) {
+  const values = data
+    .map(item => `(${empId}, ${companyId}, ${projectId}, ${obraId}, 'mojahid', '2024-12-12', ${item.workingHours}, '${item.date}')`)
+    .join(',\n');
+
+  return `INSERT INTO attandance (employee_id, company_id, project_id, obra_id, recorded_by, recorded_date, working_hours, att_date) VALUES \n${values};`;
+}
+
+
+
+export const markAttendance = async (attendanceData) => {
+  const { } = attendanceData;
+  const empId = 101;
+  const companyId = 202;
+  const projectId = 303;
+  const obraId = 404;
+
+  const insertQuery = await generateInsertQuery(attendanceData, empId, companyId, projectId, obraId)
+
+  try {
+
+    const [result] = await pool.query(insertQuery) //execute(query, [emp_id, company_id, project_id, obra_id, work_date]);
+    return result;
+  } catch (error) {
+    console.error('Error marking attendance:', error);
+    throw error;
+  }
+};
+
+
